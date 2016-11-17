@@ -16,7 +16,7 @@
                             <div class="col-md-6">
                                 <input id="StudentID" type="number" class="form-control" name="StudentID" value="{{ old('StudentID') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('StudentID'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('StudentID') }}</strong>
                                     </span>
@@ -24,15 +24,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('Password') ? ' has-error' : '' }}">
-                            <label for="Password" class="col-md-4 control-label">Password</label>
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="Password" type="password" class="form-control" name="Password" required>
+                                <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('Password'))
+                                @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('Password') }}</strong>
+                                        <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -8,8 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" href="book.ico"/>
     <title>{{ config('app.name') }}</title>
+    <link rel="icon" href="../book.ico"/>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -36,9 +36,16 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    
+                    <a class="navbar-brand" href="{{ url('/home') }}">
+                        <span>
+                            <img src="../img/tup.png" height="30px" width="30px">
+                        </span>
+                        &nbsp;
                         {{ config('app.name') }}
                     </a>
+{{--                     <a class="navbar-brand" href="#">About Us</a>
+                    <a class="navbar-brand" href="#">Contact Us</a> --}}
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

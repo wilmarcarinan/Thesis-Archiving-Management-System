@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('MiddleName');
             $table->string('Course');
             $table->string('College');
-            $table->string('Email')->unique();
-            $table->string('Password');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('Role')->default('User');
             $table->string('Status')->default('Enabled');
             $table->rememberToken();
