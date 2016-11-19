@@ -18,7 +18,7 @@ class CreateFilesTable extends Migration
             $table->string('FileTitle')->unique();
             $table->string('FileDescription');
             $table->string('FilePath');
-            $table->string('Status');
+            $table->string('Status')->default('Enabled');
             $table->timestamps();
         });
     }

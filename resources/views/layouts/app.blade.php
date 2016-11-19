@@ -12,14 +12,19 @@
     <link rel="icon" href="../book.ico"/>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    @yield('header')
 </head>
 <body>
     <div id="app">
@@ -28,12 +33,12 @@
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                    {{-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </button> --}}
 
                     <!-- Branding Image -->
                     
@@ -58,9 +63,22 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li>
+                                <a href="{{ url('/login') }}">
+                                    <span class="glyphicon glyphicon-log-in"></span>
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/register') }}">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    Register
+                                </a>
+                            </li>
                         @else
+                            <li>
+                                <a href="/search"><span class="glyphicon glyphicon-search"></span> Search</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->FirstName }} <span class="caret"></span>
@@ -87,6 +105,7 @@
         </nav>
 
         @yield('content')
+        @yield('footer')
     </div>
 
     <!-- Scripts -->

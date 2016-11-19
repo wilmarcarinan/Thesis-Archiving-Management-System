@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'PagesController@home')->middleware('auth');
+Route::get('/', 'HomeController@index')->middleware('auth');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/search','HomeController@search');
