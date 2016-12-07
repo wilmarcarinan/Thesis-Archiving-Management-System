@@ -34,7 +34,7 @@ CD into the directory of this project and run the following commands:
 2. `php artisan migrate`
 3. `php artisan serve`
 
-This will install all Composer dependencies, create the database structure, and run the application. Open up your browser and navigate to "localhost:8000" to see it in action. Enjoy!
+This will install all Composer dependencies, create the database structure, and run the application. Open up your browser and navigate to `localhost:8000` to see it in action. Enjoy!
 
 [1]: https://laravel.com
 [2]: http://getbootstrap.com
