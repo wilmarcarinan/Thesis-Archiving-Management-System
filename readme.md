@@ -1,8 +1,8 @@
-## About Thesis Archiving Management System
+#Thesis Archiving Management System
 
 Thesis Archiving Management System is a management system that archives thesis documents and remain retrievable for as long as they are required. This system has been developed to provide a management in records.
 
-#What does this do?
+##What does this do?
 It is a PHP/MySQL web application written in Laravel framework that records and maintains thesis files.
 
 The users can search and view thesis documents.
