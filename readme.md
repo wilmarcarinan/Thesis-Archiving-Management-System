@@ -2,20 +2,25 @@
 
 Thesis Archiving Management System is a management system that archives thesis documents and remain retrievable for as long as they are required. This system has been developed to provide a management in records.
 
-## Learning Laravel
+#What does this do?
+It is a PHP/MySQL web application written in Laravel framework that records and maintains thesis files.
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+The users can search and view thesis documents.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+##Features:
+- [Laravel][1]
+- [Bootstrap][2]
 
-## Contributing
+##Installation instructions:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+1. Download or clone this repository
+	git clone https://github.com/wilmarcarinan/Thesis-Archiving-Management-System.git [Desired Project Name]
+2. Edit the .env.example file to match your database and rename to .env
+3. Navigate to config\database.php and set your default database
+4. Open up terminal and CD into the folder of this repo
+5. Run "php artisan serve" to run the application
+6. Open up the browser and navigate to "localhost:8000" to see it in action
+7. Enjoy!
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+[1]: https://laravel.com
+[2]: http://getbootstrap.com
