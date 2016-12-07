@@ -11,6 +11,12 @@ The users can search and view thesis documents.
 - [Laravel][1]
 - [Bootstrap][2]
 
+##Requirements:
+- git (optional)
+- Composer
+- Laravel
+- WAMP/XAMPP/LAMP
+
 ##Installation instructions:
 
 1. Download or clone this repository
