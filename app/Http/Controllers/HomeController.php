@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
 
@@ -23,8 +25,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
+        if(Auth::user()->Role == 'Admin') // && \Auth::user()->Status == 'Active'
+        {
+            return view('admin.AdminPage');
+        }
         return view('home');
     }
     public function search()

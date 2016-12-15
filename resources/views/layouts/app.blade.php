@@ -85,6 +85,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/settings">Settings</a></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -102,6 +103,7 @@
                     </ul>
                 </div>
             </div>
+            @yield('side-nav')
         </nav>
 
         @yield('content')

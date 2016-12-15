@@ -2,7 +2,7 @@
 
 @section('header')
     <link rel="stylesheet" href="/css/style.css">
-@stop
+@endsection
 
 @section('content')
 {{-- <div class="container">
@@ -119,4 +119,4 @@
 <footer class="container-fluid text-center">
   <p>Copyright &copy; 2016.</p>
 </footer>
-@stop
+@endsection

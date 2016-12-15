@@ -18,3 +18,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/search','HomeController@search');
+
+Route::get('/settings','SettingsController@index');
+
+Route::patch('/settings','SettingsController@update');
+
+Route::get('/AdminPage','AdminController@index');
