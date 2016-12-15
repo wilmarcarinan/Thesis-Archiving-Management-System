@@ -27,6 +27,8 @@
     @if(! Auth::guest())
         @if(Auth::user()->Role == 'Admin')
             <link rel="stylesheet" href="/css/admin.css">
+        @else
+            <link rel="stylesheet" href="/css/style.css">
         @endif
     @endif
 </head>
@@ -89,7 +91,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    @if(! Auth::user()->Role == 'Admin')
+                                    @if(Auth::user()->Role == 'User')
                                         <li>
                                             <a href="/settings">Settings</a>
                                         </li>
@@ -138,7 +140,7 @@
                 @endif
             @endif
         </nav>
-
+        
         @yield('content')
         @yield('footer')
     </div>
