@@ -1,12 +1,14 @@
 body{
 	background-color: #222;
 }
+
 /*.navbar {
 	background-color: #222;
 }
 .navbar-header {
 	margin-left: 50px;
 }*/
+
 /* Side Navigation */
 
 @media(min-width:768px) {

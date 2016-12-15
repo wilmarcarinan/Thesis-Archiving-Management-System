@@ -24,7 +24,11 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    @yield('header')
+    @if(! Auth::guest())
+        @if(Auth::user()->Role == 'Admin')
+            <link rel="stylesheet" href="/css/admin.css">
+        @endif
+    @endif
 </head>
 <body>
     <div id="app">
@@ -85,7 +89,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/settings">Settings</a></li>
+                                    @if(! Auth::user()->Role == 'Admin')
+                                        <li>
+                                            <a href="/settings">Settings</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -103,7 +111,32 @@
                     </ul>
                 </div>
             </div>
-            @yield('side-nav')
+            @if(!Auth::guest())
+                @if(Auth::user()->Role == 'Admin')
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a href="/AdminPage">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#">Manage Users</a>
+                        </li>
+                        <li>
+                            <a href="#">Manage Files</a>
+                        </li>
+                        <li>
+                            <a href="#">Logs</a>
+                        </li>
+                        <li>
+                            <a href="#">Reports</a>
+                        </li>
+                        <li>
+                            <a href="/settings">Admin Settings</a>
+                        </li>
+                    </ul>
+                </div>
+                @endif
+            @endif
         </nav>
 
         @yield('content')
