@@ -33,9 +33,4 @@ class HomeController extends Controller
         }
         return view('home');
     }
-    public function search()
-    {
-        $files = DB::table('files')->get();
-        return view('search',compact('files'));
-    }
 }

@@ -83,7 +83,14 @@
                             </li>
                         @else
                             <li>
-                                <a href="/search"><span class="glyphicon glyphicon-search"></span> Search</a>
+                                <form action="/search" method="POST" class="form-horizontal" style="margin-top: 7px">
+                                    {{ csrf_field() }}
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control" placeholder="Enter a keyword..." name="keyword">
+                                        <button type="submit" class="btn btn-primary" name="search"><span class="glyphicon glyphicon-search"></span> Search</button>
+                                    </div>
+                                </form>
+                                {{-- <a href="/search"><span class="glyphicon glyphicon-search"></span> Search</a> --}}
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -124,7 +131,7 @@
                             <a href="#">Manage Users</a>
                         </li>
                         <li>
-                            <a href="#">Manage Files</a>
+                            <a href="/search">Manage Files</a>
                         </li>
                         <li>
                             <a href="#">Logs</a>

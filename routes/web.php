@@ -17,10 +17,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/search','HomeController@search');
+Route::get('/search','FileController@search');
+
+Route::post('/search','FileController@SearchResults');
 
 Route::get('/settings','SettingsController@index');
 
 Route::patch('/settings','SettingsController@update');
 
 Route::get('/AdminPage','AdminController@index');
+
+Route::get('/AddFile','FileController@FileForm');
+
+Route::post('/AddFile','FileController@AddFile');

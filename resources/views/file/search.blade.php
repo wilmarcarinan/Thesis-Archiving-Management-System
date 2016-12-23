@@ -4,13 +4,22 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-md-offset-1">
-				<div class="table-responsive">
+			@if($files == '[]')
+				<h3>Not Found</h3>
+			@else
+				@if(Auth::user()->Role == 'Admin')
+					<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Submit File</a>
+				@endif
+				<div class="table-responsive" id="FileTable">
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Title</th>
 								<th>Description</th>
 								<th>Date Submitted</th>
+								@if(Auth::user()->Role == 'Admin')
+									<th>Status</th>
+								@endif
 							</tr>
 						</thead>
 						<tbody>
@@ -23,11 +32,15 @@
 								</td>
 								<td>{{$file->FileDescription}}</td>
 								<td>{{ $file->created_at }}</td>
+								@if(Auth::user()->Role == 'Admin')
+									<td></td>
+								@endif
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
+			@endif
 			</div>	
 		</div>
 	</div>

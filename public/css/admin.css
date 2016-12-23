@@ -46,3 +46,12 @@ body{
 	text-decoration: none;
 	color: #999 !important;
 }
+
+/*Search UI*/
+#AddFileBtn {
+	margin-left: 85%;
+}
+
+#FileTable {
+	margin-top: 20px;
+}
