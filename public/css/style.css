@@ -51,3 +51,8 @@ footer {
 .panel {
   margin-top: 40px;
 }
+
+/* Search UI */
+#FileTable {
+  margin-top: 50px;
+}
