@@ -27,7 +27,7 @@
 							<div class="form-group">
 								<label for="FilePath" class="col-md-4 control-label">File Path: </label>
 								<div class="col-md-6">
-									<input type="file" class="form-control" name="FilePath" required>
+									<input type="file" class="form-control" name="FilePath" accept="application/pdf" required>
 								</div>
 							</div>
 							<div class="form-group">
