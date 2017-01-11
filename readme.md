@@ -34,6 +34,8 @@ CD into the directory of this project and run the following commands:
 2. `php artisan migrate`
 3. `php artisan serve`
 
+Note: Open your .env file and check if your APP_KEY has a value. If it does't have a value, run this in your cmd: `php artisan key:generate`
+
 This will install all Composer dependencies, create the database structure, and run the application. Open up your browser and navigate to `localhost:8000` to see it in action. Enjoy!
 
 [1]: https://laravel.com
