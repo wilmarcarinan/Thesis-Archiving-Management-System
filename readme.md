@@ -8,7 +8,7 @@ It is a PHP/MySQL web application written in Laravel framework that records and 
 The users can search and view thesis documents.
 
 ##Features:
-- [Laravel][1]
+- [Laravel v5.3][1]
 - [Bootstrap][2]
 
 ##Requirements:
