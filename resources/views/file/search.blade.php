@@ -5,7 +5,10 @@
 		<div class="row">
 			<div class="col-md-12 col-md-offset-1">
 			@if($files == '[]')
-				<h3>Not Found</h3>
+				@if(Auth::user()->Role == 'Admin')
+					<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Add Thesis</a>
+				@endif
+				<h3 style="margin-left:20px">Not Found</h3>
 			@else
 				@if(Auth::user()->Role == 'Admin')
 					<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Add Thesis</a>
