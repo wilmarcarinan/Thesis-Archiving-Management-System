@@ -20,7 +20,7 @@ class CreateLogsTable extends Migration
             $table->integer('student_id')->unsigned()->index();
             $table->foreign('student_id')
                   ->references('id')->on('users');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
     }
 
