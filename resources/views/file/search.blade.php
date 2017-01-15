@@ -49,6 +49,20 @@
 												</div>
 												<div class="modal-body">
 													{{ $file->FileDescription }}
+													<br>
+													<p>Adopting advanced information technologies within the present broad
+													application fields requires precise security. However, security problems regarding
+													information privacy have occurred frequently over the last 5 years despite the
+													contribution of these technologies. To respond to the need for securing
+													information privacy, the Information Privacy Law was enacted on April 1, 2005 in
+													Japan. One of the responses to this law enforcement is demanding a higher level
+													of information risk management and search for more effective tools to be used for
+													identity protection and problem-solving. Two examples of these tools include
+													RAPID and IRMP. However, there is no established system-development model
+													for either of these tools. Further developments to improve the RAPID and IRMP
+													remain as new challenges. In this thesis, a new approach on developing a system
+													security model to be used for information risk management is proposed. To
+													demonstrate this approach, the object-oriented language is used. </p>
 													<br>{!! QrCode::size(300)->generate('localhost:8000'.$file->FilePath); !!}
 												</div>
 												<div class="modal-footer">
