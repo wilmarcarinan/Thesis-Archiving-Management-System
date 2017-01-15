@@ -62,8 +62,9 @@
 													for either of these tools. Further developments to improve the RAPID and IRMP
 													remain as new challenges. In this thesis, a new approach on developing a system
 													security model to be used for information risk management is proposed. To
-													demonstrate this approach, the object-oriented language is used. </p>
-													<br>{!! QrCode::size(300)->generate('localhost:8000'.$file->FilePath); !!}
+													demonstrate this approach, the object-oriented language is used.</p>
+													<br>
+													<p id="QRCode">{!! QrCode::size(300)->generate('localhost:8000'.$file->FilePath); !!}</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
