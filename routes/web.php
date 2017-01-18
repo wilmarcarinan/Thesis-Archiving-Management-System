@@ -30,3 +30,7 @@ Route::get('/AdminPage','AdminController@index');
 Route::get('/AddFile','FileController@FileForm');
 
 Route::post('/AddFile','FileController@AddFile');
+
+Route::get('/logs','AdminController@showLogs');
+
+Route::get('/users','AdminController@showUsers');

@@ -22,6 +22,7 @@
 								<th>Date Submitted</th>
 								@if(Auth::user()->Role == 'Admin')
 									<th>Status</th>
+									<th></th>
 								@endif
 							</tr>
 						</thead>
@@ -29,7 +30,7 @@
 							@foreach($files as $file) 
 							<tr>
 								<td>
-									<a href="{{$file->FilePath}}" target="_blank">
+									<a href="/ViewerJS/#{{$file->FilePath}}" target="_blank">
 										{{ $file->FileTitle }}
 									</a>
 								</td>
@@ -75,7 +76,10 @@
 								</td>
 								<td>{{ $file->created_at }}</td>
 								@if(Auth::user()->Role == 'Admin')
-									<td></td>
+									<td>{{ $file->Status }}</td>
+									<td>
+										<a href="#" class="btn btn-primary btn-sm">Update</a>
+									</td>
 								@endif
 							</tr>
 							@endforeach

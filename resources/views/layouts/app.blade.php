@@ -128,13 +128,13 @@
                             <a href="/AdminPage">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">Manage Users</a>
+                            <a href="/users">Manage Users</a>
                         </li>
                         <li>
                             <a href="/search">Manage Files</a>
                         </li>
                         <li>
-                            <a href="#">Logs</a>
+                            <a href="/logs">Logs</a>
                         </li>
                         <li>
                             <a href="#">Reports</a>

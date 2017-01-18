@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
@@ -40,7 +41,7 @@ class SettingsController extends Controller
     		'password' => bcrypt(request('password'))
     	]);
 
-    	if(\Auth::user()->Role == 'Admin'){
+    	if(Auth::user()->Role == 'Admin'){
     		return view('admin.AdminPage');
     	}else{
     		return view('home');
