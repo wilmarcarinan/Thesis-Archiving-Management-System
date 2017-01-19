@@ -50,7 +50,7 @@
                     
                     <a class="navbar-brand" href="{{ url('/home') }}">
                         <span>
-                            <img src="../img/tup.png" height="30px" width="30px">
+                            <img src="../../img/tup.png" height="30px" width="30px">
                         </span>
                         &nbsp;
                         {{ config('app.name') }}
@@ -90,7 +90,6 @@
                                         <button type="submit" class="btn btn-primary" name="search"><span class="glyphicon glyphicon-search"></span> Search</button>
                                     </div>
                                 </form>
-                                {{-- <a href="/search"><span class="glyphicon glyphicon-search"></span> Search</a> --}}
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

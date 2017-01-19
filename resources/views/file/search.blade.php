@@ -18,8 +18,8 @@
 						<thead>
 							<tr>
 								<th>Title</th>
-								<th>Description</th>
-								<th>Date Submitted</th>
+								<th>Abstract</th>
+								<th>Thesis Date</th>
 								@if(Auth::user()->Role == 'Admin')
 									<th>Status</th>
 									<th></th>
@@ -30,7 +30,8 @@
 							@foreach($files as $file) 
 							<tr>
 								<td>
-									<a href="/ViewerJS/#{{$file->FilePath}}" target="_blank">
+									<a href="/pdf.js/web/viewer.html?file=http://{{ Request::ip().$file->FilePath }}" target="_blank">
+									{{-- <a href="ViewerJS/#{{ $file->FilePath }}" target="_blank"> --}}
 										{{ $file->FileTitle }}
 									</a>
 								</td>
@@ -44,13 +45,13 @@
 									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
-												<div class="modal-header">
+												{{-- <div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 													<h4 class="modal-title" id="myModalLabel">Abstract</h4>
-												</div>
+												</div> --}}
 												<div class="modal-body">
-													{{ $file->FileDescription }}
-													<br>
+													{{ $file->Abstract }}
+													{{-- <br>
 													<p>Adopting advanced information technologies within the present broad
 													application fields requires precise security. However, security problems regarding
 													information privacy have occurred frequently over the last 5 years despite the
@@ -63,9 +64,9 @@
 													for either of these tools. Further developments to improve the RAPID and IRMP
 													remain as new challenges. In this thesis, a new approach on developing a system
 													security model to be used for information risk management is proposed. To
-													demonstrate this approach, the object-oriented language is used.</p>
+													demonstrate this approach, the object-oriented language is used.</p> --}}
 													<br>
-													<p id="QRCode">{!! QrCode::size(300)->generate('localhost:8000'.$file->FilePath); !!}</p>
+													<p id="QRCode">{!! QrCode::size(300)->generate('http://'.Request::ip().'/pdf.js/web/viewer.html?file=http://'.Request::ip().$file->FilePath); !!}</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

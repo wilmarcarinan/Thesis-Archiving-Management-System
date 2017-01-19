@@ -48,7 +48,7 @@ class FileController extends Controller
         $this->validate(request(),[
             'FileTitle' => 'required',
             'FileDescription' => 'required',
-            'FilePath' => 'required'
+            'FilePath' => 'min:1|max:2000|required'
         ]);
         
         $file = new File;

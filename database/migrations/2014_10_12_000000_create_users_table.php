@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->integer('StudentID')->unique();
             $table->string('FirstName');
-            $table->string('LastName');
             $table->string('MiddleName');
+            $table->string('LastName');
             $table->string('Course');
             $table->string('College');
             $table->string('email')->unique();
