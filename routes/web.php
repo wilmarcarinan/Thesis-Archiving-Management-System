@@ -34,3 +34,9 @@ Route::post('/AddFile','FileController@AddFile');
 Route::get('/logs','AdminController@showLogs');
 
 Route::get('/users','AdminController@showUsers');
+
+Route::patch('/changePassword','SettingsController@changePassword');
+
+Route::get('/collections','FileController@collections');
+
+Route::get('/list','FileController@list');

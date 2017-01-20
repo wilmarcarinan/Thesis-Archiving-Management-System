@@ -45,9 +45,13 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="debugger.js"></script>
     <script src="viewer.js"></script>
 
+    <style type="text/css" media="print">
+      body { display: none; }
+    </style>
+    
   </head>
 
-  <body tabindex="1" class="loadingInProgress">
+  <body tabindex="1" class="loadingInProgress" oncontextmenu="return false;" ondragstart="return false" onselectstart="return false">
     <div id="outerContainer">
 
       <div id="sidebarContainer">

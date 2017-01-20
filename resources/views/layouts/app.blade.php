@@ -34,8 +34,9 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+        {{-- <nav class="navbar navbar-default navbar-static-top"> --}}
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -47,7 +48,42 @@
                     </button> --}}
 
                     <!-- Branding Image -->
+                    @if (Auth::guest())
+                        <a href="{{ url('/register') }}" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+
+                        <a href="{{ url('/login') }}" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                        </a>
+                    @else
                     
+                        @if(Auth::user()->Role == 'User')
+                            <a href="/settings" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                        @endif
+                            <a href="{{ url('/logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-off"></span>
+                            </a>
+                            <a href="/files" class="navbar-toggle ">
+                                <span class="glyphicon glyphicon-list-alt"></span>                        
+                            </a>
+                            <a href="/collections" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-th-large"></span>                
+                            </a>
+                            <a href="/search" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-search"></span>                        
+                            </a>
+                            <a href="/home" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-home"></span>                        
+                            </a>
+                    @endif
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <a class="navbar-brand" href="{{ url('/home') }}">
                         <span>
                             <img src="../../img/tup.png" height="30px" width="30px">
@@ -55,11 +91,7 @@
                         &nbsp;
                         {{ config('app.name') }}
                     </a>
-{{--                     <a class="navbar-brand" href="#">About Us</a>
-                    <a class="navbar-brand" href="#">Contact Us</a> --}}
-                </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
@@ -69,20 +101,28 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li>
+                            @if(Request::path() == 'login')
+                                <li class="active">
+                            @else
+                                <li>
+                            @endif
                                 <a href="{{ url('/login') }}">
                                     <span class="glyphicon glyphicon-log-in"></span>
                                     Login
                                 </a>
                             </li>
-                            <li>
+                            @if(Request::path() == 'register')
+                                <li class="active">
+                            @else
+                                <li>
+                            @endif
                                 <a href="{{ url('/register') }}">
                                     <span class="glyphicon glyphicon-user"></span>
                                     Register
                                 </a>
                             </li>
                         @else
-                            <li>
+                            {{-- <li>
                                 <form action="/search" method="POST" class="form-horizontal" style="margin-top: 7px">
                                     {{ csrf_field() }}
                                     <div class="form-inline">
@@ -90,7 +130,49 @@
                                         <button type="submit" class="btn btn-primary" name="search"><span class="glyphicon glyphicon-search"></span> Search</button>
                                     </div>
                                 </form>
+                            </li> --}}
+                            @if(Request::path() == 'home' || Request::path() == 'AdminPage' || Request::path() == '/')
+                                <li class="active">
+                            @else
+                                <li>
+                            @endif
+                                <a href="/home">
+                                    <span class="glyphicon glyphicon-home"></span>
+                                     Home
+                                </a>
                             </li>
+                            @if(Request::path() == 'search')
+                                <li class="active">
+                            @else
+                                <li>
+                            @endif
+                                <a href="/search">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                     Search
+                                </a>
+                            </li>
+                            @if(Auth::user()->Role == 'User')
+                                @if(Request::path() == 'collections')
+                                    <li class="active">
+                                @else
+                                    <li>
+                                        @endif
+                                    <a href="/collections">
+                                        <span class="glyphicon glyphicon-th-large"></span>
+                                         Collections
+                                    </a>
+                                </li>
+                                @if(Request::path() == 'list')
+                                    <li class="active">
+                                @else
+                                    <li>
+                                @endif
+                                    <a href="/list">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                         List All
+                                    </a>
+                                </li>
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->FirstName }} <span class="caret"></span>

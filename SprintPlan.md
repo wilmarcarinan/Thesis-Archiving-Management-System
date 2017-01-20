@@ -28,6 +28,9 @@
 * Dashboard
 	- View Dashboard
 
+* Installation Wizard
+	- - Deployment Package Installation Wizard
+
 ##Sprints
 
 * Sprint 1
@@ -55,6 +58,7 @@
 	- Backup
 	- View Dashboard
 	- Send Feedback/Report
+	- Deployment Package Installation Wizard
 
 ##Database
 

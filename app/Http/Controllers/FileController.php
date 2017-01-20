@@ -34,7 +34,7 @@ class FileController extends Controller
                 ->orwhere('FileDescription','like','%'.$request->keyword.'%')
                 ->get();
 
-        return view('file.search',compact('files'));
+        return view('file.search',compact(['files']));
         // return $filesfile.;
     }
 
@@ -47,7 +47,10 @@ class FileController extends Controller
     {
         $this->validate(request(),[
             'FileTitle' => 'required',
-            'FileDescription' => 'required',
+            'Category' => 'required',
+            'Abstract' => 'required',
+            'Authors' => 'required',
+            'Adviser' => 'required',
             'FilePath' => 'min:1|max:2000|required'
         ]);
         
@@ -58,11 +61,24 @@ class FileController extends Controller
         $fileObj->storeAs('files',$fileName);
         
         $file->FileTitle = $request->FileTitle;
-        $file->FileDescription = $request->FileDescription;
+        $file->Category = $request->Category;
+        $file->Abstract = $request->Abstract;
+        $file->Authors = $request->Authors;
+        $file->Adviser = $request->Adviser;
         $file->FilePath = '/files/'.$fileName;
         $file->save();
 
         return redirect('search');
         // return $fileName;
+    }
+
+    public function collections()
+    {
+        return view('file.collections');
+    }
+
+    public function list()
+    {
+        return view('file.list');
     }
 }

@@ -30,7 +30,8 @@
 							@foreach($files as $file) 
 							<tr>
 								<td>
-									<a href="/pdf.js/web/viewer.html?file=http://{{ Request::ip().$file->FilePath }}" target="_blank">
+									<a href="#" onclick="window.open( '/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}', 'name', 'location=no,scrollbars=yes,status=no,toolbar=yes,resizable=yes' )">
+									{{-- <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank" onmouseover="window.status='http://www.ryan.com';return true" onmouseout="window.status=''"> --}}
 									{{-- <a href="ViewerJS/#{{ $file->FilePath }}" target="_blank"> --}}
 										{{ $file->FileTitle }}
 									</a>
@@ -66,7 +67,7 @@
 													security model to be used for information risk management is proposed. To
 													demonstrate this approach, the object-oriented language is used.</p> --}}
 													<br>
-													<p id="QRCode">{!! QrCode::size(300)->generate('http://'.Request::ip().'/pdf.js/web/viewer.html?file=http://'.Request::ip().$file->FilePath); !!}</p>
+													<p id="QRCode">{!! QrCode::size(300)->generate('http://'.Request::server('SERVER_NAME').'/pdf.js/web/viewer.html?file=http://'.Request::server('SERVER_NAME').$file->FilePath); !!}</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

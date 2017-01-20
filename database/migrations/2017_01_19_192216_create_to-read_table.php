@@ -15,12 +15,12 @@ class CreateToReadTable extends Migration
     {
         Schema::create('to-reads', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyint('to-read');
-            $table->int('user_id')->unsigned();
+            $table->tinyInteger('to-read');
+            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->int('file_id')->unsigned();
+            $table->integer('file_id')->unsigned();
             $table->foreign('file_id')
                   ->references('id')->on('files')
                   ->onDelete('cascade');
