@@ -30,8 +30,12 @@
 							@foreach($files as $file) 
 							<tr>
 								<td>
-									<a href="#" onclick="window.open( '/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}', 'name', 'location=no,scrollbars=yes,status=no,toolbar=yes,resizable=yes' )">
-									{{-- <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank" onmouseover="window.status='http://www.ryan.com';return true" onmouseout="window.status=''"> --}}
+									@if(Request::server('SERVER_NAME') <> '127.0.0.1')
+										<a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank">
+									@else
+										<a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}" target="_blank">
+									@endif
+									{{-- <a href="#" onclick="window.open( '/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}', 'name', 'location=no,scrollbars=yes,status=no,toolbar=yes,resizable=yes' )"> --}}
 									{{-- <a href="ViewerJS/#{{ $file->FilePath }}" target="_blank"> --}}
 										{{ $file->FileTitle }}
 									</a>
