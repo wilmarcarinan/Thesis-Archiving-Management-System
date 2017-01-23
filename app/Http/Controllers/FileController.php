@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -51,6 +52,7 @@ class FileController extends Controller
             'Abstract' => 'required',
             'Authors' => 'required',
             'Adviser' => 'required',
+            'ThesisDate' => 'required',
             'FilePath' => 'min:1|max:2000|required'
         ]);
         
@@ -65,6 +67,7 @@ class FileController extends Controller
         $file->Abstract = $request->Abstract;
         $file->Authors = $request->Authors;
         $file->Adviser = $request->Adviser;
+        $file->created_at = $request->ThesisDate;
         $file->FilePath = '/files/'.$fileName;
         $file->save();
 
@@ -74,11 +77,23 @@ class FileController extends Controller
 
     public function collections()
     {
-        return view('file.collections');
+        if(Auth::User()->Role == 'User'){
+            return view('file.collections');    
+        }
+        else{
+            return back();
+        }
+        
     }
 
     public function list()
     {
-        return view('file.list');
+        $files = File::get();
+        if(Auth::User()->Role == 'User'){
+            return view('file.list',compact('files'));    
+        }
+        else{
+            return back();
+        }
     }
 }

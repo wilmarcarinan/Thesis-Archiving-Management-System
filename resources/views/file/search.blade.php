@@ -3,7 +3,7 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 col-md-offset-1">
+			<div class="col-md-11 col-md-offset-1">
 			@if($files == '[]')
 				@if(Auth::user()->Role == 'Admin')
 					<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Add Thesis</a>
@@ -27,7 +27,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($files as $file) 
+							@foreach($files as $file)
 							<tr>
 								<td>
 									@if(Request::server('SERVER_NAME') <> '127.0.0.1')

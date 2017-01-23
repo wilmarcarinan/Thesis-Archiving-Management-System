@@ -19,7 +19,7 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 
-<Files ~ "\.ini$">
+<Files ~ "\.pdf$">
   Order allow,deny
   Deny from all
 </Files>

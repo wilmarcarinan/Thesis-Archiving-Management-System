@@ -3,7 +3,7 @@
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 col-md-offset-1">
+			<div class="col-md-12">
 				<h2>All Thesis</h2>
 				<div class="table-responsive">
 					<table class="table table-hover">
@@ -16,10 +16,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
-							<tr></tr>
+							@foreach($files as $file)
+							<tr>
+								<td>{{ $file->FileTitle }}</td>
+								<td>{{ $file->Authors }}</td>
+								<td>{{ $file->Adviser }}</td>
+								<td>{{ $file->created_at }}</td>
+							</tr>
+							@endforeach
 						</tbody>
 					</table>
 			</div>

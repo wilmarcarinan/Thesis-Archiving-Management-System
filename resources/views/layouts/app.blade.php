@@ -68,7 +68,7 @@
                             document.getElementById('logout-form').submit();" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-off"></span>
                             </a>
-                            <a href="/files" class="navbar-toggle ">
+                            <a href="/list" class="navbar-toggle ">
                                 <span class="glyphicon glyphicon-list-alt"></span>                        
                             </a>
                             <a href="/collections" class="navbar-toggle">

@@ -29,7 +29,7 @@
 	- View Dashboard
 
 * Installation Wizard
-	- - Deployment Package Installation Wizard
+	- Deployment Package Installation Wizard
 
 ##Sprints
 

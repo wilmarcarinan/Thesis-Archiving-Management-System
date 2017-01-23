@@ -22,7 +22,7 @@ class CreateFilesTable extends Migration
             $table->string('Adviser');
             $table->string('FilePath');
             $table->enum('Status',['Active','Inactive'])->default('Active');
-            $table->timestamps();
+            $table->date('created_at');
         });
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use DB;
+use App\File;
 
 class HomeController extends Controller
 {
@@ -31,6 +31,8 @@ class HomeController extends Controller
         {
             return view('admin.AdminPage');
         }
-        return view('home');
+        $files_latest = File::latest()->paginate(5);
+
+        return view('home',compact('files_latest'));
     }
 }

@@ -48,12 +48,19 @@
 							</div>
 
 							<div class="form-group">
+								<label for="FilePath" class="col-md-4 control-label">Thesis Date: </label>
+								<div class="col-md-6">
+									<input type="date" class="form-control" name="ThesisDate" required>
+								</div>
+							</div>
+							
+							<div class="form-group">
 								<label for="FilePath" class="col-md-4 control-label">Thesis Path: </label>
 								<div class="col-md-6">
 									<input type="file" class="form-control" name="FilePath" accept="application/pdf" required>
 								</div>
 							</div>
-							
+
 							<div class="form-group">
 								<div class="col-md-8 col-md-offset-4">
 									<button class="btn btn-primary" type="submit">
