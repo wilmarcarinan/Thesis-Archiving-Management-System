@@ -17,7 +17,7 @@
               <th>Author/s</th>
               <th>Adviser</th>
               <th>Thesis Date</th>
-            </tr>
+            </tr>i
           </thead>
           <tbody>
             @foreach($files_latest as $file)
