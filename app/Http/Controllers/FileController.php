@@ -22,21 +22,15 @@ class FileController extends Controller
 
     public function SearchResults(Request $request)
     {
-        // if($request->keyword == null)
-        // {
-        //     return back();
-        // }
-
         $this->validate(request(),[
-            'keyword' => 'required'
+            'search' => 'required'
         ]);
 
-        $files = File::where('FileTitle','like','%'.$request->keyword.'%')
-                ->orwhere('FileDescription','like','%'.$request->keyword.'%')
+        $files = File::where('FileTitle','like','%'.$request->search.'%')
+                ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->get();
 
         return view('file.search',compact(['files']));
-        // return $filesfile.;
     }
 
     public function FileForm()

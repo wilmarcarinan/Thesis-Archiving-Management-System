@@ -12,9 +12,4 @@ class File extends Model
  //    static::creating( function ($model) {
  //        $model->setCreatedAt($model->freshTimestamp());
  //    });
-
-    public function method_name()
-    {
-    	
-    }
 }

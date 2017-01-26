@@ -89,6 +89,16 @@
 															<input type="submit" class="btn btn-primary" name="changePassword" value="Update" />
 														</div>
 													</form>
+
+													@if(count($errors) > 0)
+														<div class="alert alert-danger">
+															<ul>
+																@foreach($errors->all() as $error)
+																<li>{{ $error }}</li>
+																@endforeach
+															</ul>
+														</div>
+													@endif
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

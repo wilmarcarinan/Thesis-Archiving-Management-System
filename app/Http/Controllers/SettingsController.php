@@ -63,5 +63,7 @@ class SettingsController extends Controller
                 'password' => bcrypt(request('ConfirmNewPassword'))
             ]);
         }
+
+        return redirect('settings');
     }
 }
