@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
     <!-- Scripts -->
     {{-- <script type="text/javascript" src="../js/bootstrap.min.js"></script>
