@@ -9,6 +9,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>No.</th>
 								<th>Title</th>
 								<th>Author/s</th>
 								<th>Adviser</th>
@@ -28,6 +29,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>No.</th>
 								<th>Title</th>
 								<th>Author/s</th>
 								<th>Adviser</th>
@@ -47,6 +49,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>No.</th>
 								<th>Title</th>
 								<th>Author/s</th>
 								<th>Adviser</th>

@@ -30,7 +30,7 @@ class FileController extends Controller
                 ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->get();
 
-        return view('file.search',compact(['files']));
+        return view('file.results',compact(['files']));
     }
 
     public function FileForm()

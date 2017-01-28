@@ -9,6 +9,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>No.</th>
 								<th>Title</th>
 								<th>Author/s</th>
 								<th>Adviser</th>
@@ -16,8 +17,10 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php $no=1; ?>
 							@foreach($files as $file)
 							<tr>
+								<td>{{$no++}}</td>
 								<td>{{ $file->FileTitle }}</td>
 								<td>{{ $file->Authors }}</td>
 								<td>{{ $file->Adviser }}</td>
