@@ -240,32 +240,48 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
         <script type="text/javascript">
-            $.ajaxSetup({
+            $.ajaxSetup
+            ({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
+            $(document).on('click', '.viewInfo', function(){
+                
+                var qrcode = $('.QRCode').text() + $(this).data('path');
+                $('.modal-title').html($(this).data('title'));
+                $('.abstract').html($(this).data('abstract'));
+                // console.log(qrcode + $(this).data('path'));
+                // $.ajax({
+                //     data: $(this).data('path'),
+                //     success: function(){
+                //         console.log('success');
+                //     }
+                // });
+            });
+
+
             // $(document).ready(function(){
-            var ConfirmNewPassword = "";
 
             $('#update').click(function(){
-                 ConfirmNewPassword = $('#ConfirmNewPassword').val();
+                var ConfirmNewPassword = "";
+                ConfirmNewPassword = $('#ConfirmNewPassword').val();
 
                 // alert(ConfirmNewPassword);
                 $.ajax({
-                     type: "post",
-                     url: "/changePassword",
-                     data: {
+                    type: "post",
+                    url: "/changePassword",
+                    data: {
                         '_token': $('input[name=_token]').val(),
                         'ConfirmNewPassword': $('#ConfirmNewPassword').val(),
-                     },
-                     success: function(data){
-                         alert('Password Successfully changed!');
-                     },
-                     error: function(){
-                        alert('Error');
-                     }
+                    },
+                    success: function(data){
+                        alert('Password Successfully changed!');
+                    },
+                    error: function(){
+                       alert('Error');
+                    }
                 });
             });
         </script>
