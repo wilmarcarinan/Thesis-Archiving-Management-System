@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Log');
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(File::class, 'favorites');
+    }
 }

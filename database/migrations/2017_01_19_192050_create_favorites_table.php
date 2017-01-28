@@ -25,6 +25,11 @@ class CreateFavoritesTable extends Migration
                   ->references('id')->on('files')
                   ->onDelete('cascade');
             $table->timestamps();
+
+            // $table->primary(['user_id','file_id']);
+            // $table->integer('user_id')->index();
+            // $table->integer('file_id')->index();
+            // $table->timestamps();
         });
     }
 

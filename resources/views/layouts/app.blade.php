@@ -239,6 +239,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/JavaScript" src="../js/kjua-0.1.1.min.js"></script>
+        @yield('script-section')
 
         <script type="text/javascript">
             $.ajaxSetup
@@ -253,7 +254,8 @@
                 var qrcode = $('.QRCode').text() + $(this).data('path').replace(/\s/g, "");
                 var el = kjua({
                     text: qrcode,
-                    size: 300
+                    size: 300,
+                    fill: '#000'
                 });
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
@@ -269,9 +271,6 @@
                 function isEmpty( el ){
                   return !$.trim(el.html())
                 }
-                
-                
-                
             });
 
 
