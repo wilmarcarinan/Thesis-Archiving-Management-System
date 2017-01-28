@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
     <title>{{ config('app.name') }}</title>
     <link rel="icon" href="../book.ico"/>
@@ -16,9 +16,9 @@
     <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/scripts.js"></script>
+    {{-- <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script> --}}
+
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -231,6 +231,44 @@
         
         @yield('content')
         @yield('footer')
+
+        
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // $(document).ready(function(){
+            var ConfirmNewPassword = "";
+
+            $('#update').click(function(){
+                 ConfirmNewPassword = $('#ConfirmNewPassword').val();
+
+                // alert(ConfirmNewPassword);
+                $.ajax({
+                     type: "post",
+                     url: "/changePassword",
+                     data: {
+                        '_token': $('input[name=_token]').val(),
+                        'ConfirmNewPassword': $('#ConfirmNewPassword').val(),
+                     },
+                     success: function(data){
+                         alert('Password Successfully changed!');
+                     },
+                     error: function(){
+                        alert('Error');
+                     }
+                });
+            });
+        </script>
     </div>
 
     <!-- Scripts -->

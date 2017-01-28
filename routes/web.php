@@ -35,7 +35,7 @@ Route::get('/logs','AdminController@showLogs');
 
 Route::get('/users','AdminController@showUsers');
 
-Route::patch('/changePassword','SettingsController@changePassword');
+Route::post('/changePassword','SettingsController@changePassword');
 
 Route::get('/collections','FileController@collections');
 

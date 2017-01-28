@@ -52,18 +52,32 @@ class SettingsController extends Controller
 
     public function changePassword(Request $request)
     {
-        if(request()->has('changePassword')){
-            $this->validate(request(),[
-                'CurrentPassword' => 'required',
-                'NewPassword' => 'required',
-                'ConfirmNewPassword' => 'required'
-            ]);
+        // if(Request::ajax()){
+            // $response = [
+                // 'ConfirmNewPassword' => $user->password
+            // ];
+            // return Response::json(Request::all());
+            // return Response::json($response);
+        // }
 
-            auth()->user()->update([
-                'password' => bcrypt(request('ConfirmNewPassword'))
-            ]);
-        }
+        // if(request()->has('changePassword')){
+            // $this->validate(request(),[
+            //     'CurrentPassword' => 'required',
+            //     'NewPassword' => 'required',
+            //     'ConfirmNewPassword' => 'required'
+            // ]);
 
-        return redirect('settings');
+            // auth()->user()->update([
+            //     'password' => bcrypt(request('ConfirmNewPassword'))
+            // ]);
+            
+            $user = User::find(Auth::id());
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response()->json($user);
+
+        // }
+
+        // return redirect('settings');
     }
 }
