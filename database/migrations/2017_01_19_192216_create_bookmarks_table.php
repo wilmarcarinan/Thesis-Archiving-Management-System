@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecentViewsTable extends Migration
+class CreateBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRecentViewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recent_views', function (Blueprint $table) {
+        Schema::create('bookmarks', function (Blueprint $table) {
             // $table->increments('id');
-            // $table->tinyInteger('recent_view');
+            // $table->tinyInteger('to-read');
             // $table->integer('user_id')->unsigned();
             // $table->foreign('user_id')
             //       ->references('id')->on('users')
@@ -40,6 +40,6 @@ class CreateRecentViewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recent_views');
+        Schema::dropIfExists('bookmarks');
     }
 }

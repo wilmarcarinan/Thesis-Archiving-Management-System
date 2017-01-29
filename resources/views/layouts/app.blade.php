@@ -63,17 +63,22 @@
                             <a href="/settings" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
+                            <a href="/list" class="navbar-toggle ">
+                                <span class="glyphicon glyphicon-list-alt"></span>                        
+                            </a>
+                            <a href="/collections" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-th-large"></span>                
+                            </a>
+                        @else
+
                         @endif
                             <a href="{{ url('/logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-off"></span>
                             </a>
-                            <a href="/list" class="navbar-toggle ">
-                                <span class="glyphicon glyphicon-list-alt"></span>                        
-                            </a>
-                            <a href="/collections" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-th-large"></span>                
+                            <a href="/AddFile" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
                             <a href="/search" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-search"></span>                        
@@ -142,37 +147,49 @@
                                      Home
                                 </a>
                             </li>
+                            @if(Auth::user()->Role == 'Admin')
+                                @if(Request::path() == 'AddFile')
+                                    <li class="active">
+                                @else
+                                    <li>
+                                        @endif
+                                        <a href="/AddFile">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                            Upload                        
+                                        </a>
+                                    </li>
+                            @endif
                             @if(Request::path() == 'search')
                                 <li class="active">
                             @else
                                 <li>
                             @endif
-                                <a href="/search">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                     Search
-                                </a>
-                            </li>
+                                    <a href="/search">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                         Search
+                                    </a>
+                                </li>
                             @if(Auth::user()->Role == 'User')
                                 @if(Request::path() == 'collections')
                                     <li class="active">
                                 @else
                                     <li>
-                                        @endif
-                                    <a href="/collections">
-                                        <span class="glyphicon glyphicon-th-large"></span>
-                                         Collections
-                                    </a>
-                                </li>
+                                @endif
+                                        <a href="/collections">
+                                            <span class="glyphicon glyphicon-th-large"></span>
+                                             Collections
+                                        </a>
+                                    </li>
                                 @if(Request::path() == 'list')
                                     <li class="active">
                                 @else
                                     <li>
                                 @endif
-                                    <a href="/list">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                         List All
-                                    </a>
-                                </li>
+                                        <a href="/list">
+                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                             List All
+                                        </a>
+                                    </li>
                             @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -213,7 +230,7 @@
                             <a href="/users">Manage Users</a>
                         </li>
                         <li>
-                            <a href="/search">Manage Files</a>
+                            <a href="/list">Manage Files</a>
                         </li>
                         <li>
                             <a href="/logs">Logs</a>

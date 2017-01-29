@@ -43,7 +43,7 @@
 							<div class="form-group">
 								<label for="Adviser" class="col-md-4 control-label">Adviser: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Adviser" required>
+									<input type="text" class="form-control" name="Adviser">
 								</div>
 							</div>
 

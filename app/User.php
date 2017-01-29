@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(File::class, 'favorites');
     }
+
+    public function bookmarks()
+    {
+        return $this->belongsToMany(File::class, 'bookmarks');
+    }
+
+    public function recent_views()
+    {
+        return $this->belongsToMany(File::class, 'recent_views');
+    }
 }

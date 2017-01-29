@@ -88,12 +88,12 @@
 													<div class="modal-header">
 														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 														<h4 class="modal-title" id="myModalLabel"></h4>
-														<label for="id-of-input" class="bookmark-checkbox">
+														{{-- <label for="id-of-input" class="bookmark-checkbox">
 															<input type="checkbox" id="bookmark"/>
 															<i class="glyphicon glyphicon-bookmark"></i>
 															<i class="glyphicon glyphicon-book"></i>
 															<span></span>
-														</label>
+														</label> --}}
 														<label for="id-of-input" class="custom-checkbox">
 															<input type="checkbox" id="favorites"/>
 															<i class="glyphicon glyphicon-star-empty"></i>

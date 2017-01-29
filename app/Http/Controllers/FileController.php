@@ -45,7 +45,7 @@ class FileController extends Controller
             'Category' => 'required',
             'Abstract' => 'required',
             'Authors' => 'required',
-            'Adviser' => 'required',
+            // 'Adviser' => 'required',
             'ThesisDate' => 'required',
             'FilePath' => 'min:1|max:2000|required'
         ]);
@@ -83,11 +83,6 @@ class FileController extends Controller
     public function list()
     {
         $files = File::get();
-        if(Auth::User()->Role == 'User'){
-            return view('file.list',compact('files'));    
-        }
-        else{
-            return back();
-        }
+        return view('file.list',compact('files'));    
     }
 }

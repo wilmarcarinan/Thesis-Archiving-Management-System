@@ -9,7 +9,7 @@
 			<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance">
 					<span class="glyphicon glyphicon-filter"></span>
 			</button>
-			<form method="POST" action="/search">
+			<form method="POST" action="/results">
 				{{ csrf_field() }}
 				<!--textbox-->
 				<div class="input-group col-sm-12" style="padding: 20px 0;">
