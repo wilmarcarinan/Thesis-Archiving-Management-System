@@ -1,21 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-@if(Auth::user() == 'User')
+@if(Auth::user()->Role == 'User')
 	<div class="container jumbotron" style="margin-top:50px">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
-			<h2>Search</h2>
+			<h2 class="col-md-11 col-sm-10 col-xs-10">Search</h2>
+			<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance">
+					<span class="glyphicon glyphicon-filter"></span>
+			</button>
 			<form method="POST" action="/search">
 				{{ csrf_field() }}
 				<!--textbox-->
 				<div class="input-group col-sm-12" style="padding: 20px 0;">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-					<input id="search" type="text" class="form-control" name="search" placeholder="Search" autofocus>
+					<input id="search" type="text" class="form-control" name="search" placeholder="Type Thesis Name" autofocus>
 				</div>
+  				<div id="advance" class="collapse">
 				<!--checkbox-->
-				<div class="col-sm-1 col-xs-2"></div>
-				<div class="col-sm-5 col-xs-5">
+				<div class="col-md-2 col-sm-0 col-xs-1"></div>
+				<div class="col-sm-4 col-xs-5">
 					<!--checkbox loop na lang yung mga available category-->
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Option 1</label>
@@ -27,7 +31,7 @@
 						<label><input type="checkbox" value="">Option 3</label>
 					</div>
 				</div>
-				<div class="col-sm-6 col-xs-5">
+				<div class="col-sm-4 col-xs-5">
 					<!--checkbox loop na lang yung mga available category-->
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Option 1</label>
@@ -61,6 +65,7 @@
 						<option>2018</option>
 					</select>
 				</div>
+				</div>
 				<div class="col-sm-4 col-xs-3"></div>
 				<div class="col-sm-8 col-xs-9">
 					<button type="submit" class="btn btn-primary center">Submit</button>
@@ -76,7 +81,10 @@
 	<div class="container jumbotron" style="margin-top:50px; margin-right: 120px">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
-			<h2>Search</h2>
+			<h2 class="col-md-11 col-sm-10 col-xs-10">Search</h2>
+			<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance">
+					<span class="glyphicon glyphicon-filter"></span>
+			</button>
 			<form method="POST" action="/results">
 				{{ csrf_field() }}
 				<!--textbox-->
@@ -85,8 +93,8 @@
 					<input id="search" type="text" class="form-control" name="search" placeholder="Search" autofocus>
 				</div>
 				<!--checkbox-->
-				<div class="col-sm-1 col-xs-2"></div>
-				<div class="col-sm-5 col-xs-5">
+				<div class="col-md-2 col-sm-0 col-xs-1"></div>
+				<div class="col-sm-4 col-xs-5">
 					<!--checkbox loop na lang yung mga available category-->
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Option 1</label>
@@ -98,7 +106,7 @@
 						<label><input type="checkbox" value="">Option 3</label>
 					</div>
 				</div>
-				<div class="col-sm-6 col-xs-5">
+				<div class="col-sm-4 col-xs-5">
 					<!--checkbox loop na lang yung mga available category-->
 					<div class="checkbox">
 						<label><input type="checkbox" value="">Option 1</label>
