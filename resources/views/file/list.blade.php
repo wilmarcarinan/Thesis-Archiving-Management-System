@@ -16,7 +16,7 @@
                         <th>Category</th>
                         <th>Author/s</th>
                         <th>Adviser</th>
-                        <th>Date</th>
+                        <th>Thesis Date</th>
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
                       </tr>
@@ -37,7 +37,7 @@
                             <td>{{$file->Category}}</td>
                             <td>{{$file->Authors}}</td>
                             <td>{{$file->Adviser}}</td>
-                            <td>{{$file->created_at}}</td>
+                            <td>{{$file->thesis_date}}</td>
                         </tr>
                         @endforeach
                     </tbody>

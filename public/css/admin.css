@@ -22,6 +22,7 @@ body{
 		border-radius: 0;
 		overflow-y: auto;
 		background-color: #222;
+		height: 100%;
 	}
 
 	.side-nav>li>a {

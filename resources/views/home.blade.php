@@ -14,7 +14,7 @@
           @if($latest_file <> '')
             <h4><center><b>{{$latest_file->FileTitle}}</b></center></h4><br /><br /><br />
             <p><b>{{$latest_file->Authors}}</b></p> 
-            <p>{{date('m-d-Y',strtotime($latest_file->created_at))}}</p>
+            <p>{{$latest_file->thesis_date}}</p>
           @endif
         </div>
         <center class="w3-container" style="padding: 10px">
@@ -29,14 +29,14 @@
         @if($latest_file <> '')
           <h1>{{$latest_file->FileTitle}}</h1>
           <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p>
+          @if(Request::server('SERVER_NAME') <> '127.0.0.1')
+            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$latest_file->FilePath }}" target="_blank">
+          @else
+            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$latest_file->FilePath }}" target="_blank">
+          @endif
+              <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3" >View more</button>
+            </a>
         @endif
-        @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-          <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$latest_file->FilePath }}" target="_blank">
-        @else
-          <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$latest_file->FilePath }}" target="_blank">
-        @endif
-          <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3" >View more</button>
-        </a>
       </div>
     </div>
     <div class="panel-footer">
@@ -61,7 +61,7 @@
                 <th>Author/s</th>
                 <th>Adviser</th>
                 <th>Category</th>
-                <th>Date</th>
+                <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
               </tr>
@@ -103,7 +103,7 @@
                   <td>{{$file->Authors}}</td>
                   <td>{{$file->Adviser}}</td>
                   <td>{{$file->Category}}</td>
-                  <td>{{$file->created_at}}</td>
+                  <td>{{$file->thesis_date}}</td>
                   <td></td>
                   <td>{{$file->no_of_views}}</td>
                 </tr>

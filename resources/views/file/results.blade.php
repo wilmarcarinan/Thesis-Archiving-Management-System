@@ -162,7 +162,7 @@
 											</div>
 										</div>
 									</td>
-									<td>{{ $file->created_at }}</td>
+									<td>{{ $file->thesis_date }}</td>
 									@if(Auth::user()->Role == 'Admin')
 										<td>{{ $file->Status }}</td>
 										<td>
