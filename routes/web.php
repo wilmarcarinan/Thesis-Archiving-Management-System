@@ -40,3 +40,5 @@ Route::post('/changePassword','SettingsController@changePassword');
 Route::get('/collections','FileController@collections');
 
 Route::get('/list','FileController@list');
+
+Route::post('/increment_views', 'FileController@increment_views');

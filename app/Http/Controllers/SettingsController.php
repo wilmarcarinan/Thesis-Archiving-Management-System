@@ -28,8 +28,9 @@ class SettingsController extends Controller
     		'Course' => 'required',
     		'College' => 'required',
     		// 'email' => 'required|email|unique:users,email,' .auth()->id(),
-    		'email' => ['required','email',Rule::unique('users')->ignore(auth()->id())]
-    		// 'password' => 'required'
+    		'email' => ['required','email',Rule::unique('users')->ignore(auth()->id())],
+    		'NewPassword' => 'required',
+            'ConfirmNewPassword' => 'required'
     	]);
 
     	auth()->user()->update([
@@ -38,8 +39,8 @@ class SettingsController extends Controller
     		'LastName' => request('LastName'),
     		'Course' => request('Course'),
     		'College' => request('College'),
-    		'email' => request('email')
-    		// 'password' => bcrypt(request('password'))
+    		'email' => request('email'),
+    		'password' => bcrypt(request('ConfirmNewPassword'))
     	]);
 
     	if(Auth::user()->Role == 'Admin'){
@@ -48,36 +49,5 @@ class SettingsController extends Controller
     		return view('home');
     	}
 
-    }
-
-    public function changePassword(Request $request)
-    {
-        // if(Request::ajax()){
-            // $response = [
-                // 'ConfirmNewPassword' => $user->password
-            // ];
-            // return Response::json(Request::all());
-            // return Response::json($response);
-        // }
-
-        // if(request()->has('changePassword')){
-            // $this->validate(request(),[
-            //     'CurrentPassword' => 'required',
-            //     'NewPassword' => 'required',
-            //     'ConfirmNewPassword' => 'required'
-            // ]);
-
-            // auth()->user()->update([
-            //     'password' => bcrypt(request('ConfirmNewPassword'))
-            // ]);
-            
-            $user = User::find(Auth::id());
-            $user->password = bcrypt($request->password);
-            $user->save();
-            return response()->json($user);
-
-        // }
-
-        // return redirect('settings');
     }
 }

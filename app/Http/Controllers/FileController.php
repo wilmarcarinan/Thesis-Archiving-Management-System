@@ -85,4 +85,9 @@ class FileController extends Controller
         $files = File::get();
         return view('file.list',compact('files'));    
     }
+
+    public function increment_views(Request $request)
+    {
+        return 'hello';
+    }
 }

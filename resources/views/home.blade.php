@@ -14,7 +14,7 @@
           @if($latest_file <> '')
             <h4><center><b>{{$latest_file->FileTitle}}</b></center></h4><br /><br /><br />
             <p><b>{{$latest_file->Authors}}</b></p> 
-            <p>{{$latest_file->created_at}}</p>
+            <p>{{date('m-d-Y',strtotime($latest_file->created_at))}}</p>
           @endif
         </div>
         <center class="w3-container" style="padding: 10px">
@@ -30,7 +30,13 @@
           <h1>{{$latest_file->FileTitle}}</h1>
           <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p>
         @endif
-        <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3">View more</button>
+        @if(Request::server('SERVER_NAME') <> '127.0.0.1')
+          <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$latest_file->FilePath }}" target="_blank">
+        @else
+          <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$latest_file->FilePath }}" target="_blank">
+        @endif
+          <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3" >View more</button>
+        </a>
       </div>
     </div>
     <div class="panel-footer">
@@ -52,9 +58,10 @@
               <tr>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Date</th>
+                <th>Author/s</th>
                 <th>Adviser</th>
                 <th>Category</th>
+                <th>Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
               </tr>
@@ -65,10 +72,40 @@
                 @foreach($files_latest as $file)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$file->FileTitle}}</td>
-                  <td>{{$file->created_at}}</td>
+                  <td class="FileTitle">
+                    @if(Request::server('SERVER_NAME') <> '127.0.0.1')
+                      <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank" id="ThesisLink{{$no}}">
+                    @else
+                      <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}" target="_blank" id="ThesisLink{{$no}}">
+                    @endif
+                      {{ $file->FileTitle }}
+                    <script type="text/javascript">
+                      $('#ThesisLink{{$no}}').click(function(){
+                        $.ajax({
+                          type: 'POST',
+                          url: '/increment_views',
+                          data: {
+                            'no_of_views': 1,
+                            'FileTitle': '{{$file->FileTitle}}'
+                          },
+                          success: function(data){
+                            // console.log(data['FileTitle']);
+                            alert(data);
+                          },
+                          error: function(){
+                            alert('Error')
+                          }
+                        });
+                        // alert('{{$file->FileTitle}}')
+                      });
+                    </script>
+                  </td>
+                  <td>{{$file->Authors}}</td>
                   <td>{{$file->Adviser}}</td>
                   <td>{{$file->Category}}</td>
+                  <td>{{$file->created_at}}</td>
+                  <td></td>
+                  <td>{{$file->no_of_views}}</td>
                 </tr>
                 @endforeach
               @endif
@@ -135,7 +172,4 @@
     </div>
   </div>
 </div>
-@endsection
-@section('footer')
-
 @endsection

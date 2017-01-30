@@ -2,7 +2,7 @@
 
 @section('content')
     @if(Auth::user()->Role == 'Admin')
-        <div class="container" style="margin-right: 150px">
+        <div class="container" style="margin-left: 225px">
     @else
         <div class="container">
     @endif
@@ -26,7 +26,14 @@
                         @foreach($files as $file)
                         <tr>
                             <td>{{$no++}}</td>
-                            <td>{{$file->FileTitle}}</td>
+                            <td>
+                                @if(Request::server('SERVER_NAME') <> '127.0.0.1')
+                                    <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank">
+                                @else
+                                    <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}" target="_blank">
+                                @endif
+                                {{$file->FileTitle}}
+                            </td>
                             <td>{{$file->Category}}</td>
                             <td>{{$file->Authors}}</td>
                             <td>{{$file->Adviser}}</td>

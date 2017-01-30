@@ -14,11 +14,17 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="/css/w3.css">
 
     <!-- Scripts -->
     {{-- <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script> --}}
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/JavaScript" src="../js/kjua-0.1.1.min.js"></script>
 
     <script>
         window.Laravel = <?php echo json_encode([
@@ -32,6 +38,9 @@
             <link rel="stylesheet" href="/css/style.css">
         @endif
     @endif
+
+    @yield('header')
+
 </head>
 <body>
     <div id="app">
@@ -70,15 +79,14 @@
                                 <span class="glyphicon glyphicon-th-large"></span>                
                             </a>
                         @else
-
+                            <a href="/AddFile" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-upload"></span>                        
+                            </a>
                         @endif
                             <a href="{{ url('/logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-off"></span>
-                            </a>
-                            <a href="/AddFile" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
                             <a href="/search" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-search"></span>                        
@@ -251,12 +259,7 @@
         @yield('footer')
 
         
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script type="text/JavaScript" src="../js/kjua-0.1.1.min.js"></script>
         @yield('script-section')
 
         <script type="text/javascript">
@@ -290,9 +293,6 @@
                   return !$.trim(el.html())
                 }
             });
-
-
-            // $(document).ready(function(){
 
             $('#update').click(function(){
                 var ConfirmNewPassword = "";
