@@ -6,6 +6,7 @@ use App\User;
 use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class FileController extends Controller
 {
@@ -16,21 +17,25 @@ class FileController extends Controller
 
     public function search()
     {
-        $files = File::get();
-        return view('file.search',compact('files'));
+        $advisers = File::distinct()->get(['Adviser']);
+        $years = File::distinct()->get([\DB::raw('YEAR(thesis_date)')]);
+        return view('file.search',compact(['advisers', 'years']));
+        // return var_dump($years);
     }
 
     public function SearchResults(Request $request)
     {
-        $this->validate(request(),[
-            'search' => 'required'
-        ]);
+        // $this->validate(request(),[
+        //     'search' => 'required'
+        // ]);
 
         $files = File::where('FileTitle','like','%'.$request->search.'%')
+                // ->whereYear('thesis_date', $request->Year)
                 ->orwhere('Abstract','like','%'.$request->search.'%')
+                // ->orwhere('Adviser', $request->Adviser)
                 ->get();
 
-        return view('file.results',compact(['files']));
+        return view('file.results',compact('files'));
     }
 
     public function FileForm()
@@ -46,7 +51,7 @@ class FileController extends Controller
             'Abstract' => 'required',
             'Authors' => 'required',
             // 'Adviser' => 'required',
-            'ThesisDate' => 'required',
+            'thesis_date' => 'required',
             'FilePath' => 'min:1|max:2000|required'
         ]);
         
@@ -61,7 +66,7 @@ class FileController extends Controller
         $file->Abstract = $request->Abstract;
         $file->Authors = $request->Authors;
         $file->Adviser = $request->Adviser;
-        $file->created_at = $request->ThesisDate;
+        $file->thesis_date = $request->thesis_date;
         $file->FilePath = '/files/'.$fileName;
         $file->save();
 

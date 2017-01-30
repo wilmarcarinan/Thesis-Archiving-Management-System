@@ -20,7 +20,11 @@ class AdminController extends Controller
     	{
     		return view('admin.AdminPage');
     	}
-    	return view('home');
+        else{
+            $files_latest = File::latest()->paginate(5);
+            $latest_file = File::latest()->first();
+            return view('home',compact(['files_latest','latest_file']));
+        }
     }
 
     public function showLogs()
@@ -30,8 +34,11 @@ class AdminController extends Controller
             $logs = Log::paginate(15);
 
             return view('admin.Logs',compact('logs'));
+        }else{
+            $files_latest = File::latest()->paginate(5);
+            $latest_file = File::latest()->first();
+            return view('home',compact(['files_latest','latest_file']));
         }
-        return view('home');      
     }
 
     public function showUsers()
@@ -39,9 +46,11 @@ class AdminController extends Controller
         if(Auth::user()->Role == 'Admin')
         {
             $users = User::where('id','!=',Auth::id())->paginate(15);
-
             return view('admin.Users',compact('users'));
+        }else{
+            $files_latest = File::latest()->paginate(5);
+            $latest_file = File::latest()->first();
+            return view('home',compact(['files_latest','latest_file']));
         }
-        return view('home');   
     }
 }

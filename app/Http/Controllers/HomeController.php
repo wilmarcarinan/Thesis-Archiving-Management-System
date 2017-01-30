@@ -31,8 +31,8 @@ class HomeController extends Controller
         {
             return view('admin.AdminPage');
         }
-        $files_latest = File::latest()->paginate(5);
-        $latest_file = File::latest()->first();
+        $files_latest = File::latest('thesis_date')->paginate(5);
+        $latest_file = File::latest('thesis_date')->first();
 
         return view('home',compact(['files_latest','latest_file']));
     }

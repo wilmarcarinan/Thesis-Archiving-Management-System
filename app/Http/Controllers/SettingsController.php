@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\File;
 
 class SettingsController extends Controller
 {
@@ -46,7 +47,9 @@ class SettingsController extends Controller
     	if(Auth::user()->Role == 'Admin'){
     		return view('admin.AdminPage');
     	}else{
-    		return view('home');
+            $files_latest = File::latest()->paginate(5);
+            $latest_file = File::latest()->first();
+    		return view('home',compact(['files_latest','latest_file']));
     	}
 
     }

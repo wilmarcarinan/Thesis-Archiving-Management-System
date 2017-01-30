@@ -17,9 +17,9 @@
               <tr>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                
+                <th>Category</th>
+                <th>Author/s</th>
                 <th>Adviser</th>
-                <th>Course</th>
                 <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -44,9 +44,10 @@
               <tr>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Date</th>
+                <th>Category</th>
+                <th>Author/s</th>
                 <th>Adviser</th>
-                <th>Course</th>
+                <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
               </tr>
@@ -70,9 +71,10 @@
               <tr>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Date</th>
+                <th>Category</th>
+                <th>Author/s</th>
                 <th>Adviser</th>
-                <th>Course</th>
+                <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
               </tr>

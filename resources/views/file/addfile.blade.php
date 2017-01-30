@@ -48,9 +48,9 @@
 							</div>
 
 							<div class="form-group">
-								<label for="FilePath" class="col-md-4 control-label">Thesis Date: </label>
+								<label for="thesis_date" class="col-md-4 control-label">Thesis Date: </label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="ThesisDate" required>
+									<input type="date" class="form-control" name="thesis_date" required>
 								</div>
 							</div>
 							

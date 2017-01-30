@@ -37,7 +37,9 @@
                             <td>{{$file->Category}}</td>
                             <td>{{$file->Authors}}</td>
                             <td>{{$file->Adviser}}</td>
-                            <td>{{$file->thesis_date}}</td>
+                            <td>{{$file->thesis_date->format('F j, Y')}}</td>
+                            <td></td>
+                            <td>{{$file->no_of_views}}</td>
                         </tr>
                         @endforeach
                     </tbody>
