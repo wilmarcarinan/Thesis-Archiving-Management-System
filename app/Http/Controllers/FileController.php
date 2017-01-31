@@ -30,12 +30,14 @@ class FileController extends Controller
         // ]);
 
         $files = File::where('FileTitle','like','%'.$request->search.'%')
-                // ->whereYear('thesis_date', $request->Year)
                 ->orwhere('Abstract','like','%'.$request->search.'%')
-                // ->orwhere('Adviser', $request->Adviser)
+                ->orwhere('Category','like','%'.$request->search.'%')
+                ->orwhere('Adviser', $request->Adviser)
+                ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->get();
 
         return view('file.results',compact('files'));
+        // return var_dump($request->search);
     }
 
     public function FileForm()

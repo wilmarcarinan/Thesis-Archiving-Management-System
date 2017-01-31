@@ -19,29 +19,14 @@
                         <th>Thesis Date</th>
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
+                        @if(Auth::user()->Role == 'Admin')
+                            <th>Status</th>
+                            <th></th>
+                        @endif
                       </tr>
                     </thead>
                     <tbody>
-                        <?php $no=1; ?>
-                        @foreach($files as $file)
-                        <tr>
-                            <td>{{$no++}}</td>
-                            <td>
-                                @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-                                    <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank">
-                                @else
-                                    <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}" target="_blank">
-                                @endif
-                                {{$file->FileTitle}}
-                            </td>
-                            <td>{{$file->Category}}</td>
-                            <td>{{$file->Authors}}</td>
-                            <td>{{$file->Adviser}}</td>
-                            <td>{{$file->thesis_date->format('F j, Y')}}</td>
-                            <td></td>
-                            <td>{{$file->no_of_views}}</td>
-                        </tr>
-                        @endforeach
+                        @include('file.table-contents')
                     </tbody>
                 </table>
                 <br />

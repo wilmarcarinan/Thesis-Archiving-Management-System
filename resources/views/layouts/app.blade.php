@@ -272,15 +272,18 @@
 
             $(document).on('click', '.viewInfo', function(){
                 
-                var qrcode = $('.QRCode').text() + $(this).data('path').replace(/\s/g, "");
+                var qrcode = $('.QRCode').text() + $(this).data('path');
+                var file_name = qrcode.replace(/\s/g, "");
                 var el = kjua({
-                    text: qrcode,
+                    text: qrcode.replace(/\s/g, ""),
                     size: 300,
                     fill: '#000'
                 });
+
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
-                // alert(qrcode.replace(/\s/g, ""));
+                // $('.abstract-title').html($(this).data('title'));
+                document.getElementById('file_link').setAttribute('href',file_name);
                 if(isEmpty($('.qrcodeCanvas'))){
                     document.querySelector('.qrcodeCanvas').appendChild(el);
                     // console.log('Its empty');
@@ -292,27 +295,6 @@
                 function isEmpty( el ){
                   return !$.trim(el.html())
                 }
-            });
-
-            $('#update').click(function(){
-                var ConfirmNewPassword = "";
-                ConfirmNewPassword = $('#ConfirmNewPassword').val();
-
-                // alert(ConfirmNewPassword);
-                $.ajax({
-                    type: "post",
-                    url: "/changePassword",
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'ConfirmNewPassword': $('#ConfirmNewPassword').val(),
-                    },
-                    success: function(data){
-                        alert('Password Successfully changed!');
-                    },
-                    error: function(){
-                       alert('Error');
-                    }
-                });
             });
         </script>
     </div>

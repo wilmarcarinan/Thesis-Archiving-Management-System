@@ -58,57 +58,16 @@
               <tr>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Author/s</th>
                 <th>Adviser</th>
-                <th>Category</th>
                 <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
                 <th><span class="glyphicon glyphicon-star-empty"></span></th>
               </tr>
             </thead>
             <tbody>
-              @if($files_latest <> '[]')
-                <?php $no=1; ?>
-                @foreach($files_latest as $file)
-                <tr>
-                  <td>{{$no++}}</td>
-                  <td class="FileTitle">
-                    @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-                      <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$file->FilePath }}" target="_blank" id="ThesisLink{{$no}}">
-                    @else
-                      <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$file->FilePath }}" target="_blank" id="ThesisLink{{$no}}">
-                    @endif
-                      {{ $file->FileTitle }}
-                    <script type="text/javascript">
-                      $('#ThesisLink{{$no}}').click(function(){
-                        $.ajax({
-                          type: 'POST',
-                          url: '/increment_views',
-                          data: {
-                            'no_of_views': 1,
-                            'FileTitle': '{{$file->FileTitle}}'
-                          },
-                          success: function(data){
-                            // console.log(data['FileTitle']);
-                            alert(data);
-                          },
-                          error: function(){
-                            alert('Error')
-                          }
-                        });
-                        // alert('{{$file->FileTitle}}')
-                      });
-                    </script>
-                  </td>
-                  <td>{{$file->Authors}}</td>
-                  <td>{{$file->Adviser}}</td>
-                  <td>{{$file->Category}}</td>
-                  <td>{{$file->thesis_date->format('F j, Y')}}</td>
-                  <td></td>
-                  <td>{{$file->no_of_views}}</td>
-                </tr>
-                @endforeach
-              @endif
+              @include('file.table-contents')
             </tbody>
           </table>
         <br />
