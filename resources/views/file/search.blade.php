@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if(Auth::user()->Role == 'User')
 	<div class="container jumbotron" style="margin-top:50px">
-@else
-	<div class="container jumbotron" style="margin-top:50px; margin-right: 120px"></div>
-@endif
 		<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<h2 class="col-md-11 col-sm-10 col-xs-10">Search</h2>
@@ -77,7 +73,5 @@
 				</form>
 			</div>
 		</div>
-	</div>
 	<div class="col-sm-3"></div>
-	</div>
 @endsection
