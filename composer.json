@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "consoletvs/charts": "3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

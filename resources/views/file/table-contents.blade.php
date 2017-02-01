@@ -16,33 +16,38 @@
   </p>
   @foreach($files as $file)
     <tr>
-      <td>
-        @if(!True)
-          <form action="/removeBookmark" method="POST">
-            {{ method_field('DELETE') }}
-            {{ csrf_field() }}
-            <button class="fa fa-bookmark not-book" type="submit" aria-hidden="true"></button>
-        @else
-          <form action="/bookmark" method="POST">
-            {{ csrf_field() }}
-            <button class="fa fa-bookmark-o btn-book" type="submit" aria-hidden="true"></button>
-        @endif           
-          </form>
-      </td>
-      <td>
-        {{-- <p>{{Auth::user()->favorites()->id}}</p> --}}
-        @if(!True)
-          <form action="/removeFavorite" method="POST">
-            {{ method_field('DELETE') }}
-            {{ csrf_field() }}
-            <button class="fa fa-star not-fav" type="submit" aria-hidden="true"></button>
-        @else
-          <form action="/favorite" method="POST">
-            {{ csrf_field() }}
-            <button class="fa fa-star-o btn-fav" type="submit" aria-hidden="true"></button>
-        @endif           
-          </form>
-      </td>
+      @if(Auth::user()->Role <> 'Admin')
+        <td>
+          @if(Auth::id() == Auth::user()->favorites()->)
+            <form action="/removeBookmark" method="POST">
+              {{ method_field('DELETE') }}
+              {{ csrf_field() }}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="fa fa-bookmark not-book" type="submit" aria-hidden="true"></button>
+          @else
+            <form action="/bookmark" method="POST">
+              {{ csrf_field() }}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="fa fa-bookmark-o btn-book" type="submit" aria-hidden="true"></button>
+          @endif           
+            </form>
+        </td>
+        <td>
+          @if(!True)
+            <form action="/removeFavorite" method="POST">
+              {{ method_field('DELETE') }}
+              {{ csrf_field() }}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="fa fa-star not-fav" type="submit" aria-hidden="true"></button>
+          @else
+            <form action="/favorite" method="POST">
+              {{ csrf_field() }}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="fa fa-star-o btn-fav" type="submit" aria-hidden="true"></button>
+          @endif           
+            </form>
+        </td>
+      @endif
       <td>{{$no++}}</td>
       <td class="FileTitle">
         <!-- Button trigger modal -->
@@ -65,7 +70,7 @@
                   <i class="glyphicon glyphicon-book"></i>
                   <span></span>
                 </label> --}}
-                <label for="id-of-input" class="custom-checkbox">
+                {{-- <label for="id-of-input" class="custom-checkbox">
                   <input type="checkbox" id="favorites"/>
                   <i class="glyphicon glyphicon-star-empty"></i>
                   <i class="glyphicon glyphicon-star"></i>
@@ -115,15 +120,19 @@
                   .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
                     opacity: 1;
                   }
-                </style>
+                </style> --}}
               </div>
               <div class="modal-body">
-                <p class="abstract"></p>
+                <h3><b>Abstract</b></h3>
                 <p>
-                    Read the whole documentation 
-                    <a href="" target="_blank" id="file_link">
-                      here.
-                    </a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="abstract"></span>  
+                </p>
+                <p>
+                  Read the whole documentation 
+                  <a href="" target="_blank" id="file_link">
+                    here.
+                  </a>
                 </p>
                 <br>
                 <p class="qrcodeCanvas" style="text-align: center;"></p>
@@ -135,18 +144,34 @@
           </div>
         </div>
       </td>
+      <td>{{$file->Category}}</td>
       <td>{{$file->Authors}}</td>
       <td>{{$file->Adviser}}</td>
-      <td>{{$file->Category}}</td>
       <td>{{$file->thesis_date->format('F j, Y')}}</td>
-      <td></td>
-      <td>{{$file->no_of_views}}</td>
       @if(Auth::user()->Role == 'Admin')
         <td>{{ $file->Status }}</td>
+      @endif
+      <td>{{$file->no_of_views}}</td>
+      <td></td>
+      @if(Auth::user()->Role == 'Admin')
         <td>
-          <a href="#" class="btn btn-primary btn-sm">Update</a>
+          @if($file->Status == 'Inactive')
+            <form action="/unlock" method="POST">
+              {{method_field('PATCH')}}
+              {{csrf_field()}}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="btn btn-primary" type="submit">Unlock</button>
+          @else
+            <form action="/lock" method="POST">
+              {{method_field('PATCH')}}
+              {{csrf_field()}}
+              <input type="hidden" name="file_id" value="{{$file->id}}">
+              <button class="btn btn-primary" type="submit">Lock</button>
+          @endif
+            </form>
         </td>
       @endif
     </tr>
   @endforeach
+  {{$files->links()}}
 @endif

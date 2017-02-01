@@ -17,8 +17,8 @@ class FileController extends Controller
 
     public function search()
     {
-        $advisers = File::distinct()->get(['Adviser']);
-        $years = File::distinct()->get([\DB::raw('YEAR(thesis_date)')]);
+        $advisers = File::distinct()->where('Status','Active')->get(['Adviser']);
+        $years = File::distinct()->where('Status','Active')->get([\DB::raw('YEAR(thesis_date)')]);
         return view('file.search',compact(['advisers', 'years']));
         // return var_dump($years);
     }
@@ -30,11 +30,12 @@ class FileController extends Controller
         // ]);
 
         $files = File::where('FileTitle','like','%'.$request->search.'%')
+                ->where('Status','Active')
                 ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->orwhere('Adviser', $request->Adviser)
                 ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->get();
+                ->paginate(5);
 
         return view('file.results',compact('files'));
         // return var_dump($request->search);
@@ -79,7 +80,10 @@ class FileController extends Controller
     public function collections()
     {
         if(Auth::User()->Role == 'User'){
-            return view('file.collections');    
+            
+            $files = Auth::user()->favorites;
+            return view('file.collections',compact('files')); 
+            // return var_dump($files);
         }
         else{
             return back();
@@ -89,12 +93,57 @@ class FileController extends Controller
 
     public function list()
     {
-        $files = File::get();
+        $files = File::where('Status','Active')
+                ->paginate(5);
         return view('file.list',compact('files'));    
+    }
+
+    public function lock(Request $request)
+    {
+        File::where('id',$request->file_id)
+            ->update(['Status'=>'Inactive']);
+        
+        return back();
+    }
+
+    public function unlock(Request $request)
+    {
+        File::where('id',$request->file_id)
+            ->update(['Status'=>'Active']);
+        
+        return back();
     }
 
     public function increment_views(Request $request)
     {
         return 'hello';
+    }
+
+    public function favorite(Request $request)
+    {
+        $file = File::where('id',$request->file_id)->get();
+        Auth::user()->favorites()->toggle($file);
+        return back();
+    }
+
+    public function removeFavorite(Request $request)
+    {
+        $file = File::where('id',$request->file_id)->get();
+        Auth::user()->favorites()->toggle($file);
+        return back();
+    }
+
+    public function bookmark(Request $request)
+    {
+        $file = File::where('id',$request->file_id)->get();
+        Auth::user()->bookmarks()->toggle($file);
+        return back();
+    }
+
+    public function removeBookmark(Request $request)
+    {
+        $file = File::where('id',$request->file_id)->get();
+        Auth::user()->bookmarks()->toggle($file);
+        return back();
     }
 }

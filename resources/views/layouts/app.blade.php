@@ -232,7 +232,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="/AdminPage">Dashboard</a>
+                            <a href="/charts">Dashboard</a>
                         </li>
                         <li>
                             <a href="/users">Manage Users</a>
@@ -241,11 +241,14 @@
                             <a href="/list">Manage Files</a>
                         </li>
                         <li>
-                            <a href="/logs">Logs</a>
+                            <a href="/ArchivedFiles">Archived Files</a>
                         </li>
                         <li>
-                            <a href="#">Reports</a>
+                            <a href="/logs">Logs</a>
                         </li>
+                        {{-- <li>
+                            <a href="#">Reports</a>
+                        </li> --}}
                         <li>
                             <a href="/settings">Admin Settings</a>
                         </li>

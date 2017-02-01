@@ -11,18 +11,21 @@
                 <table class="table">
                     <thead>
                       <tr>
+                        @if(Auth::user()->Role <> 'Admin')
+                            <th></th>
+                            <th></th>
+                        @endif
                         <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                         <th>Title</th>
                         <th>Category</th>
                         <th>Author/s</th>
                         <th>Adviser</th>
                         <th>Thesis Date</th>
-                        <th><span class="glyphicon glyphicon-eye-open"></span></th>
-                        <th><span class="glyphicon glyphicon-star-empty"></span></th>
                         @if(Auth::user()->Role == 'Admin')
                             <th>Status</th>
-                            <th></th>
                         @endif
+                        <th><span class="glyphicon glyphicon-eye-open"></span></th>
+                        <th><span class="glyphicon glyphicon-star-empty"></span></th>
                       </tr>
                     </thead>
                     <tbody>

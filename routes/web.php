@@ -25,8 +25,6 @@ Route::get('/settings','SettingsController@index');
 
 Route::patch('/settings','SettingsController@update');
 
-Route::get('/AdminPage','AdminController@index');
-
 Route::get('/AddFile','FileController@FileForm');
 
 Route::post('/AddFile','FileController@AddFile');
@@ -40,3 +38,19 @@ Route::get('/collections','FileController@collections');
 Route::get('/list','FileController@list');
 
 Route::post('/increment_views', 'FileController@increment_views');
+
+Route::get('/charts','ChartsController@index');
+
+Route::patch('/lock','FileController@lock');
+
+Route::patch('/unlock','FileController@unlock');
+
+Route::get('/ArchivedFiles','AdminController@ArchivedFiles');
+
+Route::post('/favorite','FileController@favorite');
+
+Route::post('/removeFavorite','FileController@removeFavorite');
+
+Route::post('/bookmark','FileController@bookmark');
+
+Route::post('/removeBookmark','FileController@removeBookmark');

@@ -5,7 +5,7 @@
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#recent">Recent</a></li>
     <li><a data-toggle="tab" href="#favorites">Favorites</a></li>
-    <li><a data-toggle="tab" href="#toread">To-read</a></li>
+    <li><a data-toggle="tab" href="#toread">Bookmarks</a></li>
   </ul>
   <div class="tab-content">
     <div id="recent" class="tab-pane fade in active">
@@ -53,6 +53,17 @@
               </tr>
             </thead>
             <tbody>
+              <?php $no=1; ?>
+              @foreach($files as $file)
+                <tr>
+                  <td>{{$no++}}</td>
+                  <td>{{$file->FileTitle}}</td>
+                  <td>{{$file->Category}}</td>
+                  <td>{{$file->Authors}}</td>
+                  <td>{{$file->Adviser}}</td>
+                  <td>{{$file->thesis_date}}</td>
+                </tr>
+              @endforeach
             </tbody>
             </table>
           <br />
@@ -64,7 +75,7 @@
     </div>
     <div id="toread" class="tab-pane fade">
       <div class="container">
-        <h2><span class="glyphicon glyphicon-ok-circle"></span> To-Read</h2>                                                                        
+        <h2><span class="glyphicon glyphicon-bookmark"></span> Bookmarks</h2>                                                                        
         <div class="table-responsive">          
           <table class="table">
             <thead>
