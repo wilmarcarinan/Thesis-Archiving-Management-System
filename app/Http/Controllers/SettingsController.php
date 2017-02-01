@@ -30,8 +30,7 @@ class SettingsController extends Controller
     		'College' => 'required',
     		// 'email' => 'required|email|unique:users,email,' .auth()->id(),
     		'email' => ['required','email',Rule::unique('users')->ignore(auth()->id())],
-    		'NewPassword' => 'required',
-            'ConfirmNewPassword' => 'required'
+    		'NewPassword' => 'required|min:6|confirmed'
     	]);
 
     	auth()->user()->update([
@@ -41,7 +40,7 @@ class SettingsController extends Controller
     		'Course' => request('Course'),
     		'College' => request('College'),
     		'email' => request('email'),
-    		'password' => bcrypt(request('ConfirmNewPassword'))
+    		'password' => bcrypt(request('NewPassword'))
     	]);
 
     	if(Auth::user()->Role == 'Admin'){

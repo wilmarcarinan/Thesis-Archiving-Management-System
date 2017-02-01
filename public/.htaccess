@@ -17,9 +17,8 @@
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-</IfModule>
 
-<Files ~ "\.pdf$">
-  Order allow,deny
-  Deny from all
-</Files>
+    # Restrict direct access to specified files
+    RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost.*$ [NC]
+    RewriteRule \.(pdf)$ - [F]
+</IfModule>

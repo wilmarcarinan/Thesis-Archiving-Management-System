@@ -60,7 +60,7 @@
 
 							<div class="form-group">
 								<label for="ConfirmNewPassword">Confirm New Password:</label>
-								<input type="password" class="form-control" name="ConfirmNewPassword" id="ConfirmNewPassword">
+								<input type="password" class="form-control" name="NewPassword_confirmation" id="ConfirmNewPassword">
 							</div>
 
 							<div class="form-group">

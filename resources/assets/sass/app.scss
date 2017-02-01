@@ -7,3 +7,24 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.not-fav{
+	color: gold;
+}
+
+.btn-fav, .not-fav, .btn-book, .not-book {
+	background: none;
+	border: none;
+}
+
+.btn-fav:hover{
+	color: gold;
+}
+
+.not-book{
+	color: blue;
+}
+
+.btn-book:hover{
+	color:blue;
+}

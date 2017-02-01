@@ -33,7 +33,8 @@ class HomeController extends Controller
         }
         $files = File::latest('thesis_date')->paginate(5);
         $latest_file = File::latest('thesis_date')->first();
-
+        // $favorites = Auth::user()->favorites();
         return view('home',compact(['files','latest_file']));
+        // return var_dump($favorites);
     }
 }

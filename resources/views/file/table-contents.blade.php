@@ -16,6 +16,33 @@
   </p>
   @foreach($files as $file)
     <tr>
+      <td>
+        @if(!True)
+          <form action="/removeBookmark" method="POST">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+            <button class="fa fa-bookmark not-book" type="submit" aria-hidden="true"></button>
+        @else
+          <form action="/bookmark" method="POST">
+            {{ csrf_field() }}
+            <button class="fa fa-bookmark-o btn-book" type="submit" aria-hidden="true"></button>
+        @endif           
+          </form>
+      </td>
+      <td>
+        {{-- <p>{{Auth::user()->favorites()->id}}</p> --}}
+        @if(!True)
+          <form action="/removeFavorite" method="POST">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+            <button class="fa fa-star not-fav" type="submit" aria-hidden="true"></button>
+        @else
+          <form action="/favorite" method="POST">
+            {{ csrf_field() }}
+            <button class="fa fa-star-o btn-fav" type="submit" aria-hidden="true"></button>
+        @endif           
+          </form>
+      </td>
       <td>{{$no++}}</td>
       <td class="FileTitle">
         <!-- Button trigger modal -->

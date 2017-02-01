@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/w3.css">
-
+    <link rel="stylesheet" href="/css/fa/css/font-awesome.min.css">
     <!-- Scripts -->
     {{-- <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script> --}}
