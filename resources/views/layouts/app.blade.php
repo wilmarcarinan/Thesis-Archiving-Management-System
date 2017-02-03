@@ -259,10 +259,7 @@
         </nav>
         
         @yield('content')
-        @yield('footer')
-
-        
-        
+        @yield('footer')        
         @yield('script-section')
 
         <script type="text/javascript">

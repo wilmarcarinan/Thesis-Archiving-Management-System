@@ -25,20 +25,36 @@ class FileController extends Controller
 
     public function SearchResults(Request $request)
     {
-        // $this->validate(request(),[
-        //     'search' => 'required'
-        // ]);
-
-        $files = File::where('FileTitle','like','%'.$request->search.'%')
+        $this->validate(request(),[
+            'search' => 'required'
+        ]);
+        if($request->YEAR <> '' && $request->Adviser <> '' && $request->search <> ''){
+            $files = File::where('FileTitle','like','%'.$request->search.'%')
                 ->where('Status','Active')
                 ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->orwhere('Adviser', $request->Adviser)
                 ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
+                ->paginate(5);    
+        }elseif($request->YEAR <> '' && $request->Adviser == '' && $request->search == ''){
+            $filee = File::where('Status','Active')
+                ->where(\DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->paginate(5);
+        }elseif($request->YEAR == '' && $request->Adviser <> '' && $request->search == ''){
+            $files = File::where('Status','Active')
+                ->where('Adviser',$request->Adviser)
+                ->paginate(5);
+        }elseif($request->YEAR == '' && $request->Adviser == '' && $request->search <> ''){
+            $files = File::where('Status','Active')
+                ->where('FileTitle','like','%'.$request->search.'%')
+                ->orwhere('Abstract','like','%'.$request->search.'%')
+                ->orwhere('Category','like','%'.$request->search.'%')
+                ->paginate(5);
+        }
+        
 
         return view('file.results',compact('files'));
-        // return var_dump($request->search);
+        // return $request->Adviser;
     }
 
     public function FileForm()
@@ -81,8 +97,9 @@ class FileController extends Controller
     {
         if(Auth::User()->Role == 'User'){
             
-            $files = Auth::user()->favorites;
-            return view('file.collections',compact('files')); 
+            $favorites = Auth::user()->favorites()->where('Status','Active')->paginate(5);
+            $bookmarks = Auth::user()->bookmarks()->where('Status','Active')->paginate(5);
+            return view('file.collections',compact(['favorites','bookmarks'])); 
             // return var_dump($files);
         }
         else{
@@ -126,21 +143,7 @@ class FileController extends Controller
         return back();
     }
 
-    public function removeFavorite(Request $request)
-    {
-        $file = File::where('id',$request->file_id)->get();
-        Auth::user()->favorites()->toggle($file);
-        return back();
-    }
-
     public function bookmark(Request $request)
-    {
-        $file = File::where('id',$request->file_id)->get();
-        Auth::user()->bookmarks()->toggle($file);
-        return back();
-    }
-
-    public function removeBookmark(Request $request)
     {
         $file = File::where('id',$request->file_id)->get();
         Auth::user()->bookmarks()->toggle($file);

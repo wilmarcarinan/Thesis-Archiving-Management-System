@@ -14,14 +14,14 @@
 							<div class="form-group">
 								<label for="FileTitle" class="col-md-4 control-label">Thesis Title: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="FileTitle" required autofocus>
+									<input type="text" class="form-control" name="FileTitle">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="Categories" class="col-md-4 control-label">Categories: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Category" required>
+									<input type="text" class="form-control" name="Category">
 								</div>
 							</div>
 							
@@ -36,7 +36,7 @@
 							<div class="form-group">
 								<label for="Authors" class="col-md-4 control-label">Authors: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Authors" required>
+									<input type="text" class="form-control" name="Authors">
 								</div>
 							</div>							
 							
@@ -50,14 +50,14 @@
 							<div class="form-group">
 								<label for="thesis_date" class="col-md-4 control-label">Thesis Date: </label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="thesis_date" required>
+									<input type="date" class="form-control" name="thesis_date">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<label for="FilePath" class="col-md-4 control-label">Thesis Path: </label>
 								<div class="col-md-6">
-									<input type="file" class="form-control" name="FilePath" accept="application/pdf" required>
+									<input type="file" class="form-control" name="FilePath" accept="application/pdf">
 								</div>
 							</div>
 
@@ -72,7 +72,7 @@
 								<div class="alert alert-danger">
 									<ul>
 										@foreach($errors->all() as $error)
-										<li>{{ $error }}</li>
+											<li style="list-style: none;">{{ $error }}</li>
 										@endforeach
 									</ul>
 								</div>

@@ -18,33 +18,21 @@
     <tr>
       @if(Auth::user()->Role <> 'Admin')
         <td>
-          @if(Auth::id() == Auth::user()->favorites()->)
-            <form action="/removeBookmark" method="POST">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-              <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="fa fa-bookmark not-book" type="submit" aria-hidden="true"></button>
-          @else
             <form action="/bookmark" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="fa fa-bookmark-o btn-book" type="submit" aria-hidden="true"></button>
-          @endif           
+              <button class="btn-book" type="submit">
+                <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+              </button>
             </form>
         </td>
         <td>
-          @if(!True)
-            <form action="/removeFavorite" method="POST">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-              <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="fa fa-star not-fav" type="submit" aria-hidden="true"></button>
-          @else
             <form action="/favorite" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="fa fa-star-o btn-fav" type="submit" aria-hidden="true"></button>
-          @endif           
+              <button class="btn-fav" type="submit" >
+                <i  class="fa fa-star-o" aria-hidden="true"></i>
+              </button>        
             </form>
         </td>
       @endif
@@ -64,63 +52,6 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
-                {{-- <label for="id-of-input" class="bookmark-checkbox">
-                  <input type="checkbox" id="bookmark"/>
-                  <i class="glyphicon glyphicon-bookmark"></i>
-                  <i class="glyphicon glyphicon-book"></i>
-                  <span></span>
-                </label> --}}
-                {{-- <label for="id-of-input" class="custom-checkbox">
-                  <input type="checkbox" id="favorites"/>
-                  <i class="glyphicon glyphicon-star-empty"></i>
-                  <i class="glyphicon glyphicon-star"></i>
-                  <span></span>
-                </label>
-                <style>
-                  label {
-                    /* Presentation */
-                    font-size: 48px
-                  }
-
-                  /* Required Styling */
-
-                  label input[type="checkbox"] {
-                    display: none;
-                  }
-
-                  .custom-checkbox {
-                    /*margin-left: 10em;*/
-                    margin: -40px 20px 0px 0px; 
-                    position: relative;
-                    float: right;
-                    cursor: pointer;
-                  }
-
-                  .custom-checkbox .glyphicon {
-                    color: gold;
-                    position: absolute;
-                    top: 0.4em;
-                    left: -1.25em;
-                    font-size: 0.60em;
-                  }
-
-                  .custom-checkbox .glyphicon-star-empty {
-                    color: gray;
-                  }
-
-                  .custom-checkbox .glyphicon-star {
-                    opacity: 0;
-                    transition: opacity 0.2s ease-in-out;
-                  }
-
-                  .custom-checkbox:hover .glyphicon-star{
-                    opacity: 0.5;
-                  }
-
-                  .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
-                    opacity: 1;
-                  }
-                </style> --}}
               </div>
               <div class="modal-body">
                 <h3><b>Abstract</b></h3>

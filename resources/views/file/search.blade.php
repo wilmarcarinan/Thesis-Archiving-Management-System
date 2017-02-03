@@ -51,10 +51,10 @@
 					<div class="form-group col-sm-8 col-xs-7">
 						<label for="sel1">Adviser:</label>
 						<select class="form-control" name="Adviser">
-							<option>Select Adviser</option>
+							<option value="">Select Adviser</option>
 							@foreach($advisers as $adviser)
 								@if($adviser->Adviser <> '')
-									<option value="{{$adviser->Adviser}}">{{$adviser->Adviser}}</option>
+									<option>{{$adviser->Adviser}}</option>
 								@endif
 							@endforeach
 						</select>
@@ -62,9 +62,9 @@
 					<div class="form-group col-sm-4 col-xs-5">
 						<label for="sel2">Date:</label>
 						<select class="form-control" name="Year">
-							<option>Select Year</option>
+							<option value="">Select Year</option>
 							@foreach($years as $year)
-								<option value="{{$year['YEAR(thesis_date)']}}">{{$year['YEAR(thesis_date)']}}</option>
+								<option>{{$year['YEAR(thesis_date)']}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -74,10 +74,19 @@
 						<button type="submit" class="btn btn-primary center">Submit</button>
 						<button type="reset" class="btn btn-default center">Reset</button>
 					</div>
+					@if(count($errors) > 0)
+					<div class="alert alert-danger" style="margin-top:50px;">
+						<ul>
+							@foreach($errors->all() as $error)
+								<li style="list-style: none">{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
 				</form>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-3"></div>
+	<div class="col-sm-3">
 	</div>
 @endsection

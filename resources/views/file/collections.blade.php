@@ -54,18 +54,19 @@
             </thead>
             <tbody>
               <?php $no=1; ?>
-              @foreach($files as $file)
+              @foreach($favorites as $favorite)
                 <tr>
                   <td>{{$no++}}</td>
-                  <td>{{$file->FileTitle}}</td>
-                  <td>{{$file->Category}}</td>
-                  <td>{{$file->Authors}}</td>
-                  <td>{{$file->Adviser}}</td>
-                  <td>{{$file->thesis_date}}</td>
+                  <td>{{$favorite->FileTitle}}</td>
+                  <td>{{$favorite->Category}}</td>
+                  <td>{{$favorite->Authors}}</td>
+                  <td>{{$favorite->Adviser}}</td>
+                  <td>{{$favorite->thesis_date}}</td>
                 </tr>
               @endforeach
             </tbody>
             </table>
+            {{$favorites->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
@@ -91,8 +92,20 @@
               </tr>
             </thead>
             <tbody>
+            <?php $no=1; ?>
+              @foreach($bookmarks as $bookmark)
+                <tr>
+                  <td>{{$no++}}</td>
+                  <td>{{$bookmark->FileTitle}}</td>
+                  <td>{{$bookmark->Category}}</td>
+                  <td>{{$bookmark->Authors}}</td>
+                  <td>{{$bookmark->Adviser}}</td>
+                  <td>{{$bookmark->thesis_date}}</td>
+                </tr>
+              @endforeach
             </tbody>
-          </table>
+            </table>
+            {{$favorites->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>

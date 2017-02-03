@@ -49,8 +49,4 @@ Route::get('/ArchivedFiles','AdminController@ArchivedFiles');
 
 Route::post('/favorite','FileController@favorite');
 
-Route::post('/removeFavorite','FileController@removeFavorite');
-
 Route::post('/bookmark','FileController@bookmark');
-
-Route::post('/removeBookmark','FileController@removeBookmark');

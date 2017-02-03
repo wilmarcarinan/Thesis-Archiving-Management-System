@@ -14,7 +14,7 @@
                             <label for="StudentID" class="col-md-4 control-label">Student ID</label>
 
                             <div class="col-md-6">
-                                <input id="StudentID" type="number" class="form-control" name="StudentID" value="{{ old('StudentID') }}" required autofocus>
+                                <input id="StudentID" type="number" class="form-control" name="StudentID" value="{{ old('StudentID') }}">
 
                                 @if ($errors->has('StudentID'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="FirstName" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="FirstName" type="text" class="form-control" name="FirstName" value="{{ old('FirstName') }}" required autofocus>
+                                <input id="FirstName" type="text" class="form-control" name="FirstName" value="{{ old('FirstName') }}">
 
                                 @if ($errors->has('FirstName'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label for="MiddleName" class="col-md-4 control-label">Middle Name</label>
 
                             <div class="col-md-6">
-                                <input id="MiddleName" type="text" class="form-control" name="MiddleName" value="{{ old('MiddleName') }}" required autofocus>
+                                <input id="MiddleName" type="text" class="form-control" name="MiddleName" value="{{ old('MiddleName') }}">
 
                                 @if ($errors->has('MiddleName'))
                                     <span class="help-block">
@@ -56,7 +56,7 @@
                             <label for="LastName" class="col-md-4 control-label">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="LastName" type="text" class="form-control" name="LastName" value="{{ old('LastName') }}" required autofocus>
+                                <input id="LastName" type="text" class="form-control" name="LastName" value="{{ old('LastName') }}">
 
                                 @if ($errors->has('LastName'))
                                     <span class="help-block">
@@ -70,7 +70,7 @@
                             <label for="Course" class="col-md-4 control-label">Course</label>
 
                             <div class="col-md-6">
-                                <input id="Course" type="text" class="form-control" name="Course" value="{{ old('Course') }}" required autofocus>
+                                <input id="Course" type="text" class="form-control" name="Course" value="{{ old('Course') }}">
 
                                 @if ($errors->has('Course'))
                                     <span class="help-block">
@@ -84,7 +84,7 @@
                             <label for="College" class="col-md-4 control-label">College</label>
 
                             <div class="col-md-6">
-                                <input id="College" type="text" class="form-control" name="College" value="{{ old('College') }}" required autofocus>
+                                <input id="College" type="text" class="form-control" name="College" value="{{ old('College') }}">
 
                                 @if ($errors->has('College'))
                                     <span class="help-block">
@@ -98,7 +98,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -112,7 +112,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -126,7 +126,7 @@
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                             </div>
                         </div>
 
