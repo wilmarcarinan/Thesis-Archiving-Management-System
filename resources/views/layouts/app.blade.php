@@ -295,6 +295,16 @@
                 function isEmpty( el ){
                   return !$.trim(el.html())
                 }
+
+                // $('#favorite').click(function(){
+                //     $.ajax({
+                //         type: 'POST',
+                //         url: '/favorite',
+                //         success: function(){
+                //             alert('Congrats');         
+                //         }
+                //     });
+                // });
             });
         </script>
     </div>

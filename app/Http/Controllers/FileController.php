@@ -6,6 +6,8 @@ use App\User;
 use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FileController extends Controller
@@ -97,9 +99,11 @@ class FileController extends Controller
     {
         if(Auth::User()->Role == 'User'){
             
-            $favorites = Auth::user()->favorites()->where('Status','Active')->paginate(5);
-            $bookmarks = Auth::user()->bookmarks()->where('Status','Active')->paginate(5);
-            return view('file.collections',compact(['favorites','bookmarks'])); 
+            $favorite_list = Auth::user()->favorites()->where('Status','Active')->paginate(5);
+            $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')->paginate(5);
+            $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+            $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+            return view('file.collections',compact(['favorite_list','bookmark_list','favorites','bookmarks'])); 
             // return var_dump($files);
         }
         else{
@@ -112,7 +116,9 @@ class FileController extends Controller
     {
         $files = File::where('Status','Active')
                 ->paginate(5);
-        return view('file.list',compact('files'));    
+        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+        return view('file.list',compact(['files','favorites','bookmarks'])); 
     }
 
     public function lock(Request $request)
@@ -141,6 +147,7 @@ class FileController extends Controller
         $file = File::where('id',$request->file_id)->get();
         Auth::user()->favorites()->toggle($file);
         return back();
+        // return Response::json(Auth::user()->favorites()->toggle($file));
     }
 
     public function bookmark(Request $request)

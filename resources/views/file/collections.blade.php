@@ -15,6 +15,8 @@
           <table class="table">
             <thead>
               <tr>
+                <th></th>
+                <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -42,6 +44,8 @@
           <table class="table">
             <thead>
               <tr>
+                <th></th>
+                <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -54,8 +58,38 @@
             </thead>
             <tbody>
               <?php $no=1; ?>
-              @foreach($favorites as $favorite)
+              @foreach($favorite_list as $favorite)
                 <tr>
+                  <td>
+                      <form action="/bookmark" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$favorite->id}}">
+                        @if(in_array($favorite->id, $bookmarks))
+                          <button class="not-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
+                  <td>
+                      <form action="/favorite" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$favorite->id}}">
+                        @if(in_array($favorite->id, $favorites))
+                          <button class="not-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
                   <td>{{$no++}}</td>
                   <td>{{$favorite->FileTitle}}</td>
                   <td>{{$favorite->Category}}</td>
@@ -66,7 +100,7 @@
               @endforeach
             </tbody>
             </table>
-            {{$favorites->links()}}
+            {{$favorite_list->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
@@ -81,6 +115,8 @@
           <table class="table">
             <thead>
               <tr>
+                <th></th>
+                <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -93,8 +129,38 @@
             </thead>
             <tbody>
             <?php $no=1; ?>
-              @foreach($bookmarks as $bookmark)
+              @foreach($bookmark_list as $bookmark)
                 <tr>
+                  <td>
+                      <form action="/bookmark" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$bookmark->id}}">
+                        @if(in_array($bookmark->id, $bookmarks))
+                          <button class="not-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
+                  <td>
+                      <form action="/favorite" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$bookmark->id}}">
+                        @if(in_array($bookmark->id, $favorites))
+                          <button class="not-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
                   <td>{{$no++}}</td>
                   <td>{{$bookmark->FileTitle}}</td>
                   <td>{{$bookmark->Category}}</td>
@@ -105,7 +171,7 @@
               @endforeach
             </tbody>
             </table>
-            {{$favorites->links()}}
+            {{$bookmark_list->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>

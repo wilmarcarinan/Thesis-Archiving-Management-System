@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\File;
 use Charts;
@@ -44,8 +45,9 @@ class HomeController extends Controller
         $latest_file = File::latest('thesis_date')
                     ->where('Status','Active')
                     ->first();
-        // $favorites = Auth::user()->favorites();
-        return view('home',compact(['files','latest_file']));
+        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+        return view('home',compact(['files','latest_file', 'favorites', 'bookmarks']));
         // return var_dump($favorites);
     }
 }

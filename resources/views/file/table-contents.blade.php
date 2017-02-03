@@ -21,18 +21,30 @@
             <form action="/bookmark" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="btn-book" type="submit">
-                <i class="fa fa-bookmark-o" aria-hidden="true"></i>
-              </button>
+              @if(in_array($file->id, $bookmarks))
+                <button class="not-book" type="submit" id="favorite">
+                  <i  class="fa fa-bookmark" aria-hidden="true"></i>
+                </button>
+              @else
+                <button class="btn-book" type="submit" id="favorite">
+                  <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
+                </button>
+              @endif
             </form>
         </td>
         <td>
             <form action="/favorite" method="POST">
               {{ csrf_field() }}
               <input type="hidden" name="file_id" value="{{$file->id}}">
-              <button class="btn-fav" type="submit" >
-                <i  class="fa fa-star-o" aria-hidden="true"></i>
-              </button>        
+              @if(in_array($file->id, $favorites))
+                <button class="not-fav" type="submit" id="favorite">
+                  <i  class="fa fa-star" aria-hidden="true"></i>
+                </button>
+              @else
+                <button class="btn-fav" type="submit" id="favorite">
+                  <i  class="fa fa-star-o" aria-hidden="true"></i>
+                </button>
+              @endif
             </form>
         </td>
       @endif
