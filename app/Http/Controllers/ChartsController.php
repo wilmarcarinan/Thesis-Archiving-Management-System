@@ -16,7 +16,7 @@ class ChartsController extends Controller
             ->labels(['First', 'Second', 'Third'])
             ->values([5,10,20])
             ->dimensions(1000,500)
-            ->responsive(false);
+            ->responsive(True);
         return view('admin.charts', ['chart' => $chart]);
     }
 }

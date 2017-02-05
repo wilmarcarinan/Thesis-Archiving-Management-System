@@ -67,8 +67,16 @@
                             <span class="glyphicon glyphicon-log-in"></span>
                         </a>
                     @else
-                    
-                        @if(Auth::user()->Role == 'User')
+                        <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-off"></span>
+                        </a>
+                        <a href="/search" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-search"></span>                        
+                        </a>
+                        <a href="/home" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-home"></span>                        
+                        </a>
+                        @if(Auth::user()->Role == 'Admin')
                             <a href="/settings" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
@@ -83,17 +91,7 @@
                                 <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
                         @endif
-                            <a href="{{ url('/logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-off"></span>
-                            </a>
-                            <a href="/search" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-search"></span>                        
-                            </a>
-                            <a href="/home" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-home"></span>                        
-                            </a>
+                            
                     @endif
                 </div>
 
