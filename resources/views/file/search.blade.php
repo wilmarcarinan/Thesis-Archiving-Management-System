@@ -20,69 +20,69 @@
 						<input id="search" type="text" class="form-control" name="search" placeholder="Type Thesis Name" autofocus>
 					</div>
 	  				<div id="advance" class="collapse">
-					<!--checkbox-->
-					{{-- <div class="col-md-2 col-sm-0 col-xs-1"></div>
-					<div class="col-sm-4 col-xs-5">
-						<!--checkbox loop na lang yung mga available category-->
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 1</label>
+						<!--checkbox-->
+						{{-- <div class="col-md-2 col-sm-0 col-xs-1"></div>
+						<div class="col-sm-4 col-xs-5">
+							<!--checkbox loop na lang yung mga available category-->
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 1</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 2</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 3</label>
+							</div>
 						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 2</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 3</label>
-						</div>
-					</div>
-					<div class="col-sm-4 col-xs-5">
-						<!--checkbox loop na lang yung mga available category-->
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 1</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 2</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">Option 3</label>
-						</div>
-					</div> --}}
+						<div class="col-sm-4 col-xs-5">
+							<!--checkbox loop na lang yung mga available category-->
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 1</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 2</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 3</label>
+							</div>
+						</div> --}}
 
-					<!--select-->
-					<div class="form-group col-sm-8 col-xs-7">
-						<label for="sel1">Adviser:</label>
-						<select class="form-control" name="Adviser">
-							<option value="">Select Adviser</option>
-							@foreach($advisers as $adviser)
-								@if($adviser->Adviser <> '')
-									<option>{{$adviser->Adviser}}</option>
-								@endif
-							@endforeach
-						</select>
-					</div>
-					<div class="form-group col-sm-4 col-xs-5">
-						<label for="sel2">Date:</label>
-						<select class="form-control" name="Year">
-							<option value="">Select Year</option>
-							@foreach($years as $year)
-								<option>{{$year['YEAR(thesis_date)']}}</option>
-							@endforeach
-						</select>
-					</div>
+						<!--select-->
+						<div class="form-group col-sm-8 col-xs-7">
+							<label for="sel1">Adviser:</label>
+							<select class="form-control" name="Adviser">
+								<option value="">Select Adviser</option>
+								@foreach($advisers as $adviser)
+									@if($adviser->Adviser <> '')
+										<option>{{$adviser->Adviser}}</option>
+									@endif
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group col-sm-4 col-xs-5">
+							<label for="sel2">Date:</label>
+							<select class="form-control" name="Year">
+								<option value="">Select Year</option>
+								@foreach($years as $year)
+									<option value="{{$year['YEAR(thesis_date)']}}">{{$year['YEAR(thesis_date)']}}</option>
+								@endforeach
+							</select>
+						</div>
 					</div>
 					<div class="col-sm-4 col-xs-3"></div>
 					<div class="col-sm-8 col-xs-9">
 						<button type="submit" class="btn btn-primary center">Submit</button>
 						<button type="reset" class="btn btn-default center">Reset</button>
 					</div>
-					@if(count($errors) > 0)
-					<div class="alert alert-danger" style="margin-top:50px;">
-						<ul>
-							@foreach($errors->all() as $error)
-								<li style="list-style: none">{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-				@endif
+					{{-- @if(count($errors) > 0)
+						<div class="alert alert-danger" style="margin-top:50px;">
+							<ul>
+								@foreach($errors->all() as $error)
+									<li style="list-style: none">{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif --}}
 				</form>
 			</div>
 		</div>

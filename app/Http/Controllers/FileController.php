@@ -27,20 +27,18 @@ class FileController extends Controller
 
     public function SearchResults(Request $request)
     {
-        $this->validate(request(),[
-            'search' => 'required'
-        ]);
+        $files = new File;
         if($request->YEAR <> '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where('FileTitle','like','%'.$request->search.'%')
                 ->where('Status','Active')
                 ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->orwhere('Adviser', $request->Adviser)
-                ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->paginate(5);    
+                ->orwhere(DB::raw('YEAR(thesis_date)'), $request->Year)
+                ->paginate(5);
         }elseif($request->YEAR <> '' && $request->Adviser == '' && $request->search == ''){
-            $filee = File::where('Status','Active')
-                ->where(\DB::raw('YEAR(thesis_date)'), $request->Year)
+            $files = File::where('Status','Active')
+                // ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->paginate(5);
         }elseif($request->YEAR == '' && $request->Adviser <> '' && $request->search == ''){
             $files = File::where('Status','Active')
@@ -53,10 +51,12 @@ class FileController extends Controller
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->paginate(5);
         }
+        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         
 
-        return view('file.results',compact('files'));
-        // return $request->Adviser;
+        return view('file.results',compact(['files', 'favorites', 'bookmarks']));
+        // return var_dump($files);
     }
 
     public function FileForm()
