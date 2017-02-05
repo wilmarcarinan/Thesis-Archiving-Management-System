@@ -55,6 +55,16 @@ class HomeController extends Controller
             ->dimensions(780,350)
             ->responsive(True);
 
+            // $chart3 = Charts::multi('areaspline', 'highcharts')
+            // ->title('Burndown Chart')
+            // ->colors(['rgb(46,112,160)', 'rgb(192,65,62)'])
+            // ->labels(['Sprint 1', 'Sprint 2'])
+            // ->elementLabel('Total Story Points')
+            // ->dataset('Ideal Story Points', [11,32,58,74])
+            // ->dataset('Current Story Points Completed',[11,11,11,11])
+            // ->dimensions(780,350)
+            // ->responsive(True);
+
             return view('admin.charts', [
                 'chart' => $chart, 
                 'chart2' => $chart2,
