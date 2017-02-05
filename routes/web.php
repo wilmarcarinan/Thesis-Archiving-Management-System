@@ -39,7 +39,6 @@ Route::get('/list','FileController@list');
 
 Route::post('/increment_views', 'FileController@increment_views');
 
-Route::get('/charts','ChartsController@index');
 
 Route::patch('/lock','FileController@lock');
 

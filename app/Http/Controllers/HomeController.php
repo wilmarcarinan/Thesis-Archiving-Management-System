@@ -32,22 +32,45 @@ class HomeController extends Controller
         if(Auth::user()->Role == 'Admin') // && \Auth::user()->Status == 'Active'
         {
             $chart = Charts::create('area', 'highcharts')
-                    ->title('Dashboard')
-                    ->labels(['First', 'Second', 'Third'])
-                    ->values([5,10,20])
-                    ->dimensions(1000,500)
-                    ->responsive(false);
-            return view('admin.charts', ['chart' => $chart]);
-        }
-        $files = File::latest('thesis_date')
+            ->title('Views per day')
+            ->labels(['day1', 'day2', 'day3'])
+            ->elementLabel("Total")
+            ->values([5,10,20])
+            ->dimensions(780,350)
+            ->responsive(True);
+
+            $chart2 = Charts::create('bar', 'highcharts')
+            ->title('User login per day')
+            ->elementLabel("Total")
+            ->labels(['day1', 'day2', 'day3'])
+            ->values([5,10,20])
+            ->dimensions(780,350)
+            ->responsive(True);
+
+            $chart3 = Charts::create('line', 'highcharts')
+            ->title('Files uploaded per day')
+            ->elementLabel("Total")
+            ->labels(['day1', 'day2', 'day3'])
+            ->values([5,10,20])
+            ->dimensions(780,350)
+            ->responsive(True);
+
+            return view('admin.charts', [
+                'chart' => $chart, 
+                'chart2' => $chart2,
+                'chart3' => $chart3
+                ]);
+        }else{
+            $files = File::latest('thesis_date')
                 ->where('Status','Active')
                 ->paginate(5);
-        $latest_file = File::latest('thesis_date')
-                    ->where('Status','Active')
-                    ->first();
-        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
-        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-        return view('home',compact(['files','latest_file', 'favorites', 'bookmarks']));
+            $latest_file = File::latest('thesis_date')
+            ->where('Status','Active')
+            ->first();
+            $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+            $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+            return view('home',compact(['files','latest_file', 'favorites', 'bookmarks']));
+        }
         // return var_dump($favorites);
     }
 }
