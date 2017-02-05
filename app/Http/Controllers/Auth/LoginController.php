@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Log;
+use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
@@ -102,5 +103,24 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/');
+    }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => [
+            'required',
+            Rule::exists('users')->where(function ($query) {
+                $query->where('Status', 'Active');
+            }),
+            ], 
+            'password' => 'required',
+        ]);
     }
 }
