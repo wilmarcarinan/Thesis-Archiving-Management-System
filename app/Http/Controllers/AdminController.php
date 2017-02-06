@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         if(Auth::user()->Role == 'Admin')
         {
-            $logs = Log::paginate(15);
+            $logs = Log::latest()->paginate(50);
 
             return view('admin.Logs',compact('logs'));
         }else{
@@ -52,7 +52,7 @@ class AdminController extends Controller
         
         $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id)->get();
         $log = new Log;
-        $log->Subject = 'User Locking';
+        $log->Subject = 'User Management';
         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has locked ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
         $log->student_id = Auth::id();
         $log->save();
@@ -67,8 +67,38 @@ class AdminController extends Controller
         
         $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id)->get();
         $log = new Log;
-        $log->Subject = 'User Locking';
+        $log->Subject = 'User Management';
         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has unlocked ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
+        $log->student_id = Auth::id();
+        $log->save();
+
+        return back();
+    }
+
+    public function PromoteUser(Request $request)
+    {
+        User::where('id',$request->user_id2)
+            ->update(['Role'=>'Admin']);
+        
+        $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id2)->get();
+        $log = new Log;
+        $log->Subject = 'User Management';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has promoted ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
+        $log->student_id = Auth::id();
+        $log->save();
+        
+        return back();
+    }
+
+    public function DemoteUser(Request $request)
+    {
+        User::where('id',$request->user_id2)
+            ->update(['Role'=>'User']);
+        
+        $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id2)->get();
+        $log = new Log;
+        $log->Subject = 'User Management';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has demoted ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
         $log->student_id = Auth::id();
         $log->save();
 

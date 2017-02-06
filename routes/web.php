@@ -52,3 +52,7 @@ Route::post('/bookmark','FileController@bookmark');
 Route::patch('/LockUser','AdminController@LockUser');
 
 Route::patch('/UnlockUser','AdminController@UnlockUser');
+
+Route::patch('/PromoteUser','AdminController@PromoteUser');
+
+Route::patch('/DemoteUser','AdminController@DemoteUser');

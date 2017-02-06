@@ -16,6 +16,8 @@
 								<th>Role</th>
 								<th>Status</th>
 								<th>Date Registered</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,6 +44,22 @@
 										{{csrf_field()}}
 										<input type="hidden" name="user_id" value="{{$user->id}}">
 										<button class="btn btn-primary" type="submit">Lock</button>
+								@endif
+									</form>
+								</td>
+								<td>
+								@if($user->Role == 'User')
+									<form action="/PromoteUser" method="POST">
+										{{method_field('PATCH')}}
+										{{csrf_field()}}
+										<input type="hidden" name="user_id2" value="{{$user->id}}">
+										<button class="btn btn-primary" type="submit">Promote</button>
+								@else
+									<form action="/DemoteUser" method="POST">
+										{{method_field('PATCH')}}
+										{{csrf_field()}}
+										<input type="hidden" name="user_id2" value="{{$user->id}}">
+										<button class="btn btn-primary" type="submit">Demote</button>
 								@endif
 									</form>
 								</td>
