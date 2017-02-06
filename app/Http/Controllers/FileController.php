@@ -83,19 +83,19 @@ class FileController extends Controller
             $log->Subject = 'Search';
             
             if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
             }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->Year;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Year;
             }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->Adviser;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Adviser;
             }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->search;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->search;
             }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
             }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
             }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
             }
             $log->student_id = Auth::id();
             $log->save();
@@ -136,6 +136,12 @@ class FileController extends Controller
         $file->thesis_date = $request->thesis_date;
         $file->FilePath = '/files/'.$fileName;
         $file->save();
+
+        $log - new Log;
+        $log->Subject = 'File Upload';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a file entitled ".$request->FileTitle;
+        $log->student_id = Auth::id();
+        $log->save();
 
         return redirect('search');
         // return $fileName;
