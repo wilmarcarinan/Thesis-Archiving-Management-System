@@ -17,6 +17,19 @@
   @foreach($files as $file)
     <tr>
       @if(Auth::user()->Role <> 'Admin')
+        {{-- <td> --}}
+          <!-- Button trigger modal -->
+          {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
+            <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+          </button> --}}
+          {{-- @if(in_array($file->id,$notes))
+            <form action="/editNotes" method="POST">
+              {{ csrf_field() }}
+              {{method_field('PATCH')}}
+
+
+            </form> --}}
+        {{-- </td> --}}
         <td>
             <form action="/bookmark" method="POST">
               {{ csrf_field() }}
@@ -95,7 +108,9 @@
         <td>{{ $file->Status }}</td>
       @endif
       <td>{{$file->no_of_views}}</td>
-      <td></td>
+      <td>
+        {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
+      </td>
       @if(Auth::user()->Role == 'Admin')
         <td>
           @if($file->Status == 'Inactive')

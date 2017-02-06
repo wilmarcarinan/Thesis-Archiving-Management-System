@@ -23,9 +23,7 @@ class AdminController extends Controller
 
             return view('admin.Logs',compact('logs'));
         }else{
-            $files_latest = File::latest()->paginate(5);
-            $latest_file = File::latest()->first();
-            return view('home',compact(['files_latest','latest_file']));
+            return redirect()->action('HomeController@index');
         }
     }
 
@@ -36,9 +34,7 @@ class AdminController extends Controller
             $users = User::where('id','!=',Auth::id())->paginate(15);
             return view('admin.Users',compact('users'));
         }else{
-            $files_latest = File::latest()->paginate(5);
-            $latest_file = File::latest()->first();
-            return view('home',compact(['files_latest','latest_file']));
+            return redirect()->action('HomeController@index');
         }
     }
 
@@ -47,5 +43,21 @@ class AdminController extends Controller
         $files = File::where('Status','Inactive')->paginate(5);
         return view('admin.ArchivedFiles',compact(['files']));
         // return var_dump($files);
+    }
+
+    public function LockUser(Request $request)
+    {
+        User::where('id',$request->user_id)
+            ->update(['Status'=>'Inactive']);
+        
+        return back();
+    }
+
+    public function UnlockUser(Request $request)
+    {
+        User::where('id',$request->user_id)
+            ->update(['Status'=>'Active']);
+        
+        return back();
     }
 }

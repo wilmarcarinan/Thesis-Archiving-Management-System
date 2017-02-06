@@ -230,7 +230,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="/charts">Dashboard</a>
+                            <a href="/">Dashboard</a>
                         </li>
                         <li>
                             <a href="/users">Manage Users</a>

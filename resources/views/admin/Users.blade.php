@@ -29,6 +29,22 @@
 								<td>{{ $user->Role }}</td>
 								<td>{{ $user->Status }}</td>
 								<td>{{ $user->created_at }}</td>
+								<td>
+								@if($user->Status == 'Inactive')
+									<form action="/UnlockUser" method="POST">
+										{{method_field('PATCH')}}
+										{{csrf_field()}}
+										<input type="hidden" name="user_id" value="{{$user->id}}">
+										<button class="btn btn-primary" type="submit">Unlock</button>
+								@else
+									<form action="/LockUser" method="POST">
+										{{method_field('PATCH')}}
+										{{csrf_field()}}
+										<input type="hidden" name="user_id" value="{{$user->id}}">
+										<button class="btn btn-primary" type="submit">Lock</button>
+								@endif
+									</form>
+								</td>
 							</tr>
 							@endforeach
 						</tbody>
