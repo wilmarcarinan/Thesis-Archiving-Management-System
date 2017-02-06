@@ -9,14 +9,8 @@
 				<div class="col-md-12">
 			@endif
 					@if($files == '[]')
-						@if(Auth::user()->Role == 'Admin')
-							<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Add Thesis</a>
-						@endif
 						<h3 style="margin-left:20px">Not Found</h3>
 					@else
-						@if(Auth::user()->Role == 'Admin')
-							<a href="/AddFile" class="btn btn-primary" id="AddFileBtn">Add Thesis</a>
-						@endif
 						<div class="table-responsive" id="FileTable">
 							<table class="table table-hover">
 								<thead>

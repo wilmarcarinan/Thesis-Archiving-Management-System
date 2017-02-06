@@ -17,8 +17,12 @@
             <p>{{$latest_file->thesis_date->format('F j, Y')}}</p>
           </div>
           <center class="w3-container" style="padding: 10px">
-            <span class="glyphicon glyphicon-eye-open">100</span>
-            <span class="glyphicon glyphicon-star-empty">100</span>
+            <span class="glyphicon glyphicon-eye-open">
+              0
+            </span>
+            <span class="glyphicon glyphicon-star-empty">
+              {{ DB::table('favorites')->where('file_id',$latest_file->id)->pluck('user_id')->count() }}
+            </span>
             <br />
           </center>
         </div>

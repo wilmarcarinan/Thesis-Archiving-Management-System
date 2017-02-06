@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\File;
+use App\Log;
 
 class SettingsController extends Controller
 {
@@ -43,12 +44,16 @@ class SettingsController extends Controller
     		'password' => bcrypt(request('NewPassword'))
     	]);
 
+        $log = new Log;
+        $log->Subject = 'Settings';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has updated his/her settings.";
+        $log->student_id = Auth::id();
+        $log->save();
+
     	if(Auth::user()->Role == 'Admin'){
     		return view('admin.AdminPage');
     	}else{
-            $files_latest = File::latest()->paginate(5);
-            $latest_file = File::latest()->first();
-    		return view('home',compact(['files_latest','latest_file']));
+    		return redirect()->action('HomeController@index');
     	}
 
     }

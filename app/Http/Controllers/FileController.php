@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Log;
 
 class FileController extends Controller
 {
@@ -28,7 +29,7 @@ class FileController extends Controller
     public function SearchResults(Request $request)
     {
         $files = new File;
-        if($request->YEAR <> '' && $request->Adviser <> '' && $request->search <> ''){
+        if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where('FileTitle','like','%'.$request->search.'%')
                 ->where('Status','Active')
                 ->orwhere('Abstract','like','%'.$request->search.'%')
@@ -36,24 +37,69 @@ class FileController extends Controller
                 ->orwhere('Adviser', $request->Adviser)
                 ->orwhere(DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->paginate(5);
-        }elseif($request->YEAR <> '' && $request->Adviser == '' && $request->search == ''){
+        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
             $files = File::where('Status','Active')
-                // ->orwhere(\DB::raw('YEAR(thesis_date)'), $request->Year)
+                ->where(\DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->paginate(5);
-        }elseif($request->YEAR == '' && $request->Adviser <> '' && $request->search == ''){
+        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
             $files = File::where('Status','Active')
                 ->where('Adviser',$request->Adviser)
                 ->paginate(5);
-        }elseif($request->YEAR == '' && $request->Adviser == '' && $request->search <> ''){
+        }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
             $files = File::where('Status','Active')
                 ->where('FileTitle','like','%'.$request->search.'%')
                 ->orwhere('Abstract','like','%'.$request->search.'%')
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->paginate(5);
+        }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
+            $files = File::where('Status','Active')
+                ->where([
+                    [\DB::raw('YEAR(thesis_date)'), $request->Year],
+                    ['Adviser', $request->Adviser],
+                ])
+                ->paginate(5);
+        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
+            $files = File::where([
+                ['Status','Active'],
+                [\DB::raw('YEAR(thesis_date)'), $request->Year],
+                ['FileTitle','like','%'.$request->search.'%'],
+                ['Abstract','like','%'.$request->search.'%'],
+                ['Category','like','%'.$request->search.'%'],
+                ])->paginate(5);
+        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
+            $files = File::where([
+                ['Status','Active'],
+                ['FileTitle','like','%'.$request->search.'%'],
+                ['Abstract','like','%'.$request->search.'%'],
+                ['Category','like','%'.$request->search.'%'],
+                ['Adviser', $request->Adviser],
+                ])->paginate(5);
         }
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         
+        if($request->Year <> '' || $request->Adviser <> '' || $request->search <> ''){
+            $log = new Log;
+            $log->Subject = 'Search';
+            
+            if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
+            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->Year;
+            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->Adviser;
+            }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the term ".$request->search;
+            }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
+            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
+            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
+                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
+            }
+            $log->student_id = Auth::id();
+            $log->save();
+        }
 
         return view('file.results',compact(['files', 'favorites', 'bookmarks']));
         // return var_dump($files);

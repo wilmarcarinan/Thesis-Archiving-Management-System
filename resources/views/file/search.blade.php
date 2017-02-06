@@ -17,7 +17,7 @@
 					<!--textbox-->
 					<div class="input-group col-sm-12" style="padding: 20px 0;">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-						<input id="search" type="text" class="form-control" name="search" placeholder="Type Thesis Name" autofocus>
+						<input id="search" type="text" class="form-control" name="search" placeholder="Enter keywords (e.g Title, Abstract, Categories)" autofocus>
 					</div>
 	  				<div id="advance" class="collapse">
 						<!--checkbox-->
