@@ -177,8 +177,15 @@ class FileController extends Controller
     {
         File::where('id',$request->file_id)
             ->update(['Status'=>'Inactive']);
+        $file = File::select('FileTitle')->where('id',$request->file_id)->get();
+        $log = new Log;
+        $log->Subject = 'File Locking';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has locked ".$file[0]['FileTitle'];
+        $log->student_id = Auth::id();
+        $log->save();
         
         return back();
+        // return $file_title;
     }
 
     public function unlock(Request $request)
@@ -186,6 +193,13 @@ class FileController extends Controller
         File::where('id',$request->file_id)
             ->update(['Status'=>'Active']);
         
+        $file = File::select('FileTitle')->where('id',$request->file_id)->get();
+        $log = new Log;
+        $log->Subject = 'File Locking';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has unlocked ".$file[0]['FileTitle'];
+        $log->student_id = Auth::id();
+        $log->save();
+
         return back();
     }
 

@@ -75,7 +75,7 @@ class LoginController extends Controller
             $log = new Log;
 
             $log->Subject = 'Login';
-            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has logged in.";
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has logged in.";
             $log->student_id = Auth::id();
 
             $log->save();
@@ -90,7 +90,7 @@ class LoginController extends Controller
             $log = new Log;
 
             $log->Subject = 'Logout';
-            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has logged out.";
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has logged out.";
             $log->student_id = Auth::id();
 
             $log->save();

@@ -46,7 +46,7 @@ class SettingsController extends Controller
 
         $log = new Log;
         $log->Subject = 'Settings';
-        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName."[".Auth::user()->Role."] has updated his/her settings.";
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has updated his/her settings.";
         $log->student_id = Auth::id();
         $log->save();
 
