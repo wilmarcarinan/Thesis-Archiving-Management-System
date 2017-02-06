@@ -50,6 +50,13 @@ class AdminController extends Controller
         User::where('id',$request->user_id)
             ->update(['Status'=>'Inactive']);
         
+        $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id)->get();
+        $log = new Log;
+        $log->Subject = 'User Locking';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has locked ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
+        $log->student_id = Auth::id();
+        $log->save();
+        
         return back();
     }
 
@@ -58,6 +65,13 @@ class AdminController extends Controller
         User::where('id',$request->user_id)
             ->update(['Status'=>'Active']);
         
+        $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id)->get();
+        $log = new Log;
+        $log->Subject = 'User Locking';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has unlocked ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
+        $log->student_id = Auth::id();
+        $log->save();
+
         return back();
     }
 }
