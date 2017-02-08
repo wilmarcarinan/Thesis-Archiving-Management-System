@@ -281,7 +281,7 @@
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
                 // $('.abstract-title').html($(this).data('title'));
-                document.getElementById('file_link').setAttribute('href',file_name);
+                document.getElementById('file_link').setAttribute('href','{{}}' + file_name);
                 if(isEmpty($('.qrcodeCanvas'))){
                     document.querySelector('.qrcodeCanvas').appendChild(el);
                     // console.log('Its empty');

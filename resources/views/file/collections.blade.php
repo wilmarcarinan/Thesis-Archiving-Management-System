@@ -96,6 +96,10 @@
                   <td>{{$favorite->Authors}}</td>
                   <td>{{$favorite->Adviser}}</td>
                   <td>{{$favorite->thesis_date}}</td>
+                  <td>{{$favorite->no_of_views}}</td>
+                  <td>
+                    {{ DB::table('favorites')->where('file_id',$favorite->id)->pluck('user_id')->count() }}
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -167,6 +171,10 @@
                   <td>{{$bookmark->Authors}}</td>
                   <td>{{$bookmark->Adviser}}</td>
                   <td>{{$bookmark->thesis_date}}</td>
+                  <td>{{$bookmark->no_of_views}}</td>
+                  <td>
+                    {{ DB::table('bookmarks')->where('file_id',$bookmark->id)->pluck('user_id')->count() }}
+                  </td>
                 </tr>
               @endforeach
             </tbody>

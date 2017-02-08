@@ -2,12 +2,12 @@
 <p class="QRCode hidden">
   @if(Request::server('SERVER_NAME') <> '127.0.0.1')
     <?php 
-      $path='http://'.Request::server('SERVER_NAME').'/pdf.js/web/viewer.html?file=http://'.Request::server('SERVER_NAME');
+      $path='http://'.Request::server('SERVER_NAME').'/pdf.js/web/viewer.html?file=http://'.Request::server('SERVER_NAME')."/files/";
       echo $path;
     ?>
   @else
     <?php 
-      $path='http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000';
+      $path='http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/';
       echo $path;
     ?>
   @endif
