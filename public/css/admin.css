@@ -2,6 +2,68 @@ body{
 	background-color: #222;
 }
 
+/*Search UI*/
+#AddFileBtn {
+	margin-left: 85%;
+}
+
+#FileTable {
+	margin-top: 20px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #111;
+    color: white;
+    margin: -10px 10px;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #222}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    visibility: hidden;
+}
+
+.dropbtn:hover {
+	visibility: hidden;
+}
+
 /*.navbar {
 	background-color: #222;
 }
@@ -11,17 +73,17 @@ body{
 
 /* Side Navigation */
 
-@media(min-width:768px) {
+@media(min-width:225px) {
 	.side-nav {
-		position: fixed;
-		top: 51px;
-		width: 225px;
+		width: 10%;
 		border: none;
 		border-radius: 0;
 		overflow-y: auto;
 		background-color: #111;
-		height: 100%;
+		color: #eee;
 		opacity: 0.5;
+		float: left;
+		margin-top: -55px;
 	}
 
 	.side-nav>li>a {
@@ -42,16 +104,7 @@ body{
 
 .side-nav>li>a {
 	display: block;
-	padding: 20px 15px 10px 38px;
+	padding: 20px 30px;
 	text-decoration: none;
 	color: #999 !important;
-}
-
-/*Search UI*/
-#AddFileBtn {
-	margin-left: 85%;
-}
-
-#FileTable {
-	margin-top: 20px;
 }

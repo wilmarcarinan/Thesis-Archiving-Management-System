@@ -2,14 +2,14 @@
 
 @section('content')
 @if(Auth::user()->Role == 'User')
-	<div class="container jumbotron" style="margin-top:50px">
+	<div class="container jumbotron">
 @else
-	<div class="container jumbotron" style="margin-top:50px; margin-right: 120px">
+	<div class="container jumbotron">
 @endif
 		<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<h2 class="col-md-11 col-sm-10 col-xs-10">Search</h2>
-				<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance">
+				<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance" title="Advance Search">
 						<span class="glyphicon glyphicon-filter"></span>
 				</button>
 				<form method="POST" action="/results">

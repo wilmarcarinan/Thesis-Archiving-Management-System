@@ -135,7 +135,7 @@
                             </li>
                         @else
                             {{-- <li>
-                                <form action="/search" method="POST" class="form-horizontal" style="margin-top: 7px">
+                                <form action="/search" method="POST" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <div class="form-inline">
                                         <input type="text" class="form-control" placeholder="Enter a keyword..." name="keyword">
@@ -225,37 +225,23 @@
                     </ul>
                 </div>
             </div>
+            </nav>
             @if(!Auth::guest())
                 @if(Auth::user()->Role == 'Admin')
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li>
-                            <a href="/">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="/users">Manage Users</a>
-                        </li>
-                        <li>
-                            <a href="/list">Manage Files</a>
-                        </li>
-                        <li>
-                            <a href="/ArchivedFiles">Archived Files</a>
-                        </li>
-                        <li>
-                            <a href="/logs">Logs</a>
-                        </li>
-                        {{-- <li>
-                            <a href="#">Reports</a>
-                        </li> --}}
-                        <li>
-                            <a href="/settings">Admin Settings</a>
-                        </li>
-                    </ul>
+                <div class="dropdown" style="float: left;">
+                <button class="dropbtn"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                <div class="dropdown-content side-nav">
+                    <a href="/">Dashboard</a>    
+                    <a href="/users">Manage Users</a>            
+                    <a href="/list">Manage Files</a> 
+                    <a href="/ArchivedFiles">Archived Files</a>      
+                    <a href="/logs">Logs</a>
+                    {{-- <a href="#">Reports</a>--}}
+                    <a href="/settings">Admin Settings</a>
+                </div>
                 </div>
                 @endif
-            @endif
-        </nav>
-        
+            @endif        
         @yield('content')
         @yield('footer')        
         @yield('script-section')

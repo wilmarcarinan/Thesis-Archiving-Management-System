@@ -3,13 +3,13 @@
 @section('content')
     @if(Auth::user()->Role == 'Admin')
         <div class="container">
-            <div class="col-sm-offset-2 col-sm-2"><span class="glyphicon glyphicon-list-alt"></span> List All</div>
-            <div id="compress" class="collapse col-sm-offset-2 col-sm-6">
+            <div class=" col-sm-2"><span class="glyphicon glyphicon-list-alt"></span> List All</div>
+            <div id="compress" class="collapse col-sm-offset-3 col-sm-9">
                 <form action="/compress" method="POST">
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="filename" placeholder="Enter ZIP filename">
-                        <input type="text" class="form-control" name="filedate" placeholder="Enter batch year">
+                        <input type="number" class="form-control" name="filedate" placeholder="Enter batch year">
                     </div>
                     <input type="submit" value="compress" class="btn btn-info">
                 </form>
@@ -40,6 +40,7 @@
                         @endif
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>

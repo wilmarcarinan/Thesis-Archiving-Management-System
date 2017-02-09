@@ -117,13 +117,13 @@
             {{method_field('PATCH')}}
             {{csrf_field()}}
             <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-retweet"></span></button>
+            <button class="btn btn-primary" type="submit"><span class="fa fa-unlock-alt"></span></button>
         @else
           <form action="/lock" method="POST">
             {{method_field('PATCH')}}
             {{csrf_field()}}
             <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-lock"></span></button>
+            <button class="btn btn-primary" type="submit"><span class="fa fa-lock"></span></button>
         @endif
           </form>
       </td>
