@@ -6,6 +6,12 @@
     @else
         <div class="container">
     @endif
+            <form action="/compress" method="POST">
+                {{ csrf_field() }}
+                <input type="text" name="filename">
+                <input type="text" name="filedate">
+                <input type="submit" value="compress">
+            </form>
             <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
             <div class="table-responsive">          
                 <table class="table">
