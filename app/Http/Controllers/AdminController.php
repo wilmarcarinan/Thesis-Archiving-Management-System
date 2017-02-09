@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         if(Auth::user()->Role == 'Admin')
         {
-            $logs = Log::paginate(15);
+            $logs = Log::latest()->paginate(50);
 
             return view('admin.Logs',compact('logs'));
         }else{
