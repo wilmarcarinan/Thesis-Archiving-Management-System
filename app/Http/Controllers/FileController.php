@@ -138,7 +138,7 @@ class FileController extends Controller
         $file->FilePath = '/files/'.$fileName;
         $file->save();
 
-        $log - new Log;
+        $log = new Log;
         $log->Subject = 'File Upload';
         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a file entitled ".$request->FileTitle;
         $log->student_id = Auth::id();
