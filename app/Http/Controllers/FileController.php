@@ -135,7 +135,7 @@ class FileController extends Controller
         $file->Authors = $request->Authors;
         $file->Adviser = $request->Adviser;
         $file->thesis_date = $request->thesis_date;
-        $file->FilePath = '/files/'.$fileName;
+        $file->FilePath = $fileName;
         $file->save();
 
         $log = new Log;
