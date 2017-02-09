@@ -238,4 +238,10 @@ class FileController extends Controller
         Zipper::close();
         return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);
     }
+    // public function comp(Request $request)
+    // {
+    //     $files = new File;
+    //     $request->Year <> '' && $request->Adviser == '' && $request->search == ''){
+    //     $files = File::where('Status','Active')->where(DB::raw('YEAR(thesis_date)'), $request->Year)
+    // }
 }

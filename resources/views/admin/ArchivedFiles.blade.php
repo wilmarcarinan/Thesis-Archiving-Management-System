@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="margin-left: 225px">
+    <div class="container">
         <h2><span class="glyphicon glyphicon-list-alt"></span> Archived Files</h2>
         <div class="table-responsive">          
             <table class="table">
