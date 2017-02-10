@@ -12,6 +12,21 @@
 	}
 </style>
 <center>
+<script type="text/javascript">
+	function checkWilmaActivity(){
+		if($('#monthlyview').attr('numC')>=3){
+			setTimeout(function() {
+				$("#monthlyview").removeClass("in active");
+		    }, 1000);
+			
+		}
+		if($('#yearlyview').attr('numC')>=3){
+			setTimeout(function() {
+				$("#yearlyview").removeClass("in active");
+		    }, 1000);
+		}
+	}
+</script>
 	<div class="container">
 		<div class="col-md-10 col-md-offset-1" style="padding: 10px 0px 10px ;">
 			<ul class="nav nav-pills">
@@ -21,25 +36,104 @@
 			</ul>
 			<div class="tab-content">
 					<div id="dailyview" class="tab-pane fade in active">
-						{!! $chartvd->render() !!}
-					<p class="padding: 10px 10px 10px 10px">{!! $chartud->render() !!}</p>
-					<p class="padding: 10px 10px 10px 10px">{!! $chartld->render() !!}</p>
+						<div id="getchartvd">
+						<script>
+							$.get( "/getchartvd" )
+							  .done(function( data ) {
+								$('#getchartvd').html(data);
+							  });
+						</script>{{-- {!! $chartvd->render() !!} --}}
+						</div>
+					<p  id="getchartud" class="padding: 10px 10px 10px 10px">
+						<script>
+							$.get( "/getchartud" )
+							  .done(function( data ) {
+								$('#getchartud').html(data);
+							  });
+						</script>
+					{{-- {!! $chartud->render() !!} --}}
+					</p>
+					<p id="getchartld" class="padding: 10px 10px 10px 10px">
+						<script>
+							$.get( "/getchartld" )
+							  .done(function( data ) {
+								$('#getchartld').html(data);
+							  });
+						</script>
+					{{-- {!! $chartld->render() !!} --}}
+					</p>
 					</div>
-					<div id="monthlyview" class="tab-pane fade in active">
-						{!! $chartvm->render() !!}
-					<p class="padding: 10px 10px 10px 10px">{!! $chartum->render() !!}</p>
-					<p class="padding: 10px 10px 10px 10px">{!! $chartlm->render() !!}</p>	
+					<div id="monthlyview" class="tab-pane fade in active" numC="0">
+						<div id="getchartvm">{{-- {!! $chartvm->render() !!} --}}
+						</div>
+						<script>
+							$.get( "/getchartvm" )
+							  .done(function( data ) {
+							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+								$('#getchartvm').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
+					<p id="getchartum" class="padding: 10px 10px 10px 10px">{{-- {!! $chartum->render() !!} --}}
+					</p>
+						<script>
+							$.get( "/getchartum" )
+							  .done(function( data ) {
+							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+								$('#getchartum').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
+					<p id="getchartlm" class="padding: 10px 10px 10px 10px">{{-- {!! $chartlm->render() !!} --}}
+					</p>	
+						<script>
+							$.get( "/getchartlm" )
+							  .done(function( data ) {
+							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+								$('#getchartlm').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
 					</div>
-					<div id="yearlyview" class="tab-pane fade in active">
-						{!! $chartvy->render() !!}
-					<p class="padding: 10px 10px 10px 10px">{!! $chartuy->render() !!}</p>
-					<p class="padding: 10px 10px 10px 10px">{!! $chartly->render() !!}</p>
+					<div id="yearlyview" class="tab-pane fade in active" numC="0">
+						<div id="getchartvy">{{-- {!! $chartvy->render() !!} --}}
+						</div>
+						<script>
+							$.get( "/getchartvy" )
+							  .done(function( data ) {
+							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+								$('#getchartvy').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
+					<p id="getchartuy" class="padding: 10px 10px 10px 10px">{{-- {!! $chartuy->render() !!} --}}
+					</p>
+						<script>
+							$.get( "/getchartuy" )
+							  .done(function( data ) {
+							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+								$('#getchartuy').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
+					<p id="getchartly" class="padding: 10px 10px 10px 10px">{{-- {!! $chartly->render() !!} --}}
+					</p>
+						<script>
+							$.get( "/getchartly" )
+							  .done(function( data ) {
+							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+								$('#getchartly').html(data);
+							  	checkWilmaActivity();
+							  });
+						</script>
 					</div>				
 			</div>			
 		</div>		
 	
 	<script>
-		$(document).ready(function(){$("#yearlyview , #monthlyview").removeClass("in active");});
+		$(document).ready(function(){
+			//$("#yearlyview , #monthlyview").removeClass("in active");
+	});
 	</script>
 <!-- 	<div>
 		<div class="col-md-5" style="padding: 10px 10px 10px 10px;">
@@ -50,13 +144,28 @@
 			</ul>
 			<div class="tab-content">
 				<div id="dailyupload" class="tab-pane fade in active">
-					{!! $chartud->render() !!}
+						<script>
+							$.get( "/getchartud" )
+							  .done(function( data ) {
+								$('#dailyupload').html(data);
+							  });
+						</script>{{-- {!! $chartud->render() !!} --}}
 				</div>
 				<div id="monthlyupload" class="tab-pane fade in active">
-					{!! $chartum->render() !!}
+						<script>
+							$.get( "/getchartum" )
+							  .done(function( data ) {
+								$('#monthlyupload').html(data);
+							  });
+						</script>{{-- {!! $chartum->render() !!} --}}
 				</div>
 				<div id="yearlyupload" class="tab-pane fade in active">
-					{!! $chartuy->render() !!}
+						<script>
+							$.get( "/getchartuy" )
+							  .done(function( data ) {
+								$('#yearlyupload').html(data);
+							  });
+						</script>{{-- {!! $chartuy->render() !!} --}}
 				</div>
 			</div>			
 		</div>
@@ -73,13 +182,28 @@
 			</ul>
 			<div class="tab-content">
 				<div id="dailylogin" class="tab-pane fade in active">
-					{!! $chartld->render() !!}
+						<script>
+							$.get( "/getchartld" )
+							  .done(function( data ) {
+								$('#dailylogin').html(data);
+							  });
+						</script>{{-- {!! $chartld->render() !!} --}}
 				</div>
 				<div id="monthlylogin" class="tab-pane fade in active">
-					{!! $chartlm->render() !!}
+						<script>
+							$.get( "/getchartlm" )
+							  .done(function( data ) {
+								$('#monthlylogin').html(data);
+							  });
+						</script>{{-- {!! $chartlm->render() !!} --}}
 				</div>
 				<div id="yearlylogin" class="tab-pane fade in active">
-					{!! $chartly->render() !!}
+						<script>
+							$.get( "/getchartly" )
+							  .done(function( data ) {
+								$('#yearlylogin').html(data);
+							  });
+						</script>{{-- {!! $chartly->render() !!} --}}
 				</div>
 			</div>			
 		</div>		

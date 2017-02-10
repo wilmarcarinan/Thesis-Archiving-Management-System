@@ -44,16 +44,16 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->belongsToMany(File::class, 'favorites');
+        return $this->belongsToMany(File::class, 'favorites')->withTimestamps();
     }
 
     public function bookmarks()
     {
-        return $this->belongsToMany(File::class, 'bookmarks');
+        return $this->belongsToMany(File::class, 'bookmarks')->withTimestamps();
     }
 
     public function recent_views()
     {
-        return $this->belongsToMany(File::class, 'recent_views');
+        return $this->belongsToMany(File::class, 'recent_views')->withTimestamps();
     }
 }

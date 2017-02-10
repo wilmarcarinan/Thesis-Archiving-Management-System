@@ -28,6 +28,53 @@
               </tr>
             </thead>
             <tbody>
+              <?php $no=1; ?>
+              @foreach($recent_list as $recent)
+                <tr>
+                  <td>
+                      <form action="/bookmark" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$recent->id}}">
+                        @if(in_array($recent->id, $bookmarks))
+                          <button class="not-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-book" type="submit" id="favorite">
+                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
+                  <td>
+                      <form action="/favorite" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_id" value="{{$recent->id}}">
+                        @if(in_array($recent->id, $favorites))
+                          <button class="not-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star" aria-hidden="true"></i>
+                          </button>
+                        @else
+                          <button class="btn-fav" type="submit" id="favorite">
+                            <i  class="fa fa-star-o" aria-hidden="true"></i>
+                          </button>
+                        @endif
+                      </form>
+                  </td>
+                  <td>{{$no++}}</td>
+                  <td>{{$recent->FileTitle}}</td>
+                  <td>{{$recent->Category}}</td>
+                  <td>{{$recent->Authors}}</td>
+                  <td>{{$recent->Adviser}}</td>
+                  <td>{{$recent->thesis_date}}</td>
+                  <td>
+                    {{ DB::table('recent_views')->where('file_id',$recent->id)->pluck('user_id')->count() }}
+                  </td>
+                  <td>
+                    {{ DB::table('favorites')->where('file_id',$recent->id)->pluck('user_id')->count() }}
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         <br />
@@ -96,7 +143,9 @@
                   <td>{{$favorite->Authors}}</td>
                   <td>{{$favorite->Adviser}}</td>
                   <td>{{$favorite->thesis_date}}</td>
-                  <td>{{$favorite->no_of_views}}</td>
+                  <td>
+                    {{ DB::table('recent_views')->where('file_id',$favorite->id)->pluck('user_id')->count() }}
+                  </td>
                   <td>
                     {{ DB::table('favorites')->where('file_id',$favorite->id)->pluck('user_id')->count() }}
                   </td>
@@ -171,7 +220,9 @@
                   <td>{{$bookmark->Authors}}</td>
                   <td>{{$bookmark->Adviser}}</td>
                   <td>{{$bookmark->thesis_date}}</td>
-                  <td>{{$bookmark->no_of_views}}</td>
+                  <td>
+                    {{ DB::table('recent_views')->where('file_id',$bookmark->id)->pluck('user_id')->count() }}
+                  </td>
                   <td>
                     {{ DB::table('bookmarks')->where('file_id',$bookmark->id)->pluck('user_id')->count() }}
                   </td>

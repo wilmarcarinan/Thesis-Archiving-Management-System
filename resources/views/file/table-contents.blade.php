@@ -11,7 +11,6 @@
       echo $path;
     ?>
   @endif
-  
 </p>
 @foreach($files as $file)
   <tr>
@@ -47,7 +46,7 @@
       <td>
           <form action="/favorite" method="POST">
             {{ csrf_field() }}
-            <input type="hidden" name="file_id" value="{{$file->id}}" class="file_id">
+            <input type="hidden" name="file_id" value="{{$file->id}}">
             @if(in_array($file->id, $favorites))
               <button class="not-fav" type="submit" id="favorite">
                 <i  class="fa fa-star" aria-hidden="true"></i>
@@ -63,7 +62,7 @@
     <td>{{$no++}}</td>
     <td class="FileTitle">
       <!-- Button trigger modal -->
-      <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
+      <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
         {{$file->FileTitle}}
       </a>
       {{-- <p class="fileAbstract"></p> --}}
@@ -85,7 +84,7 @@
               </p>
               <p>
                 Read the whole documentation 
-                <a href="" target="_blank" id="file_link">
+                <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')});">
                   here.
                 </a>
               </p>
@@ -106,7 +105,9 @@
     @if(Auth::user()->Role == 'Admin')
       <td>{{ $file->Status }}</td>
     @endif
-    <td>{{$file->no_of_views}}</td>
+    <td>
+      {{ DB::table('recent_views')->where('file_id',$file->id)->pluck('user_id')->count() }}
+    </td>
     <td>
       {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
     </td>

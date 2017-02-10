@@ -154,14 +154,25 @@ class FileController extends Controller
 
     public function collections()
     {
+
         if(Auth::User()->Role == 'User'){
-            
-            $favorite_list = Auth::user()->favorites()->where('Status','Active')->paginate(5);
-            $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')->paginate(5);
+            $recent_list = Auth::user()->recent_views()->where([
+                                    ['Status','Active'],
+                                    ['user_id',Auth::id()]
+                                    ])
+                                ->orderBy('pivot_created_at', 'DESC')
+                                ->paginate(5)
+                                ->unique();
+            $favorite_list = Auth::user()->favorites()->where('Status','Active')
+                                ->orderBy('created_at','DESC')
+                                ->paginate(5);
+            $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')
+                                ->orderBy('created_at','DESC')
+                                ->paginate(5);
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('file.collections',compact(['favorite_list','bookmark_list','favorites','bookmarks'])); 
-            // return var_dump($files);
+            return view('file.collections',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'recent_list'])); 
+            // return var_dump($recent_list);
         }
         else{
             return back();
@@ -210,15 +221,17 @@ class FileController extends Controller
 
     public function increment_views(Request $request)
     {
-        return 'hello';
+        $file = File::where('id',$request->file_id)->get();
+        $file = Auth::user()->recent_views()->attach($file);
+        // return $file;
     }
 
     public function favorite(Request $request)
     {
         $file = File::where('id',$request->file_id)->get();
         $file = Auth::user()->favorites()->toggle($file);
-        // return back();
-        return Response::json($file);
+        return back();
+        // return Response::json($file);
     }
 
     public function bookmark(Request $request)
@@ -255,8 +268,8 @@ class FileController extends Controller
 
     public function encrypted_data($data)
     {
-        $data = decrypt($data);
-        return Response::json($data);
+        $decrypted_data = decrypt($data);
+        return Response::json($decrypted_data);
     }
 
     // public function comp(Request $request)

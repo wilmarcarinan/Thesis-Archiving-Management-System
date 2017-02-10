@@ -288,9 +288,9 @@
 
             $(document).on('click', '.viewInfo', function(){
                 
-                // var encrypted_data = $('.QRCode').text(); 
+                // var encrypted_data = $('.QRCode').text().replace(/\s/g, "");
                 // var decrypted_data = "";
-                
+
                 // $.ajax({
                 //     type: 'GET',
                 //     url: '/encrypted_data?' + encrypted_data,
@@ -300,17 +300,17 @@
                 //         console.log(data);
                 //     },
                 //     error: function(data){
-                //         console.log('Error 500');
+                //         console.log("Error" + data);
                 //     }
                 // });
 
-                // $.get("/encrypted_data", { "data": encrypted_data } )
+                // $.get("/encrypted_data?" + encrypted_data, { "data": encrypted_data } )
                 //     .done(function(data) {
-                //         decrypted_data = data;
-                //         alert(decrypted_data);
+                //         // decrypted_data = data;
+                //         console.log(data);
                 // });
                 {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
-                var qrcode = $('.QRCode').text() + $(this).data('path');
+                var qrcode = $('.QRCode').html() + $(this).data('path');
                 var file_name = qrcode.replace(/\s/g, "");
                 var el = kjua({
                     text: qrcode.replace(/\s/g, ""),
@@ -319,13 +319,13 @@
                 });
 
                 $('.modal-title').html($(this).data('title'));
+                $('#file_link').attr('file_id',$(this).data('id'));
                 $('.abstract').html($(this).data('abstract'));
                 // $('.abstract-title').html($(this).data('title'));
-                //document.getElementById('file_link').setAttribute('href',file_name);
+                document.getElementById('file_link').setAttribute('href',file_name);
                 
-                document.getElementById('file_link').setAttribute('href',"");
-                document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
-
+                // document.getElementById('file_link').setAttribute('href',"");
+                // document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
 
                 if(isEmpty($('.qrcodeCanvas'))){
                     document.querySelector('.qrcodeCanvas').appendChild(el);
@@ -339,23 +339,23 @@
                   return !$.trim(el.html())
                 }
 
-                $('#favorite').click(function(){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/favorite',
-                        data: $('.file_id').text(),
-                        success: function(data){
-                            console.log('Congrats' + data);         
-                        },
-                        error: function(){
-                            console.log('Error');
-                        }
-                    });
-                });
+                // $('#favorite').click(function(){
+                //     $.ajax({
+                //         type: 'POST',
+                //         url: '/favorite',
+                //         data: $('.file_id').text(),
+                //         success: function(data){
+                //             console.log('Congrats' + data);         
+                //         },
+                //         error: function(){
+                //             console.log('Error');
+                //         }
+                //     });
+                // });
 
-                $('#file_link').on('click', function(){
-                    post('/generate_temp', {name: file_name});
-                });
+                // $('#file_link').on('click', function(){
+                //     post('/generate_temp', {name: file_name});
+                // });
             });
         </script>
     </div>

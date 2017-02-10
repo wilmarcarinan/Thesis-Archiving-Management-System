@@ -11,6 +11,10 @@
 |
 */
 
+Event::listen('illuminate.query',function($query){
+    var_dump($query);
+});
+
 Route::get('/', 'HomeController@index')->middleware('auth');
 
 Auth::routes();
@@ -37,7 +41,7 @@ Route::get('/collections','FileController@collections');
 
 Route::get('/list','FileController@list');
 
-Route::post('/increment_views', 'FileController@increment_views');
+Route::get('/increment_views', 'FileController@increment_views');
 
 Route::patch('/lock','FileController@lock');
 
@@ -59,6 +63,22 @@ Route::patch('/DemoteUser','AdminController@DemoteUser');
 
 Route::post('/compress','FileController@compress');
 
-Route::post('/generate_temp','FileController@generate_temp');
+// Route::post('/generate_temp','FileController@generate_temp');
 
-Route::get('/encrypted_data?{data}','FileController@encypted_data');
+Route::get('/encrypted_data?{data}','FileController@encrypted_data');
+
+Route::get('/getchartvd','HomeController@getchartvd');
+
+Route::get('/getchartvm','HomeController@getchartvm');
+
+Route::get('/getchartud','HomeController@getchartud');
+
+Route::get('/getchartum','HomeController@getchartum');
+
+Route::get('/getchartuy','HomeController@getchartuy');
+
+Route::get('/getchartld','HomeController@getchartld');
+
+Route::get('/getchartlm','HomeController@getchartlm');
+
+Route::get('/getchartly','HomeController@getchartly');
