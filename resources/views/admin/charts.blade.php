@@ -13,24 +13,36 @@
 </style>
 <center>
 	<div class="container">
-		<div class="col-md-10 col-md-offset-2" style="padding: 10px 0px 10px;">
+		<div class="col-md-10 col-md-offset-2" style="padding: 10px 0px 10px ;">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="tab" href="#dailyview">Daily</a></li>
 				<li><a data-toggle="tab" href="#monthlyview">Monthly</a></li>
 				<li><a data-toggle="tab" href="#yearlyview">Yearly</a></li>
 			</ul>
 			<div class="tab-content">
-					<div id="dailyview" class="tab-pane fade in active">{!! $chartvd->render() !!}</div>
-					<div id="monthlyview" class="tab-pane fade in active">{!! $chartvm->render() !!}</div>
-					<div id="yearlyview" class="tab-pane fade in active">{!! $chartvy->render() !!}</div>				
+					<div id="dailyview" class="tab-pane fade in active">
+						{!! $chartvd->render() !!}
+					<p class="padding: 10px 10px 10px 10px">{!! $chartud->render() !!}</p>
+					<p class="padding: 10px 10px 10px 10px">{!! $chartld->render() !!}</p>
+					</div>
+					<div id="monthlyview" class="tab-pane fade in active">
+						{!! $chartvm->render() !!}
+					<p class="padding: 10px 10px 10px 10px">{!! $chartum->render() !!}</p>
+					<p class="padding: 10px 10px 10px 10px">{!! $chartlm->render() !!}</p>	
+					</div>
+					<div id="yearlyview" class="tab-pane fade in active">
+						{!! $chartvy->render() !!}
+					<p class="padding: 10px 10px 10px 10px">{!! $chartuy->render() !!}</p>
+					<p class="padding: 10px 10px 10px 10px">{!! $chartly->render() !!}</p>
+					</div>				
 			</div>			
 		</div>		
-	</div>
+	
 	<script>
 		$(document).ready(function(){$("#yearlyview , #monthlyview").removeClass("in active");});
 	</script>
-	<div class="container">
-		<div class="col-md-10 col-md-offset-2" style="padding: 10px 0px 10px;">
+<!-- 	<div>
+		<div class="col-md-5" style="padding: 10px 10px 10px 10px;">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="tab" href="#dailyupload">Daily</a></li>
 				<li><a data-toggle="tab" href="#monthlyupload">Monthly</a></li>
@@ -48,11 +60,11 @@
 				</div>
 			</div>			
 		</div>
-	</div>
+	</div> -->
 	<script>
 		$(document).ready(function(){$("#yearlyupload , #monthlyupload").removeClass("in active");});
 	</script>
-		<div class="container">
+<!-- 		<div class="container">
 		<div class="col-md-10 col-md-offset-2" style="padding: 10px 0px 10px;">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="tab" href="#dailylogin">Daily</a></li>
@@ -71,7 +83,7 @@
 				</div>
 			</div>			
 		</div>		
-	</div>
+	</div> -->
 	<script>
 		$(document).ready(function(){$("#yearlylogin , #monthlylogin").removeClass("in active");});
 	</script>	
