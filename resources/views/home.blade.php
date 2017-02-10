@@ -32,9 +32,9 @@
           <h1>{{$latest_file->FileTitle}}</h1>
           <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p>
           @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME').$latest_file->FilePath }}" target="_blank">
+            <a href="/pdf.js/web/viewer.html?file=http://files/{{ Request::server('SERVER_NAME').$latest_file->FilePath }}" target="_blank">
           @else
-            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000{{$latest_file->FilePath }}" target="_blank">
+            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$latest_file->FilePath }}" target="_blank">
           @endif
               <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3" >View more</button>
             </a>

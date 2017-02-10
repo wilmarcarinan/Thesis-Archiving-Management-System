@@ -58,3 +58,7 @@ Route::patch('/PromoteUser','AdminController@PromoteUser');
 Route::patch('/DemoteUser','AdminController@DemoteUser');
 
 Route::post('/compress','FileController@compress');
+
+Route::post('/generate_temp','FileController@generate_temp');
+
+Route::get('/encrypted_data?{data}','FileController@encypted_data');
