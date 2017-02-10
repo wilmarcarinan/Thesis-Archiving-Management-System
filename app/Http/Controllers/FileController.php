@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
+use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
 
@@ -21,7 +22,7 @@ class FileController extends Controller
     public function search()
     {
         $advisers = File::distinct()->where('Status','Active')->get(['Adviser']);
-        $years = File::distinct()->where('Status','Active')->get([\DB::raw('YEAR(thesis_date)')]);
+        $years = File::distinct()->where('Status','Active')->get([DB::raw('YEAR(thesis_date)')]);
         return view('file.search',compact(['advisers', 'years']));
         // return var_dump($years);
     }
@@ -39,7 +40,7 @@ class FileController extends Controller
                 ->paginate(5);
         }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
             $files = File::where('Status','Active')
-                ->where(\DB::raw('YEAR(thesis_date)'), $request->Year)
+                ->where(DB::raw('YEAR(thesis_date)'), $request->Year)
                 ->paginate(5);
         }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
             $files = File::where('Status','Active')
@@ -54,14 +55,14 @@ class FileController extends Controller
         }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
             $files = File::where('Status','Active')
                 ->where([
-                    [\DB::raw('YEAR(thesis_date)'), $request->Year],
+                    [DB::raw('YEAR(thesis_date)'), $request->Year],
                     ['Adviser', $request->Adviser],
                 ])
                 ->paginate(5);
         }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
             $files = File::where([
                 ['Status','Active'],
-                [\DB::raw('YEAR(thesis_date)'), $request->Year],
+                [DB::raw('YEAR(thesis_date)'), $request->Year],
                 ['FileTitle','like','%'.$request->search.'%'],
                 ['Abstract','like','%'.$request->search.'%'],
                 ['Category','like','%'.$request->search.'%'],
@@ -134,7 +135,7 @@ class FileController extends Controller
         $file->Authors = $request->Authors;
         $file->Adviser = $request->Adviser;
         $file->thesis_date = $request->thesis_date;
-        $file->FilePath = '/files/'.$fileName;
+        $file->FilePath = $fileName;
         $file->save();
 
         $log = new Log;
@@ -221,5 +222,20 @@ class FileController extends Controller
         $file = File::where('id',$request->file_id)->get();
         Auth::user()->bookmarks()->toggle($file);
         return back();
+    }
+
+    public function compress(Request $request)
+    {   
+        $name = $request->filename;
+        $date = $request->filedate;
+        $files = File::where(DB::raw('YEAR(thesis_date)'),$date)->get();
+        Zipper::make(storage_path('app/'.$name.'.zip'));
+        foreach($files as $file){
+            Zipper::add(array(
+                    'files/'.$file->FilePath
+                ));
+        }
+        Zipper::close();
+        return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);
     }
 }

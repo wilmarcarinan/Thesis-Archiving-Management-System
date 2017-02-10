@@ -56,3 +56,5 @@ Route::patch('/UnlockUser','AdminController@UnlockUser');
 Route::patch('/PromoteUser','AdminController@PromoteUser');
 
 Route::patch('/DemoteUser','AdminController@DemoteUser');
+
+Route::post('/compress','FileController@compress');

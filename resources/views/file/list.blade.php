@@ -3,6 +3,12 @@
 @section('content')
     @if(Auth::user()->Role == 'Admin')
         <div class="container" style="margin-left: 225px">
+        <form action="/compress" method="POST">
+            {{ csrf_field() }}
+            <input type="text" name="filename">
+            <input type="text" name="filedate">
+            <input type="submit" value="compress">
+        </form>
     @else
         <div class="container">
     @endif
