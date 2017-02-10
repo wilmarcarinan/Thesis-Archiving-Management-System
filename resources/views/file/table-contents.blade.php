@@ -47,7 +47,7 @@
       <td>
           <form action="/favorite" method="POST">
             {{ csrf_field() }}
-            <input type="hidden" name="file_id" value="{{$file->id}}">
+            <input type="hidden" name="file_id" value="{{$file->id}}" class="file_id">
             @if(in_array($file->id, $favorites))
               <button class="not-fav" type="submit" id="favorite">
                 <i  class="fa fa-star" aria-hidden="true"></i>

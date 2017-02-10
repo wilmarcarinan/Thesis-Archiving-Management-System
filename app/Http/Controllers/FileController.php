@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
+use Illuminate\Validation\Rule;
 
 class FileController extends Controller
 {
@@ -114,7 +115,10 @@ class FileController extends Controller
     public function AddFile(Request $request)
     {
         $this->validate(request(),[
-            'FileTitle' => 'required',
+            'FileTitle' => [
+                'required',
+                Rule::unique('files')->ignore(auth()->id())
+            ],
             'Category' => 'required',
             'Abstract' => 'required',
             'Authors' => 'required',
@@ -212,9 +216,9 @@ class FileController extends Controller
     public function favorite(Request $request)
     {
         $file = File::where('id',$request->file_id)->get();
-        Auth::user()->favorites()->toggle($file);
-        return back();
-        // return Response::json(Auth::user()->favorites()->toggle($file));
+        $file = Auth::user()->favorites()->toggle($file);
+        // return back();
+        return Response::json($file);
     }
 
     public function bookmark(Request $request)
@@ -238,6 +242,23 @@ class FileController extends Controller
         Zipper::close();
         return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);
     }
+
+    public function generate_temp(Request $request)
+    {
+        $fileWebLink = $request->name;
+        $htmlString = "
+            <body oncontextmenu='return false;' ondragstart='return false' onselectstart='return false' style='margin:0px; border:0px; padding:0px; overflow:hidden'>
+                <iframe src='$fileWebLink' style='margin:0px; border:0px; padding:0px; height:100%; width:100% '></iframe>
+            </body>";
+        return $htmlString;
+    }
+
+    public function encrypted_data($data)
+    {
+        $data = decrypt($data);
+        return Response::json($data);
+    }
+
     // public function comp(Request $request)
     // {
     //     $files = new File;

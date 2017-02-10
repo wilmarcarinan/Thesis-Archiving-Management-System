@@ -65,21 +65,21 @@ class HomeController extends Controller
 
 //chart for uploads
             $chartud = Charts::database(File::all(), 'area', 'highcharts')
-            ->title('Views per day')
+            ->title('Uploaded Files per day')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByDay();
 
             $chartum = Charts::database(File::all(), 'area', 'highcharts')
-            ->title('Views per month')
+            ->title('Uploaded Files per month')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByMonth();
 
             $chartuy = Charts::database(File::all(), 'area', 'highcharts')
-            ->title('Views per year')
+            ->title('User  Loggeds in per year')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
@@ -88,21 +88,21 @@ class HomeController extends Controller
 //chart for login
             
             $chartld = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
-            ->title('Views per day')
+            ->title('User  Logged in per day')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByDay();
 
             $chartlm = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
-            ->title('Views per month')
+            ->title('Users  Logged in month')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByMonth();
 
             $chartly = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
-            ->title('Views per year')
+            ->title('Users  Logged in ssper year')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)

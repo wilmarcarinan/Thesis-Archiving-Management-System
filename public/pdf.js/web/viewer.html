@@ -32,13 +32,17 @@ See https://github.com/adobe-type-tools/cmap-resources
     <link rel="stylesheet" href="viewer.css">
 
     <script src="compatibility.js"></script>
-    <script type=text/javascript>
+    <script type='text/javascript'>
       document.onkeydown = function (e) {
-    e = e || window.event;//Get event
-    if (e.ctrlKey) {
-        var c = e.which || e.keyCode;//Get key code
-        switch (c) {
+        e = e || window.event;//Get event
+        if (e.ctrlKey) {
+          var c = e.which || e.keyCode;//Get key code
+          switch (c) {
             case 83://Block Ctrl+S
+            e.preventDefault();     
+            e.stopPropagation();
+            break;
+            case 85://Block Ctrl+U
             e.preventDefault();     
             e.stopPropagation();
             break;

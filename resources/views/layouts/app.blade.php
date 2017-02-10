@@ -254,8 +254,62 @@
                 }
             });
 
+            function post(path, params, method) {
+                method = method || "post"; // Set method to post by default if not specified.
+
+                // The rest of this code assumes you are not using a library.
+                // It can be made less wordy if you use one.
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for(var key in params) {
+                    if(params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+
+                        var hiddenToken = document.createElement("input");
+                        hiddenToken.setAttribute("type", "hidden");
+                        hiddenToken.setAttribute("name", "_token");
+                        hiddenToken.setAttribute("value", "{{ csrf_token() }}");
+
+                        form.appendChild(hiddenToken);
+
+                        form.appendChild(hiddenField);
+                     }
+                }
+
+                document.body.appendChild(form);
+                // alert(form.innerHTML);
+                form.submit();
+            }
+
             $(document).on('click', '.viewInfo', function(){
                 
+                // var encrypted_data = $('.QRCode').text(); 
+                // var decrypted_data = "";
+                
+                // $.ajax({
+                //     type: 'GET',
+                //     url: '/encrypted_data?' + encrypted_data,
+                //     data: encrypted_data,
+                //     dataType: 'json',
+                //     success: function(data){
+                //         console.log(data);
+                //     },
+                //     error: function(data){
+                //         console.log('Error 500');
+                //     }
+                // });
+
+                // $.get("/encrypted_data", { "data": encrypted_data } )
+                //     .done(function(data) {
+                //         decrypted_data = data;
+                //         alert(decrypted_data);
+                // });
+                {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
                 var qrcode = $('.QRCode').text() + $(this).data('path');
                 var file_name = qrcode.replace(/\s/g, "");
                 var el = kjua({
@@ -267,7 +321,12 @@
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
                 // $('.abstract-title').html($(this).data('title'));
-                document.getElementById('file_link').setAttribute('href','{{}}' + file_name);
+                //document.getElementById('file_link').setAttribute('href',file_name);
+                
+                document.getElementById('file_link').setAttribute('href',"");
+                document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
+
+
                 if(isEmpty($('.qrcodeCanvas'))){
                     document.querySelector('.qrcodeCanvas').appendChild(el);
                     // console.log('Its empty');
@@ -280,15 +339,23 @@
                   return !$.trim(el.html())
                 }
 
-                // $('#favorite').click(function(){
-                //     $.ajax({
-                //         type: 'POST',
-                //         url: '/favorite',
-                //         success: function(){
-                //             alert('Congrats');         
-                //         }
-                //     });
-                // });
+                $('#favorite').click(function(){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/favorite',
+                        data: $('.file_id').text(),
+                        success: function(data){
+                            console.log('Congrats' + data);         
+                        },
+                        error: function(){
+                            console.log('Error');
+                        }
+                    });
+                });
+
+                $('#file_link').on('click', function(){
+                    post('/generate_temp', {name: file_name});
+                });
             });
         </script>
     </div>
