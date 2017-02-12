@@ -62,20 +62,23 @@ class FileController extends Controller
                 ->paginate(5);
         }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
             $files = File::where([
-                ['Status','Active'],
-                [DB::raw('YEAR(thesis_date)'), $request->Year],
-                ['FileTitle','like','%'.$request->search.'%'],
-                ['Abstract','like','%'.$request->search.'%'],
-                ['Category','like','%'.$request->search.'%'],
-                ])->paginate(5);
+                    ['Status','Active'],
+                    [DB::raw('YEAR(thesis_date)'), $request->Year],
+                    ['FileTitle','like','%'.$request->search.'%'],
+                ])
+                ->orwhere('Abstract','like','%'.$request->search.'%')
+                ->orwhere('Category','like','%'.$request->search.'%')
+                ->paginate(5);
         }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where([
                 ['Status','Active'],
                 ['FileTitle','like','%'.$request->search.'%'],
-                ['Abstract','like','%'.$request->search.'%'],
-                ['Category','like','%'.$request->search.'%'],
                 ['Adviser', $request->Adviser],
-                ])->paginate(5);
+                ])
+                ->orwhere('Abstract','like','%'.$request->search.'%')
+                ->orwhere('Category','like','%'.$request->search.'%')
+                ->paginate(5);
+            // return 'Search and Adviser has a value of '.$request->search.' and '.$request->Adviser;
         }
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
@@ -109,7 +112,8 @@ class FileController extends Controller
 
     public function FileForm()
     {
-    	return view('file.addfile');
+        $courses = File::distinct()->where('Status','Active')->get(['Course']);
+    	return view('file.addfile',compact('courses'));
     }
 
     public function AddFile(Request $request)
@@ -122,6 +126,7 @@ class FileController extends Controller
             'Category' => 'required',
             'Abstract' => 'required',
             'Authors' => 'required',
+            'Course' => 'required',
             // 'Adviser' => 'required',
             'thesis_date' => 'required',
             'FilePath' => 'min:1|max:2000|required'
@@ -137,6 +142,7 @@ class FileController extends Controller
         $file->Category = $request->Category;
         $file->Abstract = $request->Abstract;
         $file->Authors = $request->Authors;
+        $file->Course = $request->Course;
         $file->Adviser = $request->Adviser;
         $file->thesis_date = $request->thesis_date;
         $file->FilePath = $fileName;
@@ -155,7 +161,7 @@ class FileController extends Controller
     public function collections()
     {
 
-        if(Auth::User()->Role == 'User'){
+        if(Auth::User()->Role <> 'Admin'){
             $recent_list = Auth::user()->recent_views()->where([
                                     ['Status','Active'],
                                     ['user_id',Auth::id()]
@@ -221,9 +227,14 @@ class FileController extends Controller
 
     public function increment_views(Request $request)
     {
-        $file = File::where('id',$request->file_id)->get();
-        $file = Auth::user()->recent_views()->attach($file);
-        // return $file;
+        $file = File::select('id','FileTitle')->where('id',$request->file_id)->get();
+        Auth::user()->recent_views()->attach($file);
+
+        $log = new Log;
+        $log->Subject = 'Views';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
+        $log->student_id = Auth::id();
+        $log->save();
     }
 
     public function favorite(Request $request)

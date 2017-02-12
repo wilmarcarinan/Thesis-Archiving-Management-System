@@ -35,16 +35,16 @@
 				<li><a data-toggle="tab" href="#yearlyview">Yearly</a></li>
 			</ul>
 			<div class="tab-content">
-					<div id="dailyview" class="tab-pane fade in active">
-						<div id="getchartvd">
+				<div id="dailyview" class="tab-pane fade in active">
+					<div id="getchartvd" style="padding: 10px 0px 0px 0px">
 						<script>
 							$.get( "/getchartvd" )
 							  .done(function( data ) {
 								$('#getchartvd').html(data);
 							  });
 						</script>{{-- {!! $chartvd->render() !!} --}}
-						</div>
-					<p  id="getchartud" class="padding: 10px 10px 10px 10px">
+					</div>
+					<p  id="getchartud" style="padding: 10px 0px 0px 0px">
 						<script>
 							$.get( "/getchartud" )
 							  .done(function( data ) {
@@ -53,80 +53,78 @@
 						</script>
 					{{-- {!! $chartud->render() !!} --}}
 					</p>
-					<p id="getchartld" class="padding: 10px 10px 10px 10px">
+					<p id="getchartld">
 						<script>
 							$.get( "/getchartld" )
 							  .done(function( data ) {
 								$('#getchartld').html(data);
 							  });
 						</script>
-					{{-- {!! $chartld->render() !!} --}}
+						{{-- {!! $chartld->render() !!} --}}
 					</p>
+				</div>
+
+				<div id="monthlyview" class="tab-pane fade in active" numC="0">
+					<div id="getchartvm" style="padding: 10px 0px 0px 0px">{{-- {!! $chartvm->render() !!} --}}
 					</div>
-					<div id="monthlyview" class="tab-pane fade in active" numC="0">
-						<div id="getchartvm">{{-- {!! $chartvm->render() !!} --}}
-						</div>
-						<script>
-							$.get( "/getchartvm" )
-							  .done(function( data ) {
-							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
-								$('#getchartvm').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
-					<p id="getchartum" class="padding: 10px 10px 10px 10px">{{-- {!! $chartum->render() !!} --}}
-					</p>
-						<script>
-							$.get( "/getchartum" )
-							  .done(function( data ) {
-							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
-								$('#getchartum').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
-					<p id="getchartlm" class="padding: 10px 10px 10px 10px">{{-- {!! $chartlm->render() !!} --}}
-					</p>	
-						<script>
-							$.get( "/getchartlm" )
-							  .done(function( data ) {
-							  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
-								$('#getchartlm').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
+					<script>
+						$.get( "/getchartvm" )
+						  .done(function( data ) {
+						  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+							$('#getchartvm').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+					<p id="getchartum" style="padding: 10px 0px 0px 0px">{{-- {!! $chartum->render() !!} --}}</p>
+					<script>
+						$.get( "/getchartum" )
+						  .done(function( data ) {
+						  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+							$('#getchartum').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+					<p id="getchartlm">{{-- {!! $chartlm->render() !!} --}}</p>	
+					<script>
+						$.get( "/getchartlm" )
+						  .done(function( data ) {
+						  	$('#monthlyview').attr('numC',($('#monthlyview').attr('numC')+1));
+							$('#getchartlm').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+				</div>
+
+				<div id="yearlyview" class="tab-pane fade in active" numC="0">
+					<div id="getchartvy" style="padding: 10px 0px 0px 0px">{{-- {!! $chartvy->render() !!} --}}
 					</div>
-					<div id="yearlyview" class="tab-pane fade in active" numC="0">
-						<div id="getchartvy">{{-- {!! $chartvy->render() !!} --}}
-						</div>
-						<script>
-							$.get( "/getchartvy" )
-							  .done(function( data ) {
-							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
-								$('#getchartvy').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
-					<p id="getchartuy" class="padding: 10px 10px 10px 10px">{{-- {!! $chartuy->render() !!} --}}
-					</p>
-						<script>
-							$.get( "/getchartuy" )
-							  .done(function( data ) {
-							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
-								$('#getchartuy').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
-					<p id="getchartly" class="padding: 10px 10px 10px 10px">{{-- {!! $chartly->render() !!} --}}
-					</p>
-						<script>
-							$.get( "/getchartly" )
-							  .done(function( data ) {
-							  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
-								$('#getchartly').html(data);
-							  	checkWilmaActivity();
-							  });
-						</script>
-					</div>				
+					<script>
+						$.get( "/getchartvy" )
+						  .done(function( data ) {
+						  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+							$('#getchartvy').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+					<p id="getchartuy" style="padding: 10px 0px 0px 0px">{{-- {!! $chartuy->render() !!} --}}</p>
+					<script>
+						$.get( "/getchartuy" )
+						  .done(function( data ) {
+						  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+							$('#getchartuy').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+					<p id="getchartly">{{-- {!! $chartly->render() !!} --}}</p>
+					<script>
+						$.get( "/getchartly" )
+						  .done(function( data ) {
+						  	$('#yearlyview').attr('numC',($('#yearlyview').attr('numC')+1));
+							$('#getchartly').html(data);
+						  	checkWilmaActivity();
+						  });
+					</script>
+				</div>				
 			</div>			
 		</div>		
 	

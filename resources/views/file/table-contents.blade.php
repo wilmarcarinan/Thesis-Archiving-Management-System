@@ -100,6 +100,7 @@
     </td>
     <td>{{$file->Category}}</td>
     <td>{{$file->Authors}}</td>
+    <td>{{$file->Course}}</td>
     <td>{{$file->Adviser}}</td>
     <td>{{$file->thesis_date->format('F j, Y')}}</td>
     @if(Auth::user()->Role == 'Admin')
@@ -131,4 +132,3 @@
     @endif
   </tr>
 @endforeach
-{{$files->links()}}

@@ -71,6 +71,8 @@ Route::get('/getchartvd','HomeController@getchartvd');
 
 Route::get('/getchartvm','HomeController@getchartvm');
 
+Route::get('/getchartvy','HomeController@getchartvy');
+
 Route::get('/getchartud','HomeController@getchartud');
 
 Route::get('/getchartum','HomeController@getchartum');

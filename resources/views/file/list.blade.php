@@ -33,6 +33,7 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Author/s</th>
+                        <th>Course</th>
                         <th>Adviser</th>
                         <th>Thesis Date</th>
                         @if(Auth::user()->Role == 'Admin')
@@ -47,6 +48,7 @@
                         @include('file.table-contents')
                     </tbody>
                 </table>
+                {{$files->links()}}
                 <br />
                 </div>
                 <center>

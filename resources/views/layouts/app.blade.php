@@ -76,17 +76,16 @@
                         <a href="/home" class="navbar-toggle">
                             <span class="glyphicon glyphicon-home"></span>                        
                         </a>
-                        @if(Auth::user()->Role == 'Admin')
-                            <a href="/settings" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-cog"></span>
-                            </a>
-                            <a href="/list" class="navbar-toggle ">
-                                <span class="glyphicon glyphicon-list-alt"></span>                        
-                            </a>
-                            <a href="/collections" class="navbar-toggle">
-                                <span class="glyphicon glyphicon-th-large"></span>                
-                            </a>
-                        @else
+                        <a href="/settings" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a href="/list" class="navbar-toggle ">
+                            <span class="glyphicon glyphicon-list-alt"></span>                        
+                        </a>
+                        <a href="/collections" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-th-large"></span>                
+                        </a>
+                        @if(Auth::user()->Role == 'Encoder')
                             <a href="/AddFile" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
@@ -153,12 +152,12 @@
                                      Home
                                 </a>
                             </li>
-                            @if(Auth::user()->Role == 'Admin')
+                            @if(Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Encoder')
                                 @if(Request::path() == 'AddFile')
                                     <li class="active">
                                 @else
                                     <li>
-                                        @endif
+                                @endif
                                         <a href="/AddFile">
                                             <span class="glyphicon glyphicon-upload"></span>
                                             Upload                        
@@ -175,7 +174,7 @@
                                          Search
                                     </a>
                                 </li>
-                            @if(Auth::user()->Role == 'User')
+                            @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
                                 @if(Request::path() == 'collections')
                                     <li class="active">
                                 @else
@@ -203,7 +202,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    @if(Auth::user()->Role == 'User')
+                                    @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
                                         <li>
                                             <a href="/settings">Settings</a>
                                         </li>

@@ -29,7 +29,7 @@ class AdminController extends Controller
 
     public function showUsers()
     {
-        if(Auth::user()->Role == 'Admin')
+        if(Auth::user()->Role == 'Admin' && Auth::user()->Status == 'Active')
         {
             $users = User::where('id','!=',Auth::id())->paginate(15);
             return view('admin.Users',compact('users'));
@@ -78,12 +78,12 @@ class AdminController extends Controller
     public function PromoteUser(Request $request)
     {
         User::where('id',$request->user_id2)
-            ->update(['Role'=>'Admin']);
+            ->update(['Role'=>'Encoder']);
         
         $user = User::select('FirstName','MiddleName','LastName')->where('id',$request->user_id2)->get();
         $log = new Log;
         $log->Subject = 'User Management';
-        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has promoted ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName'];
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has promoted ".$user[0]['FirstName']." ".$user[0]['MiddleName']." ".$user[0]['LastName']." to Encoder";
         $log->student_id = Auth::id();
         $log->save();
         

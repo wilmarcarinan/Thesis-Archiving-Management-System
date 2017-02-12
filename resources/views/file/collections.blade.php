@@ -21,6 +21,7 @@
                 <th>Title</th>
                 <th>Category</th>
                 <th>Author/s</th>
+                <th>Course</th>
                 <th>Adviser</th>
                 <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
@@ -65,6 +66,7 @@
                   <td>{{$recent->FileTitle}}</td>
                   <td>{{$recent->Category}}</td>
                   <td>{{$recent->Authors}}</td>
+                  <td>{{$recent->Course}}</td>
                   <td>{{$recent->Adviser}}</td>
                   <td>{{$recent->thesis_date}}</td>
                   <td>
@@ -97,6 +99,7 @@
                 <th>Title</th>
                 <th>Category</th>
                 <th>Author/s</th>
+                <th>Course</th>
                 <th>Adviser</th>
                 <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
@@ -141,6 +144,7 @@
                   <td>{{$favorite->FileTitle}}</td>
                   <td>{{$favorite->Category}}</td>
                   <td>{{$favorite->Authors}}</td>
+                  <td>{{$favorite->Course}}</td>
                   <td>{{$favorite->Adviser}}</td>
                   <td>{{$favorite->thesis_date}}</td>
                   <td>
@@ -174,6 +178,7 @@
                 <th>Title</th>
                 <th>Category</th>
                 <th>Author/s</th>
+                <th>Course</th>
                 <th>Adviser</th>
                 <th>Thesis Date</th>
                 <th><span class="glyphicon glyphicon-eye-open"></span></th>
@@ -218,6 +223,7 @@
                   <td>{{$bookmark->FileTitle}}</td>
                   <td>{{$bookmark->Category}}</td>
                   <td>{{$bookmark->Authors}}</td>
+                  <td>{{$bookmark->Course}}</td>
                   <td>{{$bookmark->Adviser}}</td>
                   <td>{{$bookmark->thesis_date}}</td>
                   <td>

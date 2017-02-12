@@ -42,81 +42,81 @@ class HomeController extends Controller
 
 
             //chart for views
-            $chartvd = Charts::database(User::all(), 'bar', 'highcharts')
-            ->title('Views per day')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByDay();
+            // $chartvd = Charts::database(User::all(), 'bar', 'highcharts')
+            // ->title('Views per day')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByDay();
 
-            $chartvm = Charts::database(User::all(), 'bar', 'highcharts')
-            ->title('Views per month')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByMonth();
+            // $chartvm = Charts::database(User::all(), 'bar', 'highcharts')
+            // ->title('Views per month')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByMonth();
 
-            $chartvy = Charts::database(User::all(), 'bar', 'highcharts')
-            ->title('Views per year')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByYear();
+            // $chartvy = Charts::database(User::all(), 'bar', 'highcharts')
+            // ->title('Views per year')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByYear();
 
-            //chart for uploads
-            $chartud = Charts::database(File::all(), 'area', 'highcharts')
+            // //chart for uploads
+            // $chartud = Charts::database(File::all(), 'area', 'highcharts')
 
-            ->title('Uploads')
-            ->title('Uploaded Files per day')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByDay();
+            // ->title('Uploads')
+            // ->title('Uploaded Files per day')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByDay();
 
-            $chartum = Charts::database(File::all(), 'area', 'highcharts')
-            ->title('Uploads')
-            ->title('Uploaded Files per month')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByMonth();
+            // $chartum = Charts::database(File::all(), 'area', 'highcharts')
+            // ->title('Uploads')
+            // ->title('Uploaded Files per month')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByMonth();
 
-            $chartuy = Charts::database(File::all(), 'area', 'highcharts')
+            // $chartuy = Charts::database(File::all(), 'area', 'highcharts')
 
-            ->title('Uploads')
-            ->title('Uploaded Files per year')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByYear();
+            // ->title('Uploads')
+            // ->title('Uploaded Files per year')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByYear();
 
-            //chart for login
+            // //chart for login
             
-            $chartld = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
+            // $chartld = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
 
-            ->title('Log In')
-            ->title('User Logged in per day')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByDay();
+            // ->title('Log In')
+            // ->title('User Logged in per day')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByDay();
 
-            $chartlm = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
+            // $chartlm = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
 
-            ->title('Log In')
-            ->title('Users Logged in month')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByMonth();
+            // ->title('Log In')
+            // ->title('Users Logged in month')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByMonth();
 
-            $chartly = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
-            ->title('Log In')
-            ->title('Users Logged in per year')
-            ->elementLabel("Total")
-            ->dimensions(1000, 500)
-            ->responsive(True)
-            ->groupByYear();
+            // $chartly = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
+            // ->title('Log In')
+            // ->title('Users Logged in per year')
+            // ->elementLabel("Total")
+            // ->dimensions(1000, 500)
+            // ->responsive(True)
+            // ->groupByYear();
 
             // $chart2 = Charts::create('bar', 'highcharts')
             // ->title('User login per day')
@@ -163,14 +163,15 @@ class HomeController extends Controller
         }else{
             $files = File::latest('thesis_date')
                 ->where('Status','Active')
-                ->paginate(5);
+                ->get();
             $latest_file = File::latest('thesis_date')
                 ->where('Status','Active')
                 ->first();
-            $most_viewed = File::orderBy('no_of_views','DESC')->get();
+            $suggested_files = File::where('Course',Auth::user()->Course)->paginate(5);
+            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->get();
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed']));
+            return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files']));
         }
         // return var_dump($favorites);
     }
@@ -179,7 +180,7 @@ class HomeController extends Controller
 
         if(Auth::user()->Role == 'Admin') // && \Auth::user()->Status == 'Active'
         {
-            $chartvd = Charts::database(User::all(), 'bar', 'highcharts')
+            $chartvd = Charts::database(DB::table('recent_views')->get(), 'bar', 'highcharts')
             ->title('Views per day')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
@@ -187,7 +188,7 @@ class HomeController extends Controller
             ->groupByDay();
             return $chartvd->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -195,7 +196,7 @@ class HomeController extends Controller
 
         if(Auth::user()->Role == 'Admin') // && \Auth::user()->Status == 'Active'
         {
-            $chartvm = Charts::database(User::all(), 'bar', 'highcharts')
+            $chartvm = Charts::database(DB::table('recent_views')->get(), 'bar', 'highcharts')
             ->title('Views per month')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
@@ -203,7 +204,7 @@ class HomeController extends Controller
             ->groupByMonth();
             return $chartvm->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -211,7 +212,7 @@ class HomeController extends Controller
 
         if(Auth::user()->Role == 'Admin') // && \Auth::user()->Status == 'Active'
         {
-           $chartvy = Charts::database(User::all(), 'bar', 'highcharts')
+           $chartvy = Charts::database(DB::table('recent_views')->get(), 'bar', 'highcharts')
             ->title('Views per year')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
@@ -219,7 +220,7 @@ class HomeController extends Controller
             ->groupByYear();
             return $chartvy->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -238,7 +239,7 @@ class HomeController extends Controller
             ->groupByDay();
             return $chartud->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -256,7 +257,7 @@ class HomeController extends Controller
             ->groupByMonth();
             return $chartum->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -275,7 +276,7 @@ class HomeController extends Controller
             ->groupByYear();
             return $chartuy->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -295,7 +296,7 @@ class HomeController extends Controller
             ->groupByDay();
             return $chartld->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -305,14 +306,14 @@ class HomeController extends Controller
         {
             $chartlm = Charts::database(Log::where('Subject','Login')->get(), 'bar', 'highcharts')
             ->title('Log In')
-            ->title('Users Logged in month')
+            ->title('Users Logged in per month')
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByMonth();
             return $chartlm->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 
@@ -330,7 +331,7 @@ class HomeController extends Controller
             ->groupByYear();
             return $chartly->render();
         }else{
-            return "doon sa kanto";
+            return "Access Denied: Restricted for Admin only.";
         }
     }
 }
