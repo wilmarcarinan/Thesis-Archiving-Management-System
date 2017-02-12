@@ -11,10 +11,6 @@
 |
 */
 
-Event::listen('illuminate.query',function($query){
-    var_dump($query);
-});
-
 Route::get('/', 'HomeController@index')->middleware('auth');
 
 Auth::routes();
@@ -84,3 +80,5 @@ Route::get('/getchartld','HomeController@getchartld');
 Route::get('/getchartlm','HomeController@getchartlm');
 
 Route::get('/getchartly','HomeController@getchartly');
+
+Route::get('/InactiveUsers','AdminController@InactiveUsers');

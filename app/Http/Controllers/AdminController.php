@@ -31,7 +31,10 @@ class AdminController extends Controller
     {
         if(Auth::user()->Role == 'Admin' && Auth::user()->Status == 'Active')
         {
-            $users = User::where('id','!=',Auth::id())->paginate(15);
+            $users = User::where([
+                ['id','!=',Auth::id()],
+                ['Status','Active'],
+            ])->paginate(15);
             return view('admin.Users',compact('users'));
         }else{
             return redirect()->action('HomeController@index');
@@ -103,5 +106,11 @@ class AdminController extends Controller
         $log->save();
 
         return back();
+    }
+
+    public function InactiveUsers()
+    {
+        $users = User::where('Status','Inactive')->get();
+        return view('admin.InactiveUsers',compact('users'));
     }
 }

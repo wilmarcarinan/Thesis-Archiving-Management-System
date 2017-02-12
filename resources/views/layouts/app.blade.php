@@ -232,6 +232,7 @@
                 <div class="dropdown-content side-nav">
                     <a href="/">Dashboard</a>    
                     <a href="/users">Manage Users</a>            
+                    <a href="/InactiveUsers">Inactive Users</a>            
                     <a href="/list">Manage Files</a> 
                     <a href="/ArchivedFiles">Archived Files</a>      
                     <a href="/logs">Logs</a>
