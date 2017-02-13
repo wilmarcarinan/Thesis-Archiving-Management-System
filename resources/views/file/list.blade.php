@@ -48,9 +48,9 @@
                         @include('file.table-contents')
                     </tbody>
                 </table>
-                {{$files->links()}}
                 <br />
                 </div>
+                {{$files->links()}}
                 <center>
                 <button type="button" class="btn btn-info">Load more</button>
             </center>

@@ -19,6 +19,7 @@ class CreateFilesTable extends Migration
             $table->text('Abstract');
             $table->string('Category');
             $table->string('Authors');
+            $table->string('Course');
             $table->string('Adviser');
             $table->string('FilePath');
             $table->enum('Status',['Active','Inactive'])->default('Active');
