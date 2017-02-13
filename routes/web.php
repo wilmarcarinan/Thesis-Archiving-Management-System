@@ -82,3 +82,5 @@ Route::get('/getchartlm','HomeController@getchartlm');
 Route::get('/getchartly','HomeController@getchartly');
 
 Route::get('/InactiveUsers','AdminController@InactiveUsers');
+
+Route::get('/profile','HomeController@Profile');

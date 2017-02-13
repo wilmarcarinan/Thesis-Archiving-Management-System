@@ -160,30 +160,7 @@ class FileController extends Controller
 
     public function collections()
     {
-
-        if(Auth::User()->Role <> 'Admin'){
-            $recent_list = Auth::user()->recent_views()->where([
-                                    ['Status','Active'],
-                                    ['user_id',Auth::id()]
-                                    ])
-                                ->orderBy('pivot_created_at', 'DESC')
-                                ->paginate(5)
-                                ->unique();
-            $favorite_list = Auth::user()->favorites()->where('Status','Active')
-                                ->orderBy('created_at','DESC')
-                                ->paginate(5);
-            $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')
-                                ->orderBy('created_at','DESC')
-                                ->paginate(5);
-            $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
-            $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('file.collections',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'recent_list'])); 
-            // return var_dump($recent_list);
-        }
-        else{
-            return back();
-        }
-        
+        return view('file.collections');   
     }
 
     public function list()

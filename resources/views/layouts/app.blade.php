@@ -206,6 +206,9 @@
                                         <li>
                                             <a href="/settings">Settings</a>
                                         </li>
+                                        <li>
+                                            <a href="/profile">My Profile</a>
+                                        </li>
                                     @endif
                                     <li>
                                         <a href="{{ url('/logout') }}"
