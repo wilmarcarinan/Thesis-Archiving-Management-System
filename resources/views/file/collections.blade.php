@@ -10,7 +10,7 @@
         
     <div class="carousel slide" id="myCarousel">
     <div class="category-title">
-    	<h4>Information Technology(IT)</h4>
+    	<h4>Information Technology (IT)</h4>
     </div>
         <div class="carousel-inner">
             <div class="item active">
@@ -187,7 +187,7 @@
 <!-- #myCarousel2 -->
 <div class="carousel slide" id="myCarousel2">
     <div class="category-title">
-    	<h4>Information System(IS)</h4>
+    	<h4>Information System (IS)</h4>
     </div>
         <div class="carousel-inner">
             <div class="item active">
@@ -363,7 +363,7 @@
 <!-- #myCarousel3 -->
 <div class="carousel slide" id="myCarousel3">
     <div class="category-title">
-    	<h4>Computer System(CS)</h4>
+    	<h4>Computer Science (CS)</h4>
     </div>
         <div class="carousel-inner">
             <div class="item active">

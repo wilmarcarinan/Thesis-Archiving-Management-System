@@ -17,11 +17,9 @@
             <p>{{$latest_file->thesis_date->format('F j, Y')}}</p>
           </div>
           <center class="w3-container" style="padding: 10px">
-            <span class="glyphicon glyphicon-eye-open">
-              {{ DB::table('recent_views')->where('file_id',$latest_file->id)->pluck('user_id')->count() }}
+            <span class="glyphicon glyphicon-eye-open">{{ DB::table('recent_views')->where('file_id',$latest_file->id)->pluck('user_id')->count() }}
             </span>
-            <span class="glyphicon glyphicon-star-empty">
-              {{ DB::table('favorites')->where('file_id',$latest_file->id)->pluck('user_id')->count() }}
+            <span class="glyphicon glyphicon-star-empty">{{ DB::table('favorites')->where('file_id',$latest_file->id)->pluck('user_id')->count() }}
             </span>
             <br />
           </center>
@@ -137,34 +135,32 @@
                         </form> --}}
                     {{-- </td> --}}
                     <td>
-                        <form action="/bookmark" method="POST">
-                          {{ csrf_field() }}
-                          <input type="hidden" name="file_id" value="{{$file->id}}">
-                          @if(in_array($file->id, $bookmarks))
-                            <button class="not-book" type="submit" id="favorite">
-                              <i  class="fa fa-bookmark" aria-hidden="true"></i>
-                            </button>
-                          @else
-                            <button class="btn-book" type="submit" id="favorite">
-                              <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
-                            </button>
-                          @endif
-                        </form>
+                      <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="suggested_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
+                        .done(function(){
+                          if($('#suggested_bookmark{{$file->id}}').attr('class')=='not-book'){
+                            $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          }else{
+                            $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
+                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          }
+                        });">
+                        <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                     </td>
                     <td>
-                        <form action="/favorite" method="POST">
-                          {{ csrf_field() }}
-                          <input type="hidden" name="file_id" value="{{$file->id}}">
-                          @if(in_array($file->id, $favorites))
-                            <button class="not-fav" type="submit" id="favorite">
-                              <i  class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                          @else
-                            <button class="btn-fav" type="submit" id="favorite">
-                              <i  class="fa fa-star-o" aria-hidden="true"></i>
-                            </button>
-                          @endif
-                        </form>
+                        <button class="<?php if(in_array($file->id, $favorites)) echo 'not'; else echo 'btn' ?>-fav" type="button" id="suggested_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
+                        .done(function(){
+                          if($('#suggested_favorite{{$file->id}}').attr('class')=='not-fav'){
+                            $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          }else{
+                            $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
+                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          }
+                        });">
+                        <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                     </td>
                   @endif
                   <td>{{$no++}}</td>
@@ -300,38 +296,73 @@
                     </form> --}}
                     {{-- </td> --}}
                     <td>
-                      <form action="/bookmark" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$file->id}}">
-                        @if(in_array($file->id, $bookmarks))
-                        <button class="not-book" type="submit" id="favorite">
-                          <i  class="fa fa-bookmark" aria-hidden="true"></i>
-                        </button>
-                        @else
-                        <button class="btn-book" type="submit" id="favorite">
-                          <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
-                        </button>
-                        @endif
-                      </form>
+                      <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="most_viewed_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
+                        .done(function(){
+                          if($('#most_viewed_bookmark{{$file->id}}').attr('class')=='not-book'){
+                            $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          }else{
+                            $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
+                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          }
+                        });">
+                        <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                     </td>
                     <td>
-                      <form action="/favorite" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$file->id}}">
-                        @if(in_array($file->id, $favorites))
-                        <button class="not-fav" type="submit" id="favorite">
-                          <i  class="fa fa-star" aria-hidden="true"></i>
-                        </button>
-                        @else
-                        <button class="btn-fav" type="submit" id="favorite">
-                          <i  class="fa fa-star-o" aria-hidden="true"></i>
-                        </button>
-                        @endif
-                      </form>
+                        <button class="<?php if(in_array($file->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="most_viewed_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
+                        .done(function(){
+                          if($('#most_viewed_favorite{{$file->id}}').attr('class')=='not-fav'){
+                            $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          }else{
+                            $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
+                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          }
+                        });">
+                        <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                     </td>
                   @endif
                   <td>{{$no++}}</td>
-                  <td>{{$file->FileTitle}}</td>
+                  <td class="FileTitle">
+                    <!-- Button trigger modal -->
+                    <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
+                      {{$file->FileTitle}}
+                    </a>
+                    {{-- <p class="fileAbstract"></p> --}}
+                    {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                          </div>
+                          <div class="modal-body">
+                            <h3><b>Abstract</b></h3>
+                            <p>
+                              &nbsp;&nbsp;&nbsp;&nbsp;
+                              <span class="abstract"></span>  
+                            </p>
+                            <p>
+                              Read the whole documentation 
+                              <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')});">
+                                here.
+                              </a>
+                            </p>
+                            <br>
+                            <p class="qrcodeCanvas" style="text-align: center;"></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                   <td>{{$file->Category}}</td>
                   <td>{{$file->Authors}}</td>
                   <td>{{$file->Course}}</td>

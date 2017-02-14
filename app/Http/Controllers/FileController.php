@@ -218,15 +218,13 @@ class FileController extends Controller
     {
         $file = File::where('id',$request->file_id)->get();
         $file = Auth::user()->favorites()->toggle($file);
-        return back();
-        // return Response::json($file);
     }
 
     public function bookmark(Request $request)
     {
         $file = File::where('id',$request->file_id)->get();
-        Auth::user()->bookmarks()->toggle($file);
-        return back();
+        $file = Auth::user()->bookmarks()->toggle($file);
+        // echo $request->file_id;
     }
 
     public function compress(Request $request)

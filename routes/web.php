@@ -45,9 +45,9 @@ Route::patch('/unlock','FileController@unlock');
 
 Route::get('/ArchivedFiles','AdminController@ArchivedFiles');
 
-Route::post('/favorite','FileController@favorite');
+Route::get('/favorite','FileController@favorite');
 
-Route::post('/bookmark','FileController@bookmark');
+Route::get('/bookmark','FileController@bookmark');
 
 Route::patch('/LockUser','AdminController@LockUser');
 
