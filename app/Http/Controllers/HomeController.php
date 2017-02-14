@@ -338,22 +338,22 @@ class HomeController extends Controller
     public function Profile()
     {
         if(Auth::User()->Role <> 'Admin'){
-            $recent_list = Auth::user()->recent_views()->where([
+            $files = Auth::user()->recent_views()->where([
                                     ['Status','Active'],
                                     ['user_id',Auth::id()]
                                     ])
                                 ->orderBy('pivot_created_at', 'DESC')
-                                ->paginate(5)
+                                ->paginate(20)
                                 ->unique();
             $favorite_list = Auth::user()->favorites()->where('Status','Active')
                                 ->orderBy('created_at','DESC')
-                                ->paginate(5);
+                                ->paginate(20);
             $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')
                                 ->orderBy('created_at','DESC')
-                                ->paginate(5);
+                                ->paginate(20);
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'recent_list'])); 
+            return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'files'])); 
             // return var_dump($recent_list);
         }
         else{

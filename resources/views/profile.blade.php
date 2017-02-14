@@ -29,54 +29,7 @@
               </tr>
             </thead>
             <tbody>
-              <?php $no=1; ?>
-              @foreach($recent_list as $recent)
-                <tr>
-                  <td>
-                      <form action="/bookmark" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$recent->id}}">
-                        @if(in_array($recent->id, $bookmarks))
-                          <button class="not-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
-                  </td>
-                  <td>
-                      <form action="/favorite" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$recent->id}}">
-                        @if(in_array($recent->id, $favorites))
-                          <button class="not-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
-                  </td>
-                  <td>{{$no++}}</td>
-                  <td>{{$recent->FileTitle}}</td>
-                  <td>{{$recent->Category}}</td>
-                  <td>{{$recent->Authors}}</td>
-                  <td>{{$recent->Course}}</td>
-                  <td>{{$recent->Adviser}}</td>
-                  <td>{{$recent->thesis_date}}</td>
-                  <td>
-                    {{ DB::table('recent_views')->where('file_id',$recent->id)->pluck('user_id')->count() }}
-                  </td>
-                  <td>
-                    {{ DB::table('favorites')->where('file_id',$recent->id)->pluck('user_id')->count() }}
-                  </td>
-                </tr>
-              @endforeach
+              @include('file.table-contents')
             </tbody>
           </table>
         <br />
@@ -141,7 +94,12 @@
                       </form>
                   </td>
                   <td>{{$no++}}</td>
-                  <td>{{$favorite->FileTitle}}</td>
+                  <td class="FileTitle">
+                    <!-- Button trigger modal -->
+                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal1" data-id="{{$favorite->id}}" data-title="{{$favorite->FileTitle}}" data-abstract="{{$favorite->Abstract}}" data-path="{{$favorite->FilePath}}">
+                      {{$favorite->FileTitle}}
+                    </a>
+                  </td>
                   <td>{{$favorite->Category}}</td>
                   <td>{{$favorite->Authors}}</td>
                   <td>{{$favorite->Course}}</td>
@@ -220,7 +178,12 @@
                       </form>
                   </td>
                   <td>{{$no++}}</td>
-                  <td>{{$bookmark->FileTitle}}</td>
+                  <td class="FileTitle">
+                    <!-- Button trigger modal -->
+                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal2" data-id="{{$bookmark->id}}" data-title="{{$bookmark->FileTitle}}" data-abstract="{{$bookmark->Abstract}}" data-path="{{$bookmark->FilePath}}">
+                      {{$bookmark->FileTitle}}
+                    </a>
+                  </td>
                   <td>{{$bookmark->Category}}</td>
                   <td>{{$bookmark->Authors}}</td>
                   <td>{{$bookmark->Course}}</td>
@@ -245,6 +208,65 @@
       </div>
     </div>
   </div>
-</div>	<div class="container">
+</div>
 
+<!-- Favorites Modal -->
+<div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h3><b>Abstract</b></h3>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="abstract"></span>  
+        </p>
+        <p>
+          Read the whole documentation 
+          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});">
+            here.
+          </a>
+        </p>
+        <br>
+        <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bookmarks Modal -->
+<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h3><b>Abstract</b></h3>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="abstract"></span>  
+        </p>
+        <p>
+          Read the whole documentation 
+          <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});">
+            here.
+          </a>
+        </p>
+        <br>
+        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

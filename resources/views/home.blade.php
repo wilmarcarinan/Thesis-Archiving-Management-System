@@ -105,19 +105,6 @@
             </thead>
             <tbody>
               <?php $no=1; ?>
-              <p class="QRCode hidden">
-                @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-                  <?php 
-                    $path='http://'.Request::server('SERVER_NAME').'/pdf.js/web/viewer.html?file=http://'.Request::server('SERVER_NAME')."/files/";
-                    echo $path;
-                  ?>
-                @else
-                  <?php 
-                    $path='http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/';
-                    echo $path;
-                  ?>
-                @endif
-              </p>
               @foreach($suggested_files as $file)
                 <tr>
                   @if(Auth::user()->Role <> 'Admin')
@@ -166,41 +153,9 @@
                   <td>{{$no++}}</td>
                   <td class="FileTitle">
                     <!-- Button trigger modal -->
-                    <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
+                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal2" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
                       {{$file->FileTitle}}
                     </a>
-                    {{-- <p class="fileAbstract"></p> --}}
-                    {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel"></h4>
-                          </div>
-                          <div class="modal-body">
-                            <h3><b>Abstract</b></h3>
-                            <p>
-                              &nbsp;&nbsp;&nbsp;&nbsp;
-                              <span class="abstract"></span>  
-                            </p>
-                            <p>
-                              Read the whole documentation 
-                              <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')});">
-                                here.
-                              </a>
-                            </p>
-                            <br>
-                            <p class="qrcodeCanvas" style="text-align: center;"></p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </td>
                   <td>{{$file->Category}}</td>
                   <td>{{$file->Authors}}</td>
@@ -267,19 +222,6 @@
             </thead>
             <tbody>
               <?php $no=1; ?>
-              <p class="QRCode hidden">
-                @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-                  <?php 
-                  $path='http://'.Request::server('SERVER_NAME').'/pdf.js/web/viewer.html?file=http://'.Request::server('SERVER_NAME')."/files/";
-                  echo $path;
-                  ?>
-                @else
-                  <?php 
-                  $path='http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/';
-                  echo $path;
-                  ?>
-                @endif
-              </p>
               @foreach($most_viewed as $file)
                 <tr>
                   @if(Auth::user()->Role <> 'Admin')
@@ -327,41 +269,9 @@
                   <td>{{$no++}}</td>
                   <td class="FileTitle">
                     <!-- Button trigger modal -->
-                    <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
+                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal3" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
                       {{$file->FileTitle}}
                     </a>
-                    {{-- <p class="fileAbstract"></p> --}}
-                    {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel"></h4>
-                          </div>
-                          <div class="modal-body">
-                            <h3><b>Abstract</b></h3>
-                            <p>
-                              &nbsp;&nbsp;&nbsp;&nbsp;
-                              <span class="abstract"></span>  
-                            </p>
-                            <p>
-                              Read the whole documentation 
-                              <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')});">
-                                here.
-                              </a>
-                            </p>
-                            <br>
-                            <p class="qrcodeCanvas" style="text-align: center;"></p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </td>
                   <td>{{$file->Category}}</td>
                   <td>{{$file->Authors}}</td>
@@ -382,6 +292,66 @@
             <button type="button" class="btn btn-info">View more</button>
           </center>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Suggested Modal -->
+<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h3><b>Abstract</b></h3>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="abstract"></span>  
+        </p>
+        <p>
+          Read the whole documentation 
+          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});">
+            here.
+          </a>
+        </p>
+        <br>
+        <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Most Viewed Modal -->
+<div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h3><b>Abstract</b></h3>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="abstract"></span>  
+        </p>
+        <p>
+          Read the whole documentation 
+          <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});">
+            here.
+          </a>
+        </p>
+        <br>
+        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
