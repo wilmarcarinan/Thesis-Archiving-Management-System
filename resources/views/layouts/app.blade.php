@@ -316,16 +316,33 @@
                 var qrcode = $('.QRCode').html() + $(this).data('path');
                 var file_name = qrcode.replace(/\s/g, "");
                 var el = kjua({
-                    text: qrcode.replace(/\s/g, ""),
+                    text: file_name,
+                    size: 300,
+                    fill: '#000'
+                });
+
+                var el1 = kjua({
+                    text: file_name,
+                    size: 300,
+                    fill: '#000'
+                });
+
+                var el2 = kjua({
+                    text: file_name,
                     size: 300,
                     fill: '#000'
                 });
 
                 $('.modal-title').html($(this).data('title'));
-                $('#file_link').attr('file_id',$(this).data('id'));
                 $('.abstract').html($(this).data('abstract'));
+
+                $('#file_link').attr('file_id',$(this).data('id'));
+                $('#suggested_link').attr('file_id',$(this).data('id'));
+                $('#most_viewed_link').attr('file_id',$(this).data('id'));
                 // $('.abstract-title').html($(this).data('title'));
                 document.getElementById('file_link').setAttribute('href',file_name);
+                document.getElementById('suggested_link').setAttribute('href',file_name);
+                document.getElementById('most_viewed_link').setAttribute('href',file_name);
                 
                 // document.getElementById('file_link').setAttribute('href',"");
                 // document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
@@ -337,24 +354,26 @@
                     $('.qrcodeCanvas').empty();
                     document.querySelector('.qrcodeCanvas').appendChild(el);
                 }
+                
+                if(isEmpty($('.suggested_qrcodeCanvas'))){
+                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                    // console.log('Its empty');
+                }else{
+                    $('.suggested_qrcodeCanvas').empty();
+                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                }
+                
+                if(isEmpty($('.most_viewed_qrcodeCanvas'))){
+                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                    // console.log('Its empty');
+                }else{
+                    $('.most_viewed_qrcodeCanvas').empty();
+                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                }
 
                 function isEmpty( el ){
                   return !$.trim(el.html())
                 }
-
-                // $('#favorite').click(function(){
-                //     $.ajax({
-                //         type: 'POST',
-                //         url: '/favorite',
-                //         data: $('.file_id').text(),
-                //         success: function(data){
-                //             console.log('Congrats' + data);         
-                //         },
-                //         error: function(){
-                //             console.log('Error');
-                //         }
-                //     });
-                // });
 
                 // $('#file_link').on('click', function(){
                 //     post('/generate_temp', {name: file_name});
