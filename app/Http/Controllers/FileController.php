@@ -160,7 +160,11 @@ class FileController extends Controller
 
     public function collections()
     {
-        return view('file.collections');   
+        $category1 = File::where('Course','BSIT')->orderByRaw('RAND()')->take(9)->get();
+        $category2 = File::where('Course','BSIS')->orderByRaw('RAND()')->take(9)->get();
+        $category3 = File::where('Course','BSCS')->orderByRaw('RAND()')->take(9)->get();
+        return view('file.collections',compact(['category1','category2','category3']));   
+        // return var_dump($category1->count());
     }
 
     public function list()
