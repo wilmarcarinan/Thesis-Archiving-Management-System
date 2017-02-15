@@ -426,7 +426,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[0]->FileTitle}}"</h4>
@@ -439,7 +439,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[1]->FileTitle}}"</h4>
@@ -453,7 +453,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[2]->FileTitle}}"</h4>
@@ -467,7 +467,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[3]->FileTitle}}"</h4>
@@ -487,7 +487,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[4]->FileTitle}}"</h4>
@@ -500,7 +500,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[5]->FileTitle}}"</h4>
@@ -514,7 +514,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[6]->FileTitle}}"</h4>
@@ -528,7 +528,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[7]->FileTitle}}"</h4>
@@ -549,7 +549,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[8]->FileTitle}}"</h4>
@@ -562,7 +562,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[9]->FileTitle}}"</h4>
@@ -576,7 +576,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[10]->FileTitle}}"</h4>
@@ -590,7 +590,7 @@
 		    			<li class="col-sm-3">
 		    				<div class="fff">
 		    					<div class="thumbnail">
-		    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+		    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
 		    					</div>
 		    					<div class="caption">
 		    						<h4>"{{$category3[11]->FileTitle}}"</h4>
