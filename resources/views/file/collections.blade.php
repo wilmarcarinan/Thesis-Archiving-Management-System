@@ -617,7 +617,6 @@
 	    </div>
 	    <!-- /.myCarousel2 -->
 		@endif
-	        
 	</div>
 	<!-- /.col-xs-12 -->
 </div>
