@@ -129,7 +129,7 @@ class FileController extends Controller
             'Course' => 'required',
             // 'Adviser' => 'required',
             'thesis_date' => 'required',
-            'FilePath' => 'min:1|max:2000|required'
+            'FilePath' => 'min:1|required'
         ]);
         
         $file = new File;
