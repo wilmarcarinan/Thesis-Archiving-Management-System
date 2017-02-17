@@ -23,7 +23,6 @@ class CreateFilesTable extends Migration
             $table->string('Adviser');
             $table->string('FilePath');
             $table->enum('Status',['Active','Inactive'])->default('Active');
-            $table->integer('no_of_views')->unsigned()->nullable();
             $table->date('thesis_date')->nullable();
             $table->timestamps();
         });

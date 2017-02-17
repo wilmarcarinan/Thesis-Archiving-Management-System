@@ -178,7 +178,8 @@ class FileController extends Controller
                 ->paginate(5);
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-        return view('file.list',compact(['files','favorites','bookmarks'])); 
+        $years = File::distinct()->where('Status','Active')->get([DB::raw('YEAR(thesis_date)')]);
+        return view('file.list',compact(['files','favorites','bookmarks','years'])); 
     }
 
     public function lock(Request $request)
@@ -238,17 +239,22 @@ class FileController extends Controller
 
     public function compress(Request $request)
     {   
-        $name = $request->filename;
-        $date = $request->filedate;
-        $files = File::where(DB::raw('YEAR(thesis_date)'),$date)->get();
-        Zipper::make(storage_path('app/'.$name.'.zip'));
-        foreach($files as $file){
-            Zipper::add(array(
-                    'files/'.$file->FilePath
-                ));
+        if($request->filename <> '' && $request->filename <> ''){
+            $name = $request->filename;
+            $date = $request->filedate;
+            $files = File::where(DB::raw('YEAR(thesis_date)'),$date)->get();
+            Zipper::make(storage_path('app/'.$name.'.zip'));
+            foreach($files as $file){
+                Zipper::add(array(
+                        'files/'.$file->FilePath
+                    ));
+            }
+            Zipper::close();
+            return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);    
         }
-        Zipper::close();
-        return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);
+        else{
+            return back();
+        }
     }
 
     public function generate_temp(Request $request)

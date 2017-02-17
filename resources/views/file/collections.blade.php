@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top: 70px">
 	<div class="col-xs-12">
-	    <div class="page-header">
+	    {{-- <div class="page-header">
 	        <h3 style="padding: 15px 0px 0px 0px;">Categories</h3>
-	    </div>
+	    </div> --}}
 	   
 	    <div class="category-title">
 	    	<h4>Information Technology (IT)</h4>
@@ -89,7 +89,7 @@
 		    	</div>
 		    	@endif 
 		    </div>
-		    @if($category1->count() >= 4)
+		    @if($category1->count() > 4)
 		    <nav>
 		    	<ul class="control-box pager">
 		    		<li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
@@ -185,7 +185,7 @@
 		    	</div>
 		    	@endif 
 		    </div>
-		    @if($category2->count() >= 4)
+		    @if($category2->count() > 4)
 		    <nav>
 		    	<ul class="control-box pager">
 		    		<li><a data-slide="prev" href="#myCarousel2" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
@@ -280,7 +280,7 @@
 		    	</div>
 		    	@endif 
 		    </div>
-		    @if($category3->count() >= 4)
+		    @if($category3->count() > 4)
 		    <!--Control Box-->
 		    <nav>
 		    	<ul class="control-box pager">

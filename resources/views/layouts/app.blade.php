@@ -313,6 +313,7 @@
                 //         console.log(data);
                 // });
                 {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
+                
                 var qrcode = $('.QRCode').html() + $(this).data('path');
                 var file_name = qrcode.replace(/\s/g, "");
                 var el = kjua({
@@ -332,7 +333,7 @@
                     size: 300,
                     fill: '#000'
                 });
-
+                // console.log(file_name);
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
 

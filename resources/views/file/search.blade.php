@@ -2,9 +2,9 @@
 
 @section('content')
 @if(Auth::user()->Role == 'User')
-	<div class="container jumbotron">
+	<div class="container jumbotron" style="margin-top: 50px">
 @else
-	<div class="container jumbotron">
+	<div class="container jumbotron" style="margin-top: 50px">
 @endif
 		<div class="col-sm-3"></div>
 			<div class="col-sm-6">
