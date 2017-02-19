@@ -45,9 +45,12 @@
 								<div class="col-md-6">
 									<select class="form-control" name="Course">
 										<option value="">Select Course</option>
-										@foreach($courses as $course)
+										{{-- @foreach($courses as $course)
 											<option value="{{$course->Course}}">{{$course->Course}}</option>
-										@endforeach
+										@endforeach --}}
+										<option value="BSIT">BSIT</option>
+										<option value="BSIS">BSIS</option>
+										<option value="BSCS">BSCS</option>
 									</select>
 								</div>
 							</div>							
