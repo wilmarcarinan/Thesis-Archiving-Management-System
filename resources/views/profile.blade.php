@@ -64,34 +64,36 @@
               @foreach($favorite_list as $favorite)
                 <tr>
                   <td>
-                      <form action="/bookmark" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$favorite->id}}">
-                        @if(in_array($favorite->id, $bookmarks))
-                          <button class="not-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
+                      <button class="<?php if(in_array($favorite->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="favorites_bookmark{{$favorite->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$favorite->id}} })
+                        .done(function(e){
+                          //alert(e);
+                          // $('#favorite').removeClass('btn-book');
+                          if($('#favorites_bookmark{{$favorite->id}}').attr('class')=='not-book'){
+                            $('#favorites_bookmark{{$favorite->id}}').attr('class','btn-book');
+                            $('#favorites_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark-o');
+                          }else{
+                            $('#favorites_bookmark{{$favorite->id}}').attr('class','not-book');
+                            $('#favorites_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark');
+                          }
+                        });">
+                        <i  class="fa fa-bookmark<?php if(!in_array($favorite->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                   </td>
                   <td>
-                      <form action="/favorite" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$favorite->id}}">
-                        @if(in_array($favorite->id, $favorites))
-                          <button class="not-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
+                      <button class="<?php if(in_array($favorite->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="favorite{{$favorite->id}}" onclick="$.get( '/favorite', { 'file_id': {{$favorite->id}} })
+                      .done(function(e){
+                        //alert(e);
+                        // $('#favorite').removeClass('btn-book');
+                        if($('#favorites_favorite{{$favorite->id}}').attr('class')=='not-fav'){
+                          $('#favorites_favorite{{$favorite->id}}').attr('class','btn-fav');
+                          $('#favorites_favorite{{$favorite->id}} i').attr('class','fa fa-star-o');
+                        }else{
+                          $('#favorites_favorite{{$favorite->id}}').attr('class','not-fav');
+                          $('#favorites_favorite{{$favorite->id}} i').attr('class','fa fa-star');
+                        }
+                      });">
+                      <i  class="fa fa-star<?php if(!in_array($favorite->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
                   </td>
                   <td>{{$no++}}</td>
                   <td class="FileTitle">
@@ -148,34 +150,42 @@
               @foreach($bookmark_list as $bookmark)
                 <tr>
                   <td>
-                      <form action="/bookmark" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$bookmark->id}}">
-                        @if(in_array($bookmark->id, $bookmarks))
-                          <button class="not-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-book" type="submit" id="favorite">
-                            <i  class="fa fa-bookmark-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
+                      <button class="<?php if(in_array($bookmark->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="bookmarks_bookmark{{$bookmark->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$bookmark->id}} })
+                        .done(function(e){
+                          //alert(e);
+                          // $('#favorite').removeClass('btn-book');
+                          if($('#bookmarks_bookmark{{$bookmark->id}}').attr('class')=='not-book'){
+                            $('#bookmarks_bookmark{{$bookmark->id}}').attr('class','btn-book');
+                            $('#bookmarks_bookmark{{$bookmark->id}} i').attr('class','fa fa-bookmark-o');
+                          }else{
+                            $('#bookmarks_bookmark{{$bookmark->id}}').attr('class','not-book');
+                            $('#bookmarks_bookmark{{$bookmark->id}} i').attr('class','fa fa-bookmark');
+                          }
+                        });">
+                        <i  class="fa fa-bookmark<?php if(!in_array($bookmark->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                      </button>
                   </td>
                   <td>
-                      <form action="/favorite" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="file_id" value="{{$bookmark->id}}">
-                        @if(in_array($bookmark->id, $favorites))
-                          <button class="not-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star" aria-hidden="true"></i>
-                          </button>
-                        @else
-                          <button class="btn-fav" type="submit" id="favorite">
-                            <i  class="fa fa-star-o" aria-hidden="true"></i>
-                          </button>
-                        @endif
-                      </form>
+                      <button class="<?php if(in_array($bookmark->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="bookmarks_favorite{{$bookmark->id}}" onclick="$.get( '/favorite', { 'file_id': {{$bookmark->id}} })
+                      .done(function(e){
+                        //alert(e);
+                        // $('#favorite').removeClass('btn-book');
+                        if($('#bookmarks_favorite{{$bookmark->id}}').attr('class')=='not-fav'){
+                          $('#bookmarks_favorite{{$bookmark->id}}').attr('class','btn-fav');
+                          $('#bookmarks_favorite{{$bookmark->id}} i').attr('class','fa fa-star-o');
+                          // $('#favorites_favorite{{$bookmark->id}}').attr('class','btn-fav');
+                          // $('#favorites_favorite{{$bookmark->id}} i').attr('class','fa fa-star-o');
+                          // console.log('Wil');
+                        }else{
+                          $('#bookmarks_favorite{{$bookmark->id}}').attr('class','not-fav');
+                          $('#bookmarks_favorite{{$bookmark->id}} i').attr('class','fa fa-star');
+                          // $('#favorites_favorite{{$bookmark->id}}').attr('class','not-fav');
+                          // $('#favorites_favorite{{$bookmark->id}} i').attr('class','fa fa-star');
+                          // console.log('Ca');
+                        }
+                      });">
+                      <i  class="fa fa-star<?php if(!in_array($bookmark->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
                   </td>
                   <td>{{$no++}}</td>
                   <td class="FileTitle">

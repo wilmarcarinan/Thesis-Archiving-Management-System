@@ -28,7 +28,7 @@
 		    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 			    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
 		    						@else
-			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
 		    						@endif
 		    						{{-- <a class="btn btn-mini" href="{{$category->FilePath}}"></a> --}}
 		    					</div>
