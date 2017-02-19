@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="text" onkeypress="chip(event)" id="text">
+	<p id="here"></p>
+</body>
+<style type="text/css">
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+<!-- .closebtn { -->
+    <!-- padding-left: 10px; -->
+    <!-- color: #888; -->
+    <!-- font-weight: bold; -->
+    <!-- float: right; -->
+    <!-- font-size: 20px; -->
+    <!-- cursor: pointer; -->
+<!-- } -->
+
+<!-- .closebtn:hover { -->
+    <!-- color: #000; -->
+<!-- } -->
+</style>
+<script type="text/javascript">
+	function chip(e){
+	if (e.keyCode === 13 ){
+	var value = [];
+	var div = document.createElement('div');
+	var text = document.getElementById('text').value;
+	
+	for (i = 0; i < value.length; i++) {
+	value[i] = text;}
+	document.getElementById('here').innerHTML = value;
+	
+	document.body.appendChild(div);
+	div.className = 'chip';
+	div.textContent = text;
+	document.getElementById('text').value = ''
+	}
+	}
+
+</script>
+</html>
