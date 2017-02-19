@@ -81,7 +81,7 @@
                 </div>
                 {{$files->links()}}
                 <center>
-                <button type="button" class="btn btn-info">Load more</button>
+                {{-- <button type="button" class="btn btn-info">Load more</button> --}}
             </center>
         </div>
 @endsection

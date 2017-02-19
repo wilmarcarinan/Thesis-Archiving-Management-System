@@ -33,21 +33,22 @@
 </style>
 <script type="text/javascript">
 	function chip(e){
-	if (e.keyCode === 13 ){
-	var value = [];
-	var div = document.createElement('div');
-	var text = document.getElementById('text').value;
-	
-	for (i = 0; i < value.length; i++) {
-	value[i] = text;}
-	document.getElementById('here').innerHTML = value;
-	
-	document.body.appendChild(div);
-	div.className = 'chip';
-	div.textContent = text;
-	document.getElementById('text').value = ''
-	}
-	}
+		if (e.keyCode === 13 ){
+			var value = [];
+			var div = document.createElement('div');
+			var text = document.getElementById('text').value;
+
+			for (i = 0; i < value.length; i++) {
+				value[i] = text;
+			}
+			document.getElementById('here').innerHTML = value;
+
+			document.body.appendChild(div);
+			div.className = 'chip';
+			div.textContent = text;
+			document.getElementById('text').value = ''
+			}
+		}
 
 </script>
 </html>

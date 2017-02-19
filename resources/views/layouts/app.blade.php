@@ -337,40 +337,48 @@
                 $('.modal-title').html($(this).data('title'));
                 $('.abstract').html($(this).data('abstract'));
 
-                $('#file_link').attr('file_id',$(this).data('id'));
-                $('#suggested_link').attr('file_id',$(this).data('id'));
-                $('#most_viewed_link').attr('file_id',$(this).data('id'));
+                if(document.getElementById('file_link') != null){
+                    $('#file_link').attr('file_id',$(this).data('id'));
+                    document.getElementById('file_link').setAttribute('href',file_name);
+                    if(isEmpty($('.qrcodeCanvas'))){
+                        document.querySelector('.qrcodeCanvas').appendChild(el);
+                        // console.log('Its empty');
+                    }else{
+                        $('.qrcodeCanvas').empty();
+                        document.querySelector('.qrcodeCanvas').appendChild(el);
+                    }
+                }
+
+                if(document.getElementById('suggested_link') != null){
+                    $('#suggested_link').attr('file_id',$(this).data('id'));    
+                    document.getElementById('suggested_link').setAttribute('href',file_name);
+                    if(isEmpty($('.suggested_qrcodeCanvas'))){
+                        document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                        // console.log('Its empty');
+                    }else{
+                        $('.suggested_qrcodeCanvas').empty();
+                        document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                    }
+                }
+                else{
+                    console.log('suggested_link does not exist.')
+                }
+
+                if(document.getElementById('most_viewed_link') != null){
+                    $('#most_viewed_link').attr('file_id',$(this).data('id'));    
+                    document.getElementById('most_viewed_link').setAttribute('href',file_name);
+                    if(isEmpty($('.most_viewed_qrcodeCanvas'))){
+                        document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                        // console.log('Its empty');
+                    }else{
+                        $('.most_viewed_qrcodeCanvas').empty();
+                        document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                    }
+                }
                 // $('.abstract-title').html($(this).data('title'));
-                document.getElementById('file_link').setAttribute('href',file_name);
-                document.getElementById('suggested_link').setAttribute('href',file_name);
-                document.getElementById('most_viewed_link').setAttribute('href',file_name);
                 
                 // document.getElementById('file_link').setAttribute('href',"");
                 // document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
-
-                if(isEmpty($('.qrcodeCanvas'))){
-                    document.querySelector('.qrcodeCanvas').appendChild(el);
-                    // console.log('Its empty');
-                }else{
-                    $('.qrcodeCanvas').empty();
-                    document.querySelector('.qrcodeCanvas').appendChild(el);
-                }
-                
-                if(isEmpty($('.suggested_qrcodeCanvas'))){
-                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
-                    // console.log('Its empty');
-                }else{
-                    $('.suggested_qrcodeCanvas').empty();
-                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
-                }
-                
-                if(isEmpty($('.most_viewed_qrcodeCanvas'))){
-                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
-                    // console.log('Its empty');
-                }else{
-                    $('.most_viewed_qrcodeCanvas').empty();
-                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
-                }
 
                 function isEmpty( el ){
                   return !$.trim(el.html())

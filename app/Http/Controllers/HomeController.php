@@ -163,12 +163,12 @@ class HomeController extends Controller
         }else{
             $files = File::latest('thesis_date')
                 ->where('Status','Active')
-                ->get();
+                ->paginate(5);
             $latest_file = File::latest('thesis_date')
                 ->where('Status','Active')
                 ->first();
             $suggested_files = File::where('Course',Auth::user()->Course)->paginate(5);
-            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->get();
+            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->paginate(5);
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
             return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files']));

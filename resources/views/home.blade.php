@@ -75,7 +75,7 @@
               @include('file.table-contents')
             </tbody>
           </table>
-          {{-- {{$files->links)}} --}}
+          {{$files->links()}}
         <br />
         </div>
         <center>
@@ -193,6 +193,7 @@
               @endforeach
             </tbody>
             </table>
+            {{$suggested_files->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
@@ -286,7 +287,7 @@
               @endforeach
             </tbody>
           </table>
-          {{-- {{$most_viewed->links()}} --}}
+          {{$most_viewed->links()}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
