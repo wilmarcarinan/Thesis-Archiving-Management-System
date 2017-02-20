@@ -32,6 +32,7 @@
               @include('file.table-contents')
             </tbody>
           </table>
+          {{-- {{$files->links()}} --}}
         <br />
         </div>
         <center>
@@ -41,7 +42,7 @@
     </div>
     <div id="favorites" class="tab-pane fade">
       <div class="container">
-        <h2><span class="glyphicon glyphicon-star-empty"></span> Favorites</h2>                                                                    
+        <h2><span class="fa fa-star-o"></span> Favorites</h2>                                                                    
         <div class="table-responsive">          
           <table class="table">
             <thead>
@@ -62,7 +63,7 @@
             <tbody>
               <?php $no=1; ?>
               @foreach($favorite_list as $favorite)
-                <tr>
+                <tr id="favorites_row{{$favorite->id}}" class="<?php if(!in_array($favorite->id, $favorites)) echo 'hidden'; ?>">
                   <td>
                       <button class="<?php if(in_array($favorite->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="favorites_bookmark{{$favorite->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$favorite->id}} })
                         .done(function(e){
@@ -71,6 +72,7 @@
                           if($('#favorites_bookmark{{$favorite->id}}').attr('class')=='not-book'){
                             $('#favorites_bookmark{{$favorite->id}}').attr('class','btn-book');
                             $('#favorites_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#bookmarks_row{{$favorite->id}}').attr('class','hidden');
                             $('#bookmarks_bookmark{{$favorite->id}}').attr('class','btn-book');
                             $('#bookmarks_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark-o');
                             $('#bookmark{{$favorite->id}}').attr('class','btn-book');
@@ -78,6 +80,7 @@
                           }else{
                             $('#favorites_bookmark{{$favorite->id}}').attr('class','not-book');
                             $('#favorites_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark');
+                            $('#bookmarks_row{{$favorite->id}}').removeClass();
                             $('#bookmarks_bookmark{{$favorite->id}}').attr('class','not-book');
                             $('#bookmarks_bookmark{{$favorite->id}} i').attr('class','fa fa-bookmark');
                             $('#bookmark{{$favorite->id}}').attr('class','not-book');
@@ -95,6 +98,7 @@
                         if($('#favorites_favorite{{$favorite->id}}').attr('class')=='not-fav'){
                           $('#favorites_favorite{{$favorite->id}}').attr('class','btn-fav');
                           $('#favorites_favorite{{$favorite->id}} i').attr('class','fa fa-star-o');
+                          $('#favorites_row{{$favorite->id}}').attr('class','hidden');
                           $('#bookmarks_favorite{{$favorite->id}}').attr('class','btn-fav');
                           $('#bookmarks_favorite{{$favorite->id}} i').attr('class','fa fa-star-o');
                           $('#favorite{{$favorite->id}}').attr('class','btn-fav');
@@ -133,7 +137,7 @@
               @endforeach
             </tbody>
             </table>
-            {{$favorite_list->links()}}
+            {{-- {{$favorite_list->links()}} --}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
@@ -143,7 +147,7 @@
     </div>
     <div id="toread" class="tab-pane fade">
       <div class="container">
-        <h2><span class="glyphicon glyphicon-bookmark"></span> Bookmarks</h2>                                                                        
+        <h2><span class="fa fa-bookmark-o"></span> Bookmarks</h2>                                                                        
         <div class="table-responsive">          
           <table class="table">
             <thead>
@@ -164,7 +168,7 @@
             <tbody>
             <?php $no=1; ?>
               @foreach($bookmark_list as $bookmark)
-                <tr>
+                <tr id="bookmarks_row{{$bookmark->id}}" class="<?php if(!in_array($bookmark->id, $bookmarks)) echo 'hidden'; ?>">
                   <td>
                       <button class="<?php if(in_array($bookmark->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="bookmarks_bookmark{{$bookmark->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$bookmark->id}} })
                         .done(function(e){
@@ -173,6 +177,7 @@
                           if($('#bookmarks_bookmark{{$bookmark->id}}').attr('class')=='not-book'){
                             $('#bookmarks_bookmark{{$bookmark->id}}').attr('class','btn-book');
                             $('#bookmarks_bookmark{{$bookmark->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#bookmarks_row{{$bookmark->id}}').attr('class','hidden');
                             $('#favorites_bookmark{{$bookmark->id}}').attr('class','btn-book');
                             $('#favorites_bookmark{{$bookmark->id}} i').attr('class','fa fa-bookmark-o');
                             $('#bookmark{{$bookmark->id}}').attr('class','btn-book');
@@ -197,6 +202,7 @@
                         if($('#bookmarks_favorite{{$bookmark->id}}').attr('class')=='not-fav'){
                           $('#bookmarks_favorite{{$bookmark->id}}').attr('class','btn-fav');
                           $('#bookmarks_favorite{{$bookmark->id}} i').attr('class','fa fa-star-o');
+                          $('#favorites_row{{$bookmark->id}}').attr('class','hidden');
                           $('#favorites_favorite{{$bookmark->id}}').attr('class','btn-fav');
                           $('#favorites_favorite{{$bookmark->id}} i').attr('class','fa fa-star-o');
                           $('#favorite{{$bookmark->id}}').attr('class','btn-fav');
@@ -204,6 +210,7 @@
                         }else{
                           $('#bookmarks_favorite{{$bookmark->id}}').attr('class','not-fav');
                           $('#bookmarks_favorite{{$bookmark->id}} i').attr('class','fa fa-star');
+                          $('#favorites_row{{$bookmark->id}}').removeClass();
                           $('#favorites_favorite{{$bookmark->id}}').attr('class','not-fav');
                           $('#favorites_favorite{{$bookmark->id}} i').attr('class','fa fa-star');
                           $('#favorite{{$bookmark->id}}').attr('class','not-fav');
@@ -236,7 +243,7 @@
               @endforeach
             </tbody>
             </table>
-            {{$bookmark_list->links()}}
+            {{-- {{$bookmark_list->links()}} --}}
           <br />
           <center>
             <button type="button" class="btn btn-info">View more</button>
