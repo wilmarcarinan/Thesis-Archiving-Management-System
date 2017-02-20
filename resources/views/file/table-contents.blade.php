@@ -36,9 +36,41 @@
             if($('#bookmark{{$file->id}}').attr('class')=='not-book'){
               $('#bookmark{{$file->id}}').attr('class','btn-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              if(document.getElementById('bookmarks_bookmark{{$file->id}}') != null){
+                $('#bookmarks_bookmark{{$file->id}}').attr('class','btn-book');
+                $('#bookmarks_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              }
+              if(document.getElementById('favorites_bookmark{{$file->id}}') != null){
+                $('#favorites_bookmark{{$file->id}}').attr('class','btn-book');
+                $('#favorites_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              }
+              if(document.getElementById('suggested_bookmark{{$file->id}}') != null){
+                $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
+                $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              }
+              if(document.getElementById('most_viewed_bookmark{{$file->id}}') != null){
+                $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
+                $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              }
             }else{
               $('#bookmark{{$file->id}}').attr('class','not-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+              if(document.getElementById('bookmarks_bookmark{{$file->id}}') != null){
+                $('#bookmarks_bookmark{{$file->id}}').attr('class','not-book');
+                $('#bookmarks_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+              }
+              if(document.getElementById('favorites_bookmark{{$file->id}}') != null){
+                $('#favorites_bookmark{{$file->id}}').attr('class','not-book');
+                $('#favorites_bookmark{{$file->id}} i').attr('class','fa fa-bookmark'); 
+              }
+              if(document.getElementById('suggested_bookmark{{$file->id}}') != null){
+                $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
+                $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+              }
+              if(document.getElementById('most_viewed_bookmark{{$file->id}}') != null){
+                $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
+                $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark'); 
+              }
             }
           });">
           <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
@@ -52,9 +84,41 @@
           if($('#favorite{{$file->id}}').attr('class')=='not-fav'){
             $('#favorite{{$file->id}}').attr('class','btn-fav');
             $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
+            if(document.getElementById('bookmarks_favorite{{$file->id}}') != null){
+              $('#bookmarks_favorite{{$file->id}}').attr('class','btn-fav');
+              $('#bookmarks_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+            }
+            if(document.getElementById('favorites_favorite{{$file->id}}') != null){
+              $('#favorites_favorite{{$file->id}}').attr('class','btn-fav');
+              $('#favorites_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+            }
+            if(document.getElementById('suggested_favorite{{$file->id}}') != null){
+              $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
+              $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+            }
+            if(document.getElementById('most_viewed_favorite{{$file->id}}') != null){
+              $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
+              $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+            }
           }else{
             $('#favorite{{$file->id}}').attr('class','not-fav');
             $('#favorite{{$file->id}} i').attr('class','fa fa-star');
+            if(document.getElementById('bookmarks_favorite{{$file->id}}') != null){
+              $('#bookmarks_favorite{{$file->id}}').attr('class','not-fav');
+              $('#bookmarks_favorite{{$file->id}} i').attr('class','fa fa-star');
+            }
+            if(document.getElementById('favorites_favorite{{$file->id}}') != null){
+              $('#favorites_favorite{{$file->id}}').attr('class','not-fav');
+              $('#favorites_favorite{{$file->id}} i').attr('class','fa fa-star');
+            }
+            if(document.getElementById('suggested_favorite{{$file->id}}') != null){
+              $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
+              $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+            }
+            if(document.getElementById('most_viewed_favorite{{$file->id}}') != null){
+              $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
+              $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+            }
           }
         });">
         <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>

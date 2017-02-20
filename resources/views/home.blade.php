@@ -127,9 +127,17 @@
                           if($('#suggested_bookmark{{$file->id}}').attr('class')=='not-book'){
                             $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
                             $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
                           }else{
                             $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
                             $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                            $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
+                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                            $('#bookmark{{$file->id}}').attr('class','not-book');
+                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
                           }
                         });">
                         <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
@@ -141,9 +149,17 @@
                           if($('#suggested_favorite{{$file->id}}').attr('class')=='not-fav'){
                             $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
                             $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                            $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                            $('#favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
                           }else{
                             $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
                             $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+                            $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
+                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+                            $('#favorite{{$file->id}}').attr('class','not-fav');
+                            $('#favorite{{$file->id}} i').attr('class','fa fa-star');
                           }
                         });">
                         <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
@@ -244,9 +260,17 @@
                           if($('#most_viewed_bookmark{{$file->id}}').attr('class')=='not-book'){
                             $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
                             $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                            $('#bookmark{{$file->id}}').attr('class','btn-book');
+                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
                           }else{
                             $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
                             $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                            $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
+                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                            $('#bookmark{{$file->id}}').attr('class','not-book');
+                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
                           }
                         });">
                         <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
@@ -258,9 +282,17 @@
                           if($('#most_viewed_favorite{{$file->id}}').attr('class')=='not-fav'){
                             $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
                             $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                            $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                            $('#favorite{{$file->id}}').attr('class','btn-fav');
+                            $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
                           }else{
                             $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
                             $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+                            $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
+                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+                            $('#favorite{{$file->id}}').attr('class','not-fav');
+                            $('#favorite{{$file->id}} i').attr('class','fa fa-star');
                           }
                         });">
                         <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
