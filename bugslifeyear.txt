@@ -1,0 +1,27 @@
+/*registration
+fixed course
+validation of same student ID
+pwede number pangalan
+
+admin
+charts
+users
+-search user
+logs
+-search specific user/action/date
+-wala din sa logs yung create user
+results
+-prompt "no %search% found"
+
+user
+yung view more nag-eerror kasi yung address yung kinukuha
+na-access pa rin yung file kahit naka logout
+
+encoder
+hindi counted yung view
+
+sa inactive user kahit wala na sigurong promote*/
+
+manlilibre mamaya si wilmar
+
+

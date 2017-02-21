@@ -1,5 +1,9 @@
 body{
-	background-color: #222;
+	background: #222; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#222, #444, #222); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#222, #444, #222); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#222, #444, #222); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#222, #444, #222); /* Standard syntax */
 }
 
 /*Search UI*/
@@ -31,10 +35,12 @@ body{
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    display: none;
+    /*display: none;*/
+    width: 0px;
+    height: 0px;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    /*min-width: 160px;*/
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -42,7 +48,7 @@ body{
 /* Links inside the dropdown */
 .dropdown-content a {
     color: white;
-    padding: 12px 16px;
+    padding: 15px 20px;
     text-decoration: none;
     display: block;
 }
@@ -52,16 +58,16 @@ body{
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-    display: block;
+    /*display: block;*/
+    -webkit-transition: width 1s, height 2s, -webkit-transform 3s; /* Safari */
+    transition: width 1s, height 2s, transform 3s;
+    width: 180px;
+    height: 380px;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     visibility: hidden;
-}
-
-.dropbtn:hover {
-	visibility: hidden;
 }
 
 /*.navbar {
