@@ -19,6 +19,7 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Restrict direct access to specified files
+    RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost [NC] 
     RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost.*$ [NC]
     RewriteRule \.(pdf)$ - [F]
 </IfModule>

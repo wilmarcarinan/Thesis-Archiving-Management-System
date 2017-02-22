@@ -70,7 +70,16 @@
                             <label for="Course" class="col-md-4 control-label">Course</label>
 
                             <div class="col-md-6">
-                                <input id="Course" type="text" class="form-control" name="Course" value="{{ old('Course') }}">
+                                <select class="form-control" name="Course">
+                                    <option value="">Select Course</option>
+                                    {{-- @foreach($courses as $course)
+                                        <option value="{{$course->Course}}">{{$course->Course}}</option>
+                                    @endforeach --}}
+                                    <option value="BSIT">BSIT</option>
+                                    <option value="BSIS">BSIS</option>
+                                    <option value="BSCS">BSCS</option>
+                                </select>
+                                {{-- <input id="Course" type="text" class="form-control" name="Course" value="{{ old('Course') }}"> --}}
 
                                 @if ($errors->has('Course'))
                                     <span class="help-block">

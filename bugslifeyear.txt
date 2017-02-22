@@ -1,27 +1,29 @@
-/*registration
-fixed course
-validation of same student ID
-pwede number pangalan
+registration
+-fixed course - done
+-validation of same student ID - done
+-pwede number pangalan - yes
 
 admin
-charts
+charts - happens sometimes
+
+addfile
+- datepicker does not work in firefox - found an alternative for the mean time
+
+manage files
+- update button for files
+
 users
 -search user
+
 logs
 -search specific user/action/date
--wala din sa logs yung create user
+-wala din sa logs yung create user - done
+
 results
--prompt "no %search% found"
+-prompt "no %search% found" - done
 
 user
 yung view more nag-eerror kasi yung address yung kinukuha
 na-access pa rin yung file kahit naka logout
-
-encoder
-hindi counted yung view
-
-sa inactive user kahit wala na sigurong promote*/
-
-manlilibre mamaya si wilmar
 
 

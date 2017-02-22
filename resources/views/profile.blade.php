@@ -35,9 +35,9 @@
           {{-- {{$files->links()}} --}}
         <br />
         </div>
-        <center>
+        {{-- <center>
           <button type="button" class="btn btn-info">View more</button>
-        </center>
+        </center> --}}
       </div>
     </div>
     <div id="favorites" class="tab-pane fade">
@@ -139,9 +139,9 @@
             </table>
             {{-- {{$favorite_list->links()}} --}}
           <br />
-          <center>
+          {{-- <center>
             <button type="button" class="btn btn-info">View more</button>
-          </center>
+          </center> --}}
         </div>
       </div>
     </div>
@@ -245,9 +245,9 @@
             </table>
             {{-- {{$bookmark_list->links()}} --}}
           <br />
-          <center>
+          {{-- <center>
             <button type="button" class="btn btn-info">View more</button>
-          </center>
+          </center> --}}
         </div>
       </div>
     </div>

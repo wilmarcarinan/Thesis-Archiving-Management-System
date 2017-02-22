@@ -202,7 +202,7 @@
 	    	<h4>Computer Science (CS)</h4>
 	    </div>
 	    @if($category3 <> '[]')
-	    <div class="carousel slide" id="myCarousel2">
+	    <div class="carousel slide" id="myCarousel3">
 		    <div class="carousel-inner">
 		    	<!-- /Slide1 -->
 		    	<div class="item active">

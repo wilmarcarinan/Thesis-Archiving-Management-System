@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -48,7 +52,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'StudentID' => 'required|max:255',
+            'StudentID' => 'required|max:255|unique:users',
             'FirstName' => 'required|max:255',
             'MiddleName' => 'required|max:255',
             'LastName' => 'required|max:255',
@@ -77,5 +81,42 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if(Auth::check()){
+            $log = new Log;
+
+            $log->Subject = 'Register';
+            $log->Details = Auth::user()->FirstName.' '.Auth::user()->MiddleName.' '.Auth::user()->LastName.' [User] has been registered.';
+            $log->student_id = Auth::id();
+
+            $log->save();
+
+            $log = new Log;
+
+            $log->Subject = 'Login';
+            $log->Details = Auth::user()->FirstName.' '.Auth::user()->MiddleName.' '.Auth::user()->LastName.' [User] has been logged in.';
+            $log->student_id = Auth::id();
+
+            $log->save();
+        }
+        return redirect()->intended('home');
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

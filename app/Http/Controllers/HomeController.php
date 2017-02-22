@@ -172,6 +172,7 @@ class HomeController extends Controller
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
             return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files']));
+            // return $latest_file->Abstract;
         }
         // return var_dump($favorites);
     }

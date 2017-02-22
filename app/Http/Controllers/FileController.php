@@ -12,6 +12,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -31,6 +32,9 @@ class FileController extends Controller
     public function SearchResults(Request $request)
     {
         $files = new File;
+        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $requests = $request->all();
         if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where('FileTitle','like','%'.$request->search.'%')
                 ->where('Status','Active')
@@ -79,9 +83,7 @@ class FileController extends Controller
                 ->orwhere('Category','like','%'.$request->search.'%')
                 ->paginate(5);
             // return 'Search and Adviser has a value of '.$request->search.' and '.$request->Adviser;
-        }
-        $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
-        $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+        }else
         
         if($request->Year <> '' || $request->Adviser <> '' || $request->search <> ''){
             $log = new Log;
@@ -106,8 +108,8 @@ class FileController extends Controller
             $log->save();
         }
 
-        return view('file.results',compact(['files', 'favorites', 'bookmarks']));
-        // return var_dump($files);
+        return view('file.results',compact(['files', 'bookmarks','requests', 'favorites']));
+        // return $requests;
     }
 
     public function FileForm()
@@ -118,6 +120,7 @@ class FileController extends Controller
 
     public function AddFile(Request $request)
     {
+        // return $request->all();
         $this->validate(request(),[
             'FileTitle' => [
                 'required',
@@ -136,7 +139,10 @@ class FileController extends Controller
 
         $fileObj = $request->file('FilePath');
         $fileName = $fileObj->getClientOriginalName();
-        $fileObj->storeAs('files',$fileName);
+        // $fileObj->storeAs('files',$fileName);
+        $path = Storage::putFileAs(
+            'files', $fileObj, $fileName
+        );
         
         $file->FileTitle = $request->FileTitle;
         $file->Category = $request->Category;
@@ -214,14 +220,19 @@ class FileController extends Controller
 
     public function increment_views(Request $request)
     {
-        $file = File::select('id','FileTitle')->where('id',$request->file_id)->get();
+        $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->file_id)->get();
         Auth::user()->recent_views()->attach($file);
+        // copy(storage_path('app/public/files/'.$file[0]['FilePath']), 'files/'.$file[0]['FilePath']);
 
         $log = new Log;
         $log->Subject = 'Views';
         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
         $log->student_id = Auth::id();
         $log->save();
+        // sleep(10);
+        // unlink('files/'.$file[0]['FilePath']);
+
+        // return $file[0]['FilePath'];
     }
 
     public function favorite(Request $request)

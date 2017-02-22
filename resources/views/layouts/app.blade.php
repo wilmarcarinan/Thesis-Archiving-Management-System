@@ -314,8 +314,8 @@
                 // });
                 {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
                 
-                var qrcode = $('.QRCode').html() + $(this).data('path');
-                var file_name = qrcode.replace(/\s/g, "");
+                var qrcode = $('.QRCode').html();
+                var file_name = qrcode.replace(/\s/g, "") + $(this).data('path');
                 var el = kjua({
                     text: file_name,
                     size: 300,

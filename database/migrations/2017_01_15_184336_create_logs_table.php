@@ -18,8 +18,6 @@ class CreateLogsTable extends Migration
             $table->string('Subject');
             $table->string('Details');
             $table->integer('student_id')->unsigned()->index();
-            $table->foreign('student_id')
-                  ->references('id')->on('users');
             $table->timestamps();
         });
     }

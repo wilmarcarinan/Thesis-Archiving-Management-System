@@ -65,7 +65,7 @@
 							<div class="form-group">
 								<label for="thesis_date" class="col-md-4 control-label">Thesis Date: </label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="thesis_date">
+									<input type="date" class="form-control" name="thesis_date" placeholder="yyyy-mm-dd (e.g 2017-02-21)">
 								</div>
 							</div>
 							

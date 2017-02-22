@@ -29,13 +29,12 @@
           </form> --}}
       {{-- </td> --}}
       <td>
-        <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
+        <button class="<?php if(in_array($file->id, $bookmarks)) echo 'not'; else echo 'btn' ?>-book" type="button" id="bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
           .done(function(e){
-            //alert(e);
-            // $('#favorite').removeClass('btn-book');
             if($('#bookmark{{$file->id}}').attr('class')=='not-book'){
               $('#bookmark{{$file->id}}').attr('class','btn-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+              
               if(document.getElementById('bookmarks_bookmark{{$file->id}}') != null && document.getElementById('favorites_bookmark{{$file->id}}') != null){
                 $('#bookmarks_bookmark{{$file->id}}').attr('class','btn-book');
                 $('#bookmarks_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
@@ -44,6 +43,7 @@
                 $('#favorites_bookmark{{$file->id}}').attr('class','btn-book');
                 $('#favorites_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
               }
+              
               if(document.getElementById('suggested_bookmark{{$file->id}}') != null && document.getElementById('most_viewed_bookmark{{$file->id}}') != null){
                 $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
                 $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
@@ -51,9 +51,11 @@
                 $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
                 $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
               }
+
             }else{
               $('#bookmark{{$file->id}}').attr('class','not-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+              
               if(document.getElementById('bookmarks_bookmark{{$file->id}}') != null && document.getElementById('favorites_bookmark{{$file->id}}') != null){
                 $('#bookmarks_bookmark{{$file->id}}').attr('class','not-book');
                 $('#bookmarks_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
@@ -62,6 +64,7 @@
                 $('#favorites_bookmark{{$file->id}}').attr('class','not-book');
                 $('#favorites_bookmark{{$file->id}} i').attr('class','fa fa-bookmark'); 
               }
+              
               if(document.getElementById('suggested_bookmark{{$file->id}}') != null && document.getElementById('most_viewed_bookmark{{$file->id}}') != null){
                 $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
                 $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
@@ -75,10 +78,8 @@
         </button>
     </td>
     <td>
-        <button class="<?php if(in_array($file->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
+        <button class="<?php if(in_array($file->id, $favorites)) echo 'not'; else echo 'btn' ?>-fav" type="button" id="favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
         .done(function(e){
-          //alert(e);
-          // $('#favorite').removeClass('btn-book');
           if($('#favorite{{$file->id}}').attr('class')=='not-fav'){
             $('#favorite{{$file->id}}').attr('class','btn-fav');
             $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
@@ -146,7 +147,11 @@
               </p>
               <p>
                 Read the whole documentation 
-                <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')});">
+                <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')})
+                .done(function(data){
+
+                });
+                ">
                   here.
                 </a>
               </p>
