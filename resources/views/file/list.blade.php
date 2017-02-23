@@ -71,6 +71,7 @@
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
                         <th></th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>

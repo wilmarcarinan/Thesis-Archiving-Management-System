@@ -51,7 +51,6 @@
                 $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
                 $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
               }
-
             }else{
               $('#bookmark{{$file->id}}').attr('class','not-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
@@ -130,40 +129,6 @@
       </a>
       {{-- <p class="fileAbstract"></p> --}}
       {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel"></h4>
-            </div>
-            <div class="modal-body">
-              <h3><b>Abstract</b></h3>
-              <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="abstract"></span>  
-              </p>
-              <p>
-                Read the whole documentation 
-                <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')})
-                .done(function(data){
-
-                });
-                ">
-                  here.
-                </a>
-              </p>
-              <br>
-              <p class="qrcodeCanvas" style="text-align: center;"></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </td>
     <td>{{$file->Category}}</td>
     <td>{{$file->Authors}}</td>
@@ -186,16 +151,114 @@
             {{method_field('PATCH')}}
             {{csrf_field()}}
             <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><span class="fa fa-unlock-alt"></span></button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
         @else
           <form action="/lock" method="POST">
             {{method_field('PATCH')}}
             {{csrf_field()}}
             <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><span class="fa fa-lock"></span></button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
         @endif
           </form>
+      </td>
+      <td>
+        {{-- <button class="btn btn-primary" type="submit"></button> --}}
+        <!-- Button trigger modal -->
+        <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
       </td>
     @endif
   </tr>
 @endforeach
+
+<!-- Link for More Details Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h3><b>Abstract</b></h3>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="abstract"></span>  
+        </p>
+        <p>
+          Read the whole documentation 
+          <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')})
+          .done(function(data){
+
+          });
+          ">
+            here.
+          </a>
+        </p>
+        <br>
+        <p class="qrcodeCanvas" style="text-align: center;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update File Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/updateFile" method="POST" class="form">
+          {{csrf_field()}}
+          {{method_field('PATCH')}}
+          
+          <div class="form-group">
+            <label for="edit_title">Title: </label>
+            <input type="text" class="form-control" name="edit_title" id="edit_title">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_category">Categories: </label>
+            <textarea name="edit_category" id="edit_category" rows="2" class="form-control"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit_authors">Author/s: </label>
+            <textarea name="edit_authors" id="edit_authors" rows="2" class="form-control"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="edit_course">Course: </label>
+            <select name="edit_course" id="edit_course" class="form-control">
+              <option value="">Select Course</option>
+              <option value="BSIT">BSIT</option>
+              <option value="BSIS">BSIS</option>
+              <option value="BSCS">BSCS</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="edit_adviser">Adviser: </label>
+            <input type="text" class="form-control" name="edit_adviser" id="edit_adviser">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_date">Thesis Date: </label>
+            <input type="date" class="form-control" name="edit_date" id="edit_date">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update</button>
+          <input type="hidden" id="edit_id" name="edit_id">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
