@@ -23,6 +23,11 @@
 							@endforeach
 						</tbody>
 					</table>
+					@if(!$logs->count())
+		                <center>
+		                    <h3>No Logs</h3>
+		                </center>
+		            @endif
 					{{ $logs->links() }}
 				</div>
 			</div>

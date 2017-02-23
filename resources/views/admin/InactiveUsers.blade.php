@@ -67,9 +67,14 @@
                 </tbody>
             </table>
             <br />
-            </div>
-            <center>
+            @if(!$users->count())
+                <center>
+                    <h3>No Inactive Users</h3>
+                </center>
+            @endif
+        </div>
+        {{-- <center>
             <button type="button" class="btn btn-info">Load more</button>
-        </center>
+        </center> --}}
     </div>
 @endsection

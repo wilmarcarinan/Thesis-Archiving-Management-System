@@ -67,6 +67,11 @@
 							@endforeach
 						</tbody>
 					</table>
+					@if(!$users->count())
+		                <center>
+		                    <h3>No Users To Manage</h3>
+		                </center>
+		            @endif
 					{{ $users->links() }}
 				</div>
 			</div>

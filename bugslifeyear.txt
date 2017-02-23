@@ -11,6 +11,7 @@ addfile
 
 manage files
 - update button for files
+- compress files not satisfactory
 
 users
 -search user

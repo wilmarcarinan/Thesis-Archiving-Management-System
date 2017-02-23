@@ -29,9 +29,14 @@
                 </tbody>
             </table>
             <br />
-            </div>
-            <center>
+            @if(!$files->count())
+                <center>
+                    <h3>No Archived Files</h3>
+                </center>
+            @endif
+        </div>
+        {{-- <center>
             <button type="button" class="btn btn-info">Load more</button>
-        </center>
+        </center> --}}
     </div>
 @endsection
