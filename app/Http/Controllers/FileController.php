@@ -220,19 +220,27 @@ class FileController extends Controller
 
     public function increment_views(Request $request)
     {
-        $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->file_id)->get();
-        Auth::user()->recent_views()->attach($file);
-        // copy(storage_path('app/public/files/'.$file[0]['FilePath']), 'files/'.$file[0]['FilePath']);
+        if($request->fidder){
+            $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->fidder)->get();
+            Auth::user()->recent_views()->attach($file);
+            unlink('files/'.Auth::id().$file[0]['FilePath']);
+        }else{
+            $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->file_id)->get();
+            Auth::user()->recent_views()->attach($file);
+            copy(storage_path('app/public/files/'.$file[0]['FilePath']), 'files/'.Auth::id().$file[0]['FilePath']);
 
-        $log = new Log;
-        $log->Subject = 'Views';
-        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
-        $log->student_id = Auth::id();
-        $log->save();
-        // sleep(10);
-        // unlink('files/'.$file[0]['FilePath']);
+            $log = new Log;
+            $log->Subject = 'Views';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
+            $log->student_id = Auth::id();
+            $log->save();
+            // exec("echo rm files/".Auth::id().$file[0]['FilePath']."|at now +20 seconds");
+            // sleep(10);//timeout to make sure does not STAY
+            // unlink('files/'.$file[0]['FilePath'].$file[0]['id']);
 
-        // return $file[0]['FilePath'];
+            // return $file[0]['FilePath'];
+            //redirect(url()."pdf.js/web/viewer.html?fidder=".$request->file_id."file=".url()."/files".$file[0]['FilePath']);
+        }
     }
 
     public function favorite(Request $request)

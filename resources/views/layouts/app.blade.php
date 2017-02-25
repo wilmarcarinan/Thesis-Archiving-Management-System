@@ -315,7 +315,7 @@
                 {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
                 
                 var qrcode = $('.QRCode').html();
-                var file_name = qrcode.replace(/\s/g, "") + $(this).data('path');
+                var file_name = qrcode.replace(/\s/g, "") + "{{Auth::id()}}" + $(this).data('path')+ "&fidder=" + $(this).data('id');
                 var el = kjua({
                     text: file_name,
                     size: 300,

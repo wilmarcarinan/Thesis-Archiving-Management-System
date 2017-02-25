@@ -31,6 +31,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <link rel="stylesheet" href="viewer.css">
 
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script src="compatibility.js"></script>
     <script type='text/javascript'>
       document.onkeydown = function (e) {
@@ -49,6 +50,25 @@ See https://github.com/adobe-type-tools/cmap-resources
           }
         }
       };
+      $.urlParam = function(name){
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+          if (results==null){
+             return null;
+          }
+          else{
+             return results[1] || 0;
+          }
+      }
+
+      // $(document).ready(function(){
+      //   $.get('/increment_views',{'fidder': fId});
+      // });
+      var fId = $.urlParam('fidder');
+      document.addEventListener('textlayerrendered', function (e) {
+        if (e.detail.pageNumber === PDFViewerApplication.page) {
+         $.get('/increment_views',{'fidder': fId});
+        }
+      }, true);
     </script>
 
 

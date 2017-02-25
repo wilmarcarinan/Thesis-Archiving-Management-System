@@ -17,8 +17,9 @@ users
 -search user
 
 logs
--search specific user/action/date
--wala din sa logs yung create user - done
+- search specific user/action/date
+- wala din sa logs yung create user - done
+- monitor forgot password and reset password
 
 results
 -prompt "no %search% found" - done
