@@ -20,6 +20,7 @@ logs
 - search specific user/action/date
 - wala din sa logs yung create user - done
 - monitor forgot password and reset password
+- monitor who favorites and bookmarks a file
 
 results
 -prompt "no %search% found" - done

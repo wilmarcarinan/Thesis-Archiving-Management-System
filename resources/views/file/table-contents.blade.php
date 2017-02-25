@@ -186,7 +186,7 @@
         </p>
         <p>
           Read the whole documentation 
-          <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#file_link').attr('file_id')})
+          <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/View_PDF', { 'file_id': $('#file_link').attr('file_id')})
           .done(function(data){
 
           });

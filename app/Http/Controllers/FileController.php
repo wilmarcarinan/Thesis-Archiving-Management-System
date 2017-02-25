@@ -221,19 +221,9 @@ class FileController extends Controller
     public function increment_views(Request $request)
     {
         if($request->fidder){
-            $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->fidder)->get();
-            Auth::user()->recent_views()->attach($file);
+            $file = File::select('id','FileTitle', 'FilePath')->where([['id',$request->fidder],['Status','Active']])->get();
             unlink('files/'.Auth::id().$file[0]['FilePath']);
-        }else{
-            $file = File::select('id','FileTitle', 'FilePath')->where('id',$request->file_id)->get();
-            Auth::user()->recent_views()->attach($file);
-            copy(storage_path('app/public/files/'.$file[0]['FilePath']), 'files/'.Auth::id().$file[0]['FilePath']);
-
-            $log = new Log;
-            $log->Subject = 'Views';
-            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
-            $log->student_id = Auth::id();
-            $log->save();
+        }else{            
             // exec("echo rm files/".Auth::id().$file[0]['FilePath']."|at now +20 seconds");
             // sleep(10);//timeout to make sure does not STAY
             // unlink('files/'.$file[0]['FilePath'].$file[0]['id']);
@@ -241,6 +231,7 @@ class FileController extends Controller
             // return $file[0]['FilePath'];
             //redirect(url()."pdf.js/web/viewer.html?fidder=".$request->file_id."file=".url()."/files".$file[0]['FilePath']);
         }
+        Auth::user()->recent_views()->attach($file);
     }
 
     public function favorite(Request $request)
@@ -290,6 +281,22 @@ class FileController extends Controller
     {
         $decrypted_data = decrypt($data);
         return Response::json($decrypted_data);
+    }
+
+    public function View_PDF(Request $request)
+    {
+        if(Auth::check()){
+            $file = File::select('id','FileTitle', 'FilePath')->where([['id',$request->fidder],['Status','Active']])->get();
+            copy(storage_path('app/public/files/'.$file[0]['FilePath']), 'files/'.Auth::id().$file[0]['FilePath']);
+
+            $log = new Log;
+            $log->Subject = 'Views';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
+            $log->student_id = Auth::id();
+            $log->save();
+        }else{
+            logger()->error('You are not allowed here.');
+        }
     }
 
     // public function comp(Request $request)
