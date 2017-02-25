@@ -41,7 +41,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Compress" class="btn btn-info">    
+                        <input type="submit" value="Compress" class="btn btn-info">
+                        <input type="submit" value="Backup" name="backup" class="btn btn-info">
                     </div>
                 </form>
             </div>

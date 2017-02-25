@@ -256,11 +256,22 @@ class FileController extends Controller
             Zipper::make(storage_path('app/'.$name.'.zip'));
             foreach($files as $file){
                 Zipper::add(array(
-                        'files/'.$file->FilePath
+                        storage_path('app/public/files/').$file->FilePath
                     ));
             }
             Zipper::close();
             return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);    
+        }
+        elseif($request->has('backup')){
+            $files = File::all();
+            Zipper::make(storage_path('app/'.Carbon::now()->toDateString().'.zip'));
+            foreach($files as $file){
+                Zipper::add(array(
+                        storage_path('app/public/files/').$file->FilePath
+                    ));
+            }
+            Zipper::close();
+            return Response::download(storage_path('app/'.Carbon::now()->toDateString().'.zip'))->deleteFileAfterSend(true);    
         }
         else{
             return back();
@@ -294,8 +305,6 @@ class FileController extends Controller
             $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has viewed a thesis entitled ".$file[0]['FileTitle'];
             $log->student_id = Auth::id();
             $log->save();
-        }else{
-            logger()->error('You are not allowed here.');
         }
     }
 

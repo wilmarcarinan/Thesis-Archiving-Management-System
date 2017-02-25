@@ -161,6 +161,8 @@
         @endif
           </form>
       </td>
+    @endif
+    @if(Auth::user()->Role == 'Admin')
       <td>
         {{-- <button class="btn btn-primary" type="submit"></button> --}}
         <!-- Button trigger modal -->

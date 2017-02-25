@@ -82,10 +82,12 @@
                         <a href="/list" class="navbar-toggle ">
                             <span class="glyphicon glyphicon-list-alt"></span>                        
                         </a>
-                        <a href="/collections" class="navbar-toggle">
-                            <span class="glyphicon glyphicon-th-large"></span>                
-                        </a>
-                        @if(Auth::user()->Role == 'Encoder')
+                        @if(Auth::user()->Role == 'User')
+                            <a href="/collections" class="navbar-toggle">
+                                <span class="glyphicon glyphicon-th-large"></span>                
+                            </a>
+                        @endif
+                        @if(Auth::user()->Role == 'Encoder' || Auth::user()->Role == 'Admin')
                             <a href="/AddFile" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
