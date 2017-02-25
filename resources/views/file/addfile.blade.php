@@ -28,7 +28,7 @@
 							<div class="form-group">
 								<label for="Abstract" class="col-md-4 control-label">Abstract: </label>
 								<div class="col-md-6">
-									<textarea class="form-control" name="Abstract">
+									<textarea class="form-control" name="Abstract" rows="9">
 									</textarea>
 								</div>
 							</div>

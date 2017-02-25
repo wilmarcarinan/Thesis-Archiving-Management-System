@@ -61,8 +61,6 @@ Route::post('/compress','FileController@compress');
 
 // Route::post('/generate_temp','FileController@generate_temp');
 
-Route::get('/encrypted_data?{data}','FileController@encrypted_data');
-
 Route::get('/getchartvd','HomeController@getchartvd');
 
 Route::get('/getchartvm','HomeController@getchartvm');

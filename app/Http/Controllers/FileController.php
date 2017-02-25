@@ -166,14 +166,9 @@ class FileController extends Controller
 
     public function collections()
     {
-        $category1 = File::where('Course','BSIT')->orderByRaw('RAND()')->take(12)->get();
-        $category2 = File::where('Course','BSIS')->orderByRaw('RAND()')->take(12)->get();
-        $category3 = File::where('Course','BSCS')->orderByRaw('RAND()')->take(12)->get();
-        $filtered = $category1->filter(function ($value, $key) {
-            return $value->count() > 2;
-        });
-
-        $filtered->all();
+        $category1 = File::where([['Course','BSIT'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
+        $category2 = File::where([['Course','BSIS'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
+        $category3 = File::where([['Course','BSCS'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
         return view('file.collections',compact(['category1','category2','category3']));   
         // return var_dump($category1->count());
     }
@@ -288,12 +283,6 @@ class FileController extends Controller
         return $htmlString;
     }
 
-    public function encrypted_data($data)
-    {
-        $decrypted_data = decrypt($data);
-        return Response::json($decrypted_data);
-    }
-
     public function View_PDF(Request $request)
     {
         if(Auth::check()){
@@ -307,11 +296,4 @@ class FileController extends Controller
             $log->save();
         }
     }
-
-    // public function comp(Request $request)
-    // {
-    //     $files = new File;
-    //     $request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-    //     $files = File::where('Status','Active')->where(DB::raw('YEAR(thesis_date)'), $request->Year)
-    // }
 }
