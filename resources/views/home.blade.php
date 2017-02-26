@@ -28,7 +28,8 @@
         </div>
         <div class="col-md-5 col-sm-5">
           <h1>{{$latest_file->FileTitle}}</h1>
-          <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p>
+          {{-- <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p> --}}
+          <p>{{\Illuminate\Support\Str::words($latest_file->Abstract, $words = 70, $end = '...')}}</p>
           @if(Request::server('SERVER_NAME') <> '127.0.0.1')
             <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME')}}/files/{{$latest_file->FilePath }}" target="_blank" id="latest_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#latest_link').attr('file_id')});">
           @else

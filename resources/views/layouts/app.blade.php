@@ -390,6 +390,17 @@
                 //     post('/generate_temp', {name: file_name});
                 // });
             });
+
+            $(document).on('click','.updateFile',function(){
+                $('#edit_title').val($(this).data('title'));
+                $('#edit_abstract').val($(this).data('abstract'));
+                $('#edit_category').html($(this).data('category'));
+                $('#edit_authors').html($(this).data('authors'));
+                $('#edit_course').val($(this).data('course'));
+                $('#edit_adviser').val($(this).data('adviser'));
+                $('#edit_date').val($(this).data('date'));
+                $('#edit_id').val($(this).data('id'));
+            });
         </script>
     </div>
 

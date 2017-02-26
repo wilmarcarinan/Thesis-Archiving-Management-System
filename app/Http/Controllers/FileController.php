@@ -296,4 +296,38 @@ class FileController extends Controller
             $log->save();
         }
     }
+
+    public function updateFile()
+    {
+        // return request()->all();
+
+        $this->validate(request(),[
+            'title' => 'required',
+            'abstract' => 'required',
+            'categories' => 'required',
+            'authors' => 'required',
+            'course' => 'required',
+            'thesis_date' => 'required'
+        ]);
+
+        $file = File::find(request()->id);
+
+        $file->update([
+            'FileTitle' => request()->title,
+            'Abstract' => request()->abstract,
+            'Category' => request()->categories,
+            'Authors' => request()->authors,
+            'Course' => request()->course,
+            'Adviser' => request()->adviser,
+            'thesis_date' => request()->thesis_date
+        ]);
+
+        $log = new Log;
+        $log->Subject = 'File Update';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has updated a thesis entitled ".$file->FileTitle;
+        $log->student_id = Auth::id();
+        $log->save();
+
+        return $file;
+    }
 }

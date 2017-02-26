@@ -84,3 +84,5 @@ Route::get('/InactiveUsers','AdminController@InactiveUsers');
 Route::get('/profile','HomeController@Profile');
 
 Route::get('/View_PDF','FileController@View_PDF');
+
+Route::patch('/updateFile','FileController@updateFile');

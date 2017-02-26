@@ -130,11 +130,11 @@
       {{-- <p class="fileAbstract"></p> --}}
       {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
     </td>
-    <td>{{$file->Category}}</td>
-    <td>{{$file->Authors}}</td>
-    <td>{{$file->Course}}</td>
-    <td>{{$file->Adviser}}</td>
-    <td>{{$file->thesis_date->format('F j, Y')}}</td>
+    <td id="Category{{$file->id}}">{{$file->Category}}</td>
+    <td id="Authors{{$file->id}}">{{$file->Authors}}</td>
+    <td id="Course{{$file->id}}">{{$file->Course}}</td>
+    <td id="Adviser{{$file->id}}">{{$file->Adviser}}</td>
+    <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('F j, Y')}}</td>
     @if(Auth::user()->Role == 'Admin')
       <td>{{ $file->Status }}</td>
     @endif
@@ -166,7 +166,7 @@
       <td>
         {{-- <button class="btn btn-primary" type="submit"></button> --}}
         <!-- Button trigger modal -->
-        <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
       </td>
     @endif
   </tr>
@@ -216,12 +216,19 @@
       </div>
       <div class="modal-body">
         <form action="/updateFile" method="POST" class="form">
-          {{csrf_field()}}
-          {{method_field('PATCH')}}
-          
+          {{-- {{csrf_field()}} --}}
+          {{-- {{method_field('PATCH')}} --}}
+          <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
+          <input type="hidden" name="_method" id="method" value="PATCH">
+
           <div class="form-group">
             <label for="edit_title">Title: </label>
             <input type="text" class="form-control" name="edit_title" id="edit_title">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_abstract">Abstract: </label>
+            <textarea name="edit_abstract" id="edit_abstract" rows="4" class="form-control"></textarea>
           </div>
 
           <div class="form-group">
@@ -254,7 +261,39 @@
             <input type="date" class="form-control" name="edit_date" id="edit_date">
           </div>
 
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-primary" onclick="
+            $.ajax({
+              type: 'PATCH',
+              url: '/updateFile',
+              data: {
+                '_method': $('#method').val(),
+                '_token': $('#token').val(),
+                'title': $('#edit_title').val(),
+                'abstract': $('#edit_abstract').val(),
+                'categories': $('#edit_category').val(),
+                'authors': $('#edit_authors').val(),
+                'course': $('#edit_course').val(),
+                'adviser': $('#edit_adviser').val(),
+                'thesis_date': $('#edit_date').val(),
+                'id': $('#edit_id').val()
+              },
+              // dataType: 'jsonp',
+              success: function(data){
+                $('a[data-id='+data.id+']').text(data.FileTitle);
+                $('#Category'+data.id).text(data.Category);
+                $('#Authors'+data.id).text(data.Authors);
+                $('#Course'+data.id).html(data.Course);
+                $('#Adviser'+data.id).text(data.Adviser);
+                $('#ThesisDate'+data.id).text(data.thesis_date);
+                $('#updateModal').modal('hide');
+              },
+              error: function(xhr, textStatus, thrownError){
+                console.log(textStatus);
+                console.log(xhr.status);
+                console.log(thrownError);
+              }
+            });
+          ">Update</button>
           <input type="hidden" id="edit_id" name="edit_id">
         </form>
       </div>

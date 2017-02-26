@@ -10,7 +10,7 @@ addfile
 - datepicker does not work in firefox - found an alternative for the mean time
 
 manage files
-- update button for files
+- update button for files - Done
 - compress files not satisfactory
 
 users
