@@ -12,7 +12,7 @@
 	color: gold;
 }
 
-.btn-fav, .not-fav, .btn-book, .not-book {
+.btn-fav, .not-fav, .btn-book, .not-book, .openNotes {
 	background: none;
 	border: none;
 }
@@ -27,4 +27,8 @@
 
 .btn-book:hover{
 	color:skyblue;
+}
+
+.openNotes{
+	color: rgb(245,184,15);	
 }

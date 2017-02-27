@@ -7692,7 +7692,7 @@ button.close {
   color: gold;
 }
 
-.btn-fav, .not-fav, .btn-book, .not-book, .openModal {
+.btn-fav, .not-fav, .btn-book, .not-book, .openNotes {
   background: none;
   border: none;
 }
@@ -7707,6 +7707,10 @@ button.close {
 
 .btn-book:hover {
   color: skyblue;
+}
+
+.openNotes {
+  color: #f5b80f;
 }
 
 /*# sourceMappingURL=app.css.map */

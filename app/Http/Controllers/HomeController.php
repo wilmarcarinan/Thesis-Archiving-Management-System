@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\File;
 use App\Log;
+use App\Note;
 use Charts;
 
 class HomeController extends Controller
@@ -171,8 +172,12 @@ class HomeController extends Controller
             $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->paginate(5);
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files']));
-            // return $latest_file->Abstract;
+            $notes = Note::where('user_id',Auth::id())->get();
+            $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
+            $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
+            return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files','notes_FileID','notes_note','notes']));
+            // return $notes->where('file_id',5)->pluck('note');
+            // return $notes[0]->note;
         }
         // return var_dump($favorites);
     }

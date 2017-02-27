@@ -14,14 +14,14 @@
 							<div class="form-group">
 								<label for="FileTitle" class="col-md-4 control-label">Thesis Title: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="FileTitle">
+									<input type="text" class="form-control" name="FileTitle" value="{{ old('FileTitle') }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="Categories" class="col-md-4 control-label">Categories: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Category">
+									<input type="text" class="form-control" name="Category" value="{{ old('Category') }}">
 								</div>
 							</div>
 							
@@ -29,6 +29,7 @@
 								<label for="Abstract" class="col-md-4 control-label">Abstract: </label>
 								<div class="col-md-6">
 									<textarea class="form-control" name="Abstract" rows="9">
+										{{ old('Abstract') }}
 									</textarea>
 								</div>
 							</div>
@@ -36,7 +37,7 @@
 							<div class="form-group">
 								<label for="Authors" class="col-md-4 control-label">Authors: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Authors">
+									<input type="text" class="form-control" name="Authors" value="{{ old('Authors') }}">
 								</div>
 							</div>
 
@@ -44,7 +45,11 @@
 								<label for="Course" class="col-md-4 control-label">Course: </label>
 								<div class="col-md-6">
 									<select class="form-control" name="Course">
-										<option value="">Select Course</option>
+										@if(old('Course'))
+											<option value="{{ old('Course') }}">{{ old('Course') }}</option>
+										@else
+											<option value="">Select Course</option>
+										@endif
 										{{-- @foreach($courses as $course)
 											<option value="{{$course->Course}}">{{$course->Course}}</option>
 										@endforeach --}}
@@ -58,14 +63,14 @@
 							<div class="form-group">
 								<label for="Adviser" class="col-md-4 control-label">Adviser: </label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="Adviser">
+									<input type="text" class="form-control" name="Adviser" value="{{ old('Adviser') }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="thesis_date" class="col-md-4 control-label">Thesis Date: </label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="thesis_date" placeholder="yyyy-mm-dd (e.g 2017-02-21)">
+									<input type="date" class="form-control" name="thesis_date" placeholder="yyyy-mm-dd (e.g 2017-02-21)" value="{{ old('thesis_date') }}">
 								</div>
 							</div>
 							

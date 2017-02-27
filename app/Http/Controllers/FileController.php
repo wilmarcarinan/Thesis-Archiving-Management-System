@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
+use App\Note;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
@@ -132,7 +133,7 @@ class FileController extends Controller
             'Course' => 'required',
             // 'Adviser' => 'required',
             'thesis_date' => 'required',
-            'FilePath' => 'min:1|required'
+            'FilePath' => 'min:1|required|mimes:pdf'
         ]);
         
         $file = new File;
@@ -255,7 +256,20 @@ class FileController extends Controller
                     ));
             }
             Zipper::close();
-            return Response::download(storage_path('app/'.$name.'.zip'))->deleteFileAfterSend(true);    
+            
+            $log = new Log;
+            $log->Subject = 'File Archived';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has downloaded files from year ".$date." with the name ".$name;
+            $log->student_id = Auth::id();
+            $log->save();
+            $headers = array(
+                'Content-Type' => 'application/octet-stream',
+                'Content-Disposition' => 'attachment; filename='.$name.'.zip',
+                'Connection' => 'close'
+            );
+            $response = Response::download(storage_path('app/'.$name.'.zip'),$name.'.zip',$headers)->deleteFileAfterSend(true);    
+            ob_end_clean();
+            return $response;
         }
         elseif($request->has('backup')){
             $files = File::all();
@@ -266,7 +280,21 @@ class FileController extends Controller
                     ));
             }
             Zipper::close();
-            return Response::download(storage_path('app/'.Carbon::now()->toDateString().'.zip'))->deleteFileAfterSend(true);    
+
+            $log = new Log;
+            $log->Subject = 'File Backup';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has backed up the all Thesis Files.";
+            $log->student_id = Auth::id();
+            $log->save();
+
+            $headers = array(
+                'Content-Type' => 'application/octet-stream',
+                'Content-Disposition' => 'attachment; filename='.Carbon::now()->toDateString().'.zip',
+                'Connection' => 'close'
+            );
+            $response = Response::download(storage_path('app/'.Carbon::now()->toDateString().'.zip',Carbon::now()->toDateString().'.zip',$headers))->deleteFileAfterSend(true);
+            ob_end_clean();
+            return $response;
         }
         else{
             return back();
@@ -329,5 +357,51 @@ class FileController extends Controller
         $log->save();
 
         return $file;
+    }
+
+    public function addNotes()
+    {
+        $this->validate(request(),[
+            'note' => 'required'
+        ]);
+
+        $note = new Note;
+        $note->note = request()->note;
+        $note->file_id = request()->file_id;
+        $note->user_id = Auth::id();
+        $note->save();
+
+        $file = File::find(request()->file_id);
+
+        $log = new Log;
+        $log->Subject = 'Add Note';
+        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a note in a Thesis entitled ".$file->FileTitle;
+        $log->student_id = Auth::id();
+        $log->save();
+
+        return $note;
+    }
+
+    public function editNotes()
+    {
+        if(request()->note <> ''){
+            $note = Note::find(request()->id);
+
+            $note->update([
+                'note' => request()->note
+            ]);
+
+            $file = File::find(request()->file_id);
+
+            $log = new Log;
+            $log->Subject = 'Edit Note';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has updated his/her note in a Thesis entitled ".$file->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+
+            return $note;
+        }else{
+            return 'Unable to update!';
+        }
     }
 }

@@ -401,6 +401,31 @@
                 $('#edit_date').val($(this).data('date'));
                 $('#edit_id').val($(this).data('id'));
             });
+
+            $(document).on('click','.openNotes',function(){
+                var type = 'POST';
+                var link_url = '/editNotes';
+                var buttonValue = 'Update'
+
+                // $('.notesButton').attr('id','notesButton'+$(this).data('file_id'));
+                // $('.NotesForm').attr('id','NotesForm'+$(this).data('file_id'));
+                $('#NotesMethod').remove();
+                $('#FileNote_id').val($(this).data('file_id'));
+                $('#NoteID').val($(this).data('note_id'));
+
+                if($(this).data('notes') == ""){
+                    link_url = '/addNotes';
+                    buttonValue = 'Save';                    
+                    $('#edit_notes').val('');
+                }else{
+                    $('#edit_notes').val($(this).data('notes'));
+                    $('.NotesForm').after('<input type="hidden" name="_method" id="NotesMethod" value="PATCH">');
+                }
+                $('.NotesForm').attr('method',type);
+                $('.NotesForm').attr('action',link_url);
+                $('.notesButton').text(buttonValue);
+
+            });
         </script>
     </div>
 

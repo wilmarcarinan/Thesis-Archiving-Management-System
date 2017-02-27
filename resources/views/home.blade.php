@@ -61,6 +61,7 @@
               <tr>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>

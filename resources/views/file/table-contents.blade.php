@@ -15,19 +15,6 @@
 @foreach($files as $file)
   <tr>
     @if(Auth::user()->Role <> 'Admin')
-      {{-- <td> --}}
-        <!-- Button trigger modal -->
-        {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
-          <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-        </button> --}}
-        {{-- @if(in_array($file->id,$notes))
-          <form action="/editNotes" method="POST">
-            {{ csrf_field() }}
-            {{method_field('PATCH')}}
-
-
-          </form> --}}
-      {{-- </td> --}}
       <td>
         <button class="<?php if(in_array($file->id, $bookmarks)) echo 'not'; else echo 'btn' ?>-book" type="button" id="bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
           .done(function(e){
@@ -120,6 +107,18 @@
         <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
       </button>
     </td>
+    <td>
+        <!-- Button trigger modal -->
+        <button class="openNotes" data-toggle="modal" data-target="#notesModal" data-note_id="<?php
+          if(in_array($file->id,$notes_FileID))
+            echo $notes->where('file_id',$file->id)->pluck('id')[0];
+        ?>" data-notes="<?php 
+          if(in_array($file->id,$notes_FileID))
+            echo $notes->where('file_id',$file->id)->pluck('note')[0];
+          ?>" data-file_id="{{$file->id}}" data-user_id="{{Auth::id()}}">
+          <i class="fa fa-sticky-note" aria-hidden="true"></i>
+        </button>
+      </td>
     @endif
     <td>{{$no++}}</td>
     <td class="FileTitle">
@@ -171,6 +170,66 @@
     @endif
   </tr>
 @endforeach
+
+<!-- Add/Edit Notes Modal -->
+<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form NotesForm">
+          {{-- {{csrf_field()}} --}}
+          {{-- {{method_field('PATCH')}} --}}
+          <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
+          {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
+
+          <div class="form-group">
+            {{-- <label for="notes">Notes: </label> --}}
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary notesButton" onclick="
+            var type = '';
+            if($(this).text() == 'Save'){
+              type = 'POST';
+            }else{
+              type = 'PATCH';
+            }
+            // alert($('#edit_notes').val());
+            $.ajax({
+              type: type,
+              url: $('.NotesForm').attr('action'),
+              data: {
+                // '_method': $('#method').val(),
+                '_token': $('#Notestoken').val(),
+                'id': $('#NoteID').val(),
+                'note': $('#edit_notes').val(),
+                'file_id': $('#FileNote_id').val()
+              },
+              success:function(data){
+                // if(data)
+                $('#notesModal').modal('hide');
+              },
+              error: function(xhr,textStatus,thrownError){
+                console.log(textStatus);
+                console.log(xhr.status);
+                console.log(thrownError);
+              }
+            });
+          "></button>
+          <input type="hidden" id="FileNote_id" name="FileNote_id">
+          <input type="hidden" id="NoteID" name="NoteID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Link for More Details Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -266,7 +325,7 @@
               type: 'PATCH',
               url: '/updateFile',
               data: {
-                '_method': $('#method').val(),
+                // '_method': $('#method').val(),
                 '_token': $('#token').val(),
                 'title': $('#edit_title').val(),
                 'abstract': $('#edit_abstract').val(),

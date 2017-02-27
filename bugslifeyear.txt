@@ -11,7 +11,9 @@ addfile
 
 manage files
 - update button for files - Done
-- compress files not satisfactory
+- jQuery update text(in modal) in real time when a file is updated
+- compress files - Done but more room for improvements
+- File Download - Strange Behavior
 
 users
 -search user
@@ -21,6 +23,7 @@ logs
 - wala din sa logs yung create user - done
 - monitor forgot password and reset password
 - monitor who favorites and bookmarks a file
+- monitor who backup and compress files
 
 results
 -prompt "no %search% found" - done
