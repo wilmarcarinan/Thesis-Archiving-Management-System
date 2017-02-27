@@ -22,8 +22,8 @@ logs
 - search specific user/action/date
 - wala din sa logs yung create user - done
 - monitor forgot password and reset password
-- monitor who favorites and bookmarks a file
-- monitor who backup and compress files
+- monitor who favorites and bookmarks a file - Done
+- monitor who backup and compress files - Done
 
 results
 -prompt "no %search% found" - done

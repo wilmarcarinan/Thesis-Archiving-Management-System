@@ -18,6 +18,7 @@
       <td>
         <button class="<?php if(in_array($file->id, $bookmarks)) echo 'not'; else echo 'btn' ?>-book" type="button" id="bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
           .done(function(e){
+            console.log(e);
             if($('#bookmark{{$file->id}}').attr('class')=='not-book'){
               $('#bookmark{{$file->id}}').attr('class','btn-book');
               $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
@@ -66,6 +67,7 @@
     <td>
         <button class="<?php if(in_array($file->id, $favorites)) echo 'not'; else echo 'btn' ?>-fav" type="button" id="favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
         .done(function(e){
+          console.log(e);
           if($('#favorite{{$file->id}}').attr('class')=='not-fav'){
             $('#favorite{{$file->id}}').attr('class','btn-fav');
             $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');

@@ -232,15 +232,43 @@ class FileController extends Controller
 
     public function favorite(Request $request)
     {
-        $file = File::where('id',$request->file_id)->get();
-        $file = Auth::user()->favorites()->toggle($file);
+        $get_file = File::where('id',$request->file_id)->get();
+        $file = Auth::user()->favorites()->toggle($get_file);
+        // return $get_file[0]->FileTitle;
+        $log = new Log;
+        if(empty($file['attached'][0])){
+            $log->Subject = 'Unfavorite';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has Unfavorited ".$get_file[0]->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+            return 'Detached';
+        }else{
+            $log->Subject = 'Favorite';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has Favorited ".$get_file[0]->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+            return 'Attached';
+        }
     }
 
     public function bookmark(Request $request)
     {
-        $file = File::where('id',$request->file_id)->get();
-        $file = Auth::user()->bookmarks()->toggle($file);
-        // echo $request->file_id;
+        $get_file = File::where('id',$request->file_id)->get();
+        $file = Auth::user()->bookmarks()->toggle($get_file);
+        $log = new Log;
+        if(empty($file['attached'][0])){
+            $log->Subject = 'Unbookmark';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has Unbookmarked ".$get_file[0]->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+            return 'Detached';
+        }else{
+            $log->Subject = 'Bookmark';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has Bookmarked ".$get_file[0]->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+            return 'Attached';
+        }
     }
 
     public function compress(Request $request)

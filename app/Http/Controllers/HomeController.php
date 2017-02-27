@@ -177,7 +177,14 @@ class HomeController extends Controller
             $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
             return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files','notes_FileID','notes_note','notes']));
             // return $notes->where('file_id',5)->pluck('note');
-            // return $notes[0]->note;
+            // return Auth::user()->favorites;
+            // foreach(Auth::user()->favorites as $favorite){
+            //     if($favorite->id == 6){
+            //         return $favorite;    
+            //     }else{
+            //         return 'Error';
+            //     }
+            // }
         }
         // return var_dump($favorites);
     }
