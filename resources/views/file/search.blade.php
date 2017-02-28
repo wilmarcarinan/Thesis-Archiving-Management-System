@@ -8,6 +8,11 @@
 @endif
 		<div class="col-sm-3"></div>
 			<div class="col-sm-6">
+				{{-- @if(session('status'))
+					<div class="alert alert-danger">
+						<li>{{session('status')}}</li>
+					</div>
+				@endif --}}
 				<h2 class="col-md-11 col-sm-10 col-xs-10">Search</h2>
 				<button type="button" class="btn btn-info col-md-1 col-sm-2 col-xs-2" data-toggle="collapse" data-target="#advance" title="Advance Search">
 						<span class="glyphicon glyphicon-filter"></span>
@@ -86,6 +91,11 @@
 				</form>
 			</div>
 		</div>
+		@if(session('status'))
+			<div class="container alert alert-danger">
+				<li>{{session('status')}}</li>
+			</div>
+		@endif
 	</div>
 	<div class="col-sm-3">
 	</div>

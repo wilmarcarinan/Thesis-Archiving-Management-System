@@ -38,7 +38,10 @@ class FileController extends Controller
         $notes = Note::where('user_id',Auth::id())->get();
         $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
         $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
-        $requests = $request->all();
+        // $requests = $request->all();
+        if(empty($request->search)){
+            return back()->with('status','Sorry! You didn\'t input any keywords');
+        }
         if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where('FileTitle','like','%'.$request->search.'%')
                 ->where('Status','Active')

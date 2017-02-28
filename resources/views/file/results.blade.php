@@ -8,8 +8,8 @@
 					{{-- @if(!empty($requests['search']) && empty($requests['Adviser']) && empty($requests['Year'])) --}}
 						<h3 style="margin:50px 0px 0px 20px">No "{{$requests['search']}}" Found.</h3>
 					{{-- @endif --}}
-				@elseif(empty($requests['search']))
-					<h3 style="margin:50px 0px 0px 20px">Sorry! You didn't input any keywords.</h3>
+				{{-- @elseif(empty($requests['search']))
+					<h3 style="margin:50px 0px 0px 20px">Sorry! You didn't input any keywords.</h3> --}}
 				@else
 					<div class="table-responsive" id="FileTable">
 						<table class="table table-hover">
