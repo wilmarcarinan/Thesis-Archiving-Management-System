@@ -76,6 +76,9 @@
                         <a href="/home" class="navbar-toggle">
                             <span class="glyphicon glyphicon-home"></span>                        
                         </a>
+                        <a href="/changePassword" class="navbar-toggle">
+                            <span class="fa fa-key" aria-hidden="true"></span>
+                        </a>
                         <a href="/settings" class="navbar-toggle">
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
@@ -212,6 +215,9 @@
                                             <a href="/profile">My Profile</a>
                                         </li>
                                     @endif
+                                    <li>
+                                        <a href="/changePassword">Change Password</a>
+                                    </li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

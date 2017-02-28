@@ -25,6 +25,10 @@ Route::get('/settings','SettingsController@index');
 
 Route::patch('/settings','SettingsController@update');
 
+Route::get('/changePassword','SettingsController@changePasswordForm');
+
+Route::patch('/changePassword','SettingsController@changePassword');
+
 Route::get('/AddFile','FileController@FileForm');
 
 Route::post('/AddFile','FileController@AddFile');

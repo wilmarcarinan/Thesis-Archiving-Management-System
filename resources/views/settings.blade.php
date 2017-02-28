@@ -49,21 +49,6 @@
 							</div>
 
 							<div class="form-group">
-								<label for="CurrentPassword">Old Password:</label>
-								<input type="password" class="form-control" name="CurrentPassword" id="CurrentPassword" value="{{old('password') ?? Auth::user()->password}}" disabled>
-							</div>
-
-							<div class="form-group">
-								<label for="NewPassword">New Password:</label>
-								<input type="password" class="form-control" name="NewPassword" id="NewPassword">
-							</div>
-
-							<div class="form-group">
-								<label for="ConfirmNewPassword">Confirm New Password:</label>
-								<input type="password" class="form-control" name="NewPassword_confirmation" id="ConfirmNewPassword">
-							</div>
-
-							<div class="form-group">
 								<button class="btn btn-primary">Update Account</button>
 							</div>
 
@@ -71,7 +56,7 @@
 							<div class="alert alert-danger">
 								<ul>
 									@foreach($errors->all() as $error)
-									<li>{{ $error }}</li>
+										<li style="list-style: none;">{{ $error }}</li>
 									@endforeach
 								</ul>
 							</div>

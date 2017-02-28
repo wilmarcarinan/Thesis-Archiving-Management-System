@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\File;
 use App\Log;
 
@@ -30,8 +31,8 @@ class SettingsController extends Controller
     		'Course' => 'required',
     		'College' => 'required',
     		// 'email' => 'required|email|unique:users,email,' .auth()->id(),
-    		'email' => ['required','email',Rule::unique('users')->ignore(auth()->id())],
-    		'NewPassword' => 'required|min:6|confirmed'
+    		'email' => ['required','email',Rule::unique('users')->ignore(auth()->id())]
+    		// 'NewPassword' => 'required|min:6|confirmed'
     	]);
 
     	auth()->user()->update([
@@ -40,8 +41,8 @@ class SettingsController extends Controller
     		'LastName' => request('LastName'),
     		'Course' => request('Course'),
     		'College' => request('College'),
-    		'email' => request('email'),
-    		'password' => bcrypt(request('NewPassword'))
+    		'email' => request('email')
+    		// 'password' => bcrypt(request('NewPassword'))
     	]);
 
         $log = new Log;
@@ -56,5 +57,35 @@ class SettingsController extends Controller
     		return redirect()->action('HomeController@index');
     	}
 
+    }
+
+    public function changePasswordForm()
+    {
+        return view('changePassword');
+    }
+
+    public function changePassword()
+    {
+        $this->validate(request(),[
+            'CurrentPassword' => 'required',
+            'NewPassword' => 'required|min:6|confirmed'
+        ]);
+
+        if(!Hash::check(request()->CurrentPassword, Auth::user()->password)){
+            return back()
+                    ->with('status','The specified password does not match the database password');
+        }else{
+            auth()->user()->update([
+                'password' => bcrypt(request('NewPassword'))
+            ]);
+
+            $log = new Log;
+            $log->Subject = 'Change Password';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has updated his/her password.";
+            $log->student_id = Auth::id();
+            $log->save();
+
+            return redirect()->action('HomeController@index')->with('status','Success');
+        }
     }
 }

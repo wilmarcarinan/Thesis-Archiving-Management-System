@@ -35,6 +35,9 @@ class FileController extends Controller
         $files = new File;
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
+        $notes = Note::where('user_id',Auth::id())->get();
+        $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
+        $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
         $requests = $request->all();
         if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
             $files = File::where('FileTitle','like','%'.$request->search.'%')
@@ -109,7 +112,7 @@ class FileController extends Controller
             $log->save();
         }
 
-        return view('file.results',compact(['files', 'bookmarks','requests', 'favorites']));
+        return view('file.results',compact(['files', 'bookmarks','requests', 'favorites','notes','notes_FileID','notes_note']));
         // return $requests;
     }
 
@@ -181,7 +184,10 @@ class FileController extends Controller
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         $years = File::distinct()->where('Status','Active')->get([DB::raw('YEAR(thesis_date)')]);
-        return view('file.list',compact(['files','favorites','bookmarks','years'])); 
+        $notes = Note::where('user_id',Auth::id())->get();
+        $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
+        $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
+        return view('file.list',compact(['files','favorites','bookmarks','years','notes','notes_FileID','notes_note'])); 
     }
 
     public function lock(Request $request)

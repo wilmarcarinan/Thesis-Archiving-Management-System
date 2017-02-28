@@ -199,6 +199,15 @@ class HomeController extends Controller
             ->dimensions(1000, 500)
             ->responsive(True)
             ->groupByDay();
+            // $chartvd = Charts::multi('areaspline', 'highcharts')
+            // ->title('Burndown Chart')
+            // ->colors(['rgb(46,112,160)', 'rgb(192,65,62)'])
+            // ->labels(['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'])
+            // ->elementLabel('Total Story Points')
+            // ->dataset('Ideal Story Points', [11,32,58,74])
+            // ->dataset('Current Story Points Completed',[11,11,11,11])
+            // ->dimensions(780,350)
+            // ->responsive(True);
             return $chartvd->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -372,7 +381,10 @@ class HomeController extends Controller
                                 ->get();
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
-            return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'files'])); 
+            $notes = Note::where('user_id',Auth::id())->get();
+            $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
+            $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
+            return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'files','notes','notes_FileID','notes_note'])); 
             // return var_dump($recent_list);
         }
         else{

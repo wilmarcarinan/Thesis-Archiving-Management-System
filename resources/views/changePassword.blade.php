@@ -15,7 +15,7 @@
 
 							<div class="form-group">
 								<label for="CurrentPassword">Old Password:</label>
-								<input type="password" class="form-control" name="CurrentPassword" id="CurrentPassword" value="{{old('password') ?? Auth::user()->password}}" disabled>
+								<input type="password" class="form-control" name="CurrentPassword" id="CurrentPassword">
 							</div>
 
 							<div class="form-group">
@@ -31,7 +31,11 @@
 							<div class="form-group">
 								<button class="btn btn-primary">Update Account</button>
 							</div>
-
+							@if(session('status'))
+							<div class="alert alert-danger">
+								<li>{{session('status')}}</li>
+							</div>
+							@endif
 							@if(count($errors) > 0)
 							<div class="alert alert-danger">
 								<ul>
