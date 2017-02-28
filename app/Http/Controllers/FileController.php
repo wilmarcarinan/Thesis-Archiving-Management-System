@@ -167,17 +167,8 @@ class FileController extends Controller
         $log->student_id = Auth::id();
         $log->save();
 
-        return redirect('search');
+        return back()->with('status','Upload File Success');
         // return $fileName;
-    }
-
-    public function collections()
-    {
-        $category1 = File::where([['Course','BSIT'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
-        $category2 = File::where([['Course','BSIS'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
-        $category3 = File::where([['Course','BSCS'],['Status','Active']])->orderByRaw('RAND()')->take(12)->get();
-        return view('file.collections',compact(['category1','category2','category3']));   
-        // return var_dump($category1->count());
     }
 
     public function list()

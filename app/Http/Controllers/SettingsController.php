@@ -52,9 +52,9 @@ class SettingsController extends Controller
         $log->save();
 
     	if(Auth::user()->Role == 'Admin'){
-    		return view('admin.AdminPage');
+    		return view('admin.AdminPage')->with('status','Your settings have been successfully updated!');
     	}else{
-    		return redirect()->action('HomeController@index');
+    		return redirect()->action('HomeController@index')->with('status','Your settings have been successfully updated!');
     	}
 
     }
@@ -85,7 +85,7 @@ class SettingsController extends Controller
             $log->student_id = Auth::id();
             $log->save();
 
-            return redirect()->action('HomeController@index')->with('status','Success');
+            return redirect()->action('HomeController@index')->with('status','Your password has been successfully updated!');
         }
     }
 }

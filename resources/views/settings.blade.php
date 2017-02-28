@@ -35,7 +35,15 @@
 
 							<div class="form-group">
 								<label for="Course">Course:</label>
-								<input type="text" class="form-control" name="Course" id="Course" value="{{old('Course') ?? Auth::user()->Course}}">
+								<select class="form-control" name="Course">
+                                    <option value="{{ Auth::user()->Course }}">{{ Auth::user()->Course }}</option>
+                                    {{-- @foreach($courses as $course)
+                                        <option value="{{$course->Course}}">{{$course->Course}}</option>
+                                    @endforeach --}}
+                                    <option value="BSIT">BSIT</option>
+                                    <option value="BSIS">BSIS</option>
+                                    <option value="BSCS">BSCS</option>
+                                </select>
 							</div>
 
 							<div class="form-group">

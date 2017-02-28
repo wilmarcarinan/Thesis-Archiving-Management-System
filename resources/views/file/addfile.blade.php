@@ -4,6 +4,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
+				@if(session('status'))
+					<div class="alert alert-success" style="margin: 20px 0px -20px 0px">
+						<li>{{ session('status') }}</li>
+					</div>
+				@endif
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4>Add File Form</h4>
@@ -19,7 +24,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="Categories" class="col-md-4 control-label">Categories: </label>
+								<label for="Categories" class="col-md-4 control-label">Tags: </label>
 								<div class="col-md-6">
 									<input type="text" class="form-control" name="Category" value="{{ old('Category') }}">
 								</div>

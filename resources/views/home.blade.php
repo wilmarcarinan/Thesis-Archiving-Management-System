@@ -6,6 +6,11 @@
 
 @section('content')
 <div class="container">
+  @if(session('status'))
+    <div class="alert alert-success" style="margin: 20px 0px -20px 0px">
+      <li>{{session('status')}}</li>
+    </div>
+  @endif
   <div class="panel panel-default">
     <div class="panel-heading"><h2>Latest</h2></div>
     <div class="panel-body container">
@@ -64,7 +69,7 @@
                 <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Category</th>
+                <th>Tags</th>
                 <th>Author/s</th>
                 <th>Course</th>
                 <th>Adviser</th>
@@ -96,7 +101,7 @@
                 <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Category</th>
+                <th>Tags</th>
                 <th>Author/s</th>
                 <th>Course</th>
                 <th>Adviser</th>
@@ -230,7 +235,7 @@
                 <th></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
-                <th>Category</th>
+                <th>Tags</th>
                 <th>Author/s</th>
                 <th>Course</th>
                 <th>Adviser</th>

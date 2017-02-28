@@ -114,9 +114,8 @@ class RegisterController extends Controller
 
             $log->save();
         }
-        return redirect()->intended('home');
 
         return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+            ?: redirect($this->redirectPath())->with('status','You have now been registered!');
     }
 }

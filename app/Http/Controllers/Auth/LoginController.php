@@ -57,7 +57,7 @@ class LoginController extends Controller
             $log->save();
         }
 
-        return redirect()->intended('home');
+        return redirect()->intended('home')->with('status','Welcome Back '.Auth::user()->FirstName.'!');
     }
 
     public function logout(Request $request)

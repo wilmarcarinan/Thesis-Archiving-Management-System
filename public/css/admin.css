@@ -1,73 +1,66 @@
-body{
-	background: #222; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#222, #444, #222); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#222, #444, #222); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#222, #444, #222); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#222, #444, #222); /* Standard syntax */
+body {
+  background: #222;
+  /* For browsers that do not support gradients */
 }
 
 /*Search UI*/
 #AddFileBtn {
-	margin-left: 85%;
+  margin-left: 85%;
 }
 
 #FileTable {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: #111;
-    color: white;
-    margin: -10px 10px;
-    padding: 14px 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 50%;
+  background-color: #111;
+  color: white;
+  margin: -10px 10px;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    /*display: none;*/
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    background-color: #f9f9f9;
-    /*min-width: 160px;*/
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: white;
-    padding: 15px 20px;
-    text-decoration: none;
-    display: block;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #222}
+.dropdown-content a:hover {
+  background-color: #222;
+}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-    /*display: block;*/
-    -webkit-transition: width 1s, height 2s, -webkit-transform 3s; /* Safari */
-    transition: width 1s, height 2s, transform 3s;
-    width: 180px;
-    height: 380px;
+  display: block;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 /*.navbar {
@@ -76,41 +69,38 @@ body{
 .navbar-header {
 	margin-left: 50px;
 }*/
-
 /* Side Navigation */
-
-@media(min-width:225px) {
-	.side-nav {
-		width: 10%;
-		border: none;
-		border-radius: 0;
-		overflow-y: auto;
-		background-color: #111;
-		color: #eee;
-		opacity: 0.5;
-		float: left;
-		margin-top: -55px;
-	}
-
-	.side-nav>li>a {
-		width: 225px;
-	}
-
-	.side-nav li a:hover,
-	.side-nav li a:focus {
-		outline: none;
-		background-color: #000 !important;
-		color: #fff !important;
-	}
+@media (min-width: 225px) {
+  .side-nav {
+    width: 10%;
+    border: none;
+    border-radius: 0;
+    overflow-y: auto;
+    background-color: #111;
+    color: #eee;
+    opacity: 0.5;
+    float: left;
+    margin-top: -55px;
+  }
+  .side-nav > li > a {
+    width: 225px;
+  }
+  .side-nav li a:hover,
+  .side-nav li a:focus {
+    outline: none;
+    background-color: #000 !important;
+    color: #fff !important;
+  }
 }
 
 /*.side-nav>li>ul {
 	padding: 0;
 }*/
-
-.side-nav>li>a {
-	display: block;
-	padding: 20px 30px;
-	text-decoration: none;
-	color: #999 !important;
+.side-nav > li > a {
+  display: block;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: #999 !important;
 }
+
+/*# sourceMappingURL=admin.css.map */

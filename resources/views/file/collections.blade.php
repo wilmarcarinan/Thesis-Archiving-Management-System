@@ -8,7 +8,12 @@
 	    </div> --}}
 	   
 	    <div class="category-title">
-	    	<h4>Information Technology (IT)</h4>
+	    	<div class="col-sm-3">
+	    		<h4>Information Technology (IT)</h4>	
+	    	</div>
+	    	<div class="col-sm-2 col-sm-offset-7">
+	    		<h4>{{$bsit->count()}} Collections</h4>
+	    	</div>
 	    </div>
 	    @if($category1 <> '[]')
 	    <div class="carousel slide" id="myCarousel">
@@ -104,7 +109,12 @@
 
 		<!-- #myCarousel2 -->
 	    <div class="category-title">
-	    	<h4>Information System (IS)</h4>
+	    	<div class="col-sm-3">
+	    		<h4>Information System (IS)</h4>	
+	    	</div>
+	    	<div class="col-sm-2 col-sm-offset-7">
+	    		<h4>{{$bsis->count()}} Collections</h4>
+	    	</div>
 	    </div>
 	    @if($category2 <> '[]')
 	    <div class="carousel slide" id="myCarousel2">
@@ -199,7 +209,12 @@
 
 		<!-- #myCarousel3 -->
 		<div class="category-title">
-	    	<h4>Computer Science (CS)</h4>
+	    	<div class="col-sm-3">
+	    		<h4>Computer Science (CS)</h4>	
+	    	</div>
+	    	<div class="col-sm-2 col-sm-offset-7">
+	    		<h4>{{$bscs->count()}} Collections</h4>
+	    	</div>
 	    </div>
 	    @if($category3 <> '[]')
 	    <div class="carousel slide" id="myCarousel3">

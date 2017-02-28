@@ -37,7 +37,7 @@ Route::get('/logs','AdminController@showLogs');
 
 Route::get('/users','AdminController@showUsers');
 
-Route::get('/collections','FileController@collections');
+Route::get('/collections','CollectionsController@collections');
 
 Route::get('/list','FileController@list');
 
@@ -94,3 +94,9 @@ Route::patch('/updateFile','FileController@updateFile');
 Route::post('/addNotes','FileController@addNotes');
 
 Route::patch('/editNotes','FileController@editNotes');
+
+Route::get('/collections/BSIT','CollectionsController@BSIT');
+
+Route::get('/collections/BSIT','CollectionsController@BSIS');
+
+Route::get('/collections/BSIT','CollectionsController@BSCS');
