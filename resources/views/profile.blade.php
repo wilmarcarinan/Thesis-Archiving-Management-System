@@ -334,18 +334,19 @@
         <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
       </div>
       <div class="modal-body">
-        <form class="form NotesForm">
+        <form class="form" id="NotesForm_favorites">
           {{-- {{csrf_field()}} --}}
           {{-- {{method_field('PATCH')}} --}}
-          <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
+          <input type="hidden" name="_token" id="Notestoken_favorites" value="{{csrf_token()}}">
+          <div id="methodHandler_favorites"></div>
           {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
 
           <div class="form-group">
             {{-- <label for="notes">Notes: </label> --}}
-            <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_favorites"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary" id="notesButton_favorites" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -355,17 +356,17 @@
             // alert($('#edit_notes').val());
             $.ajax({
               type: type,
-              url: $('.NotesForm').attr('action'),
+              url: $('#NotesForm_favorites').attr('action'),
               data: {
                 // '_method': $('#method').val(),
-                '_token': $('#Notestoken').val(),
-                'id': $('#NoteID').val(),
-                'note': $('#edit_notes').val(),
-                'file_id': $('#FileNote_id').val()
+                '_token': $('#Notestoken_favorites').val(),
+                'id': $('#NoteID_favorites').val(),
+                'note': $('#edit_notes_favorites').val(),
+                'file_id': $('#FileNote_id_favorites').val()
               },
-              success:function(){
+              success:function(data){
                 console.log(data);
-                $('#notesModal').modal('hide');
+                $('#notesModal_favorites').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
@@ -374,8 +375,8 @@
               }
             });
           "></button>
-          <input type="hidden" id="FileNote_id" name="FileNote_id">
-          <input type="hidden" id="NoteID" name="NoteID">
+          <input type="hidden" id="FileNote_id_favorites" name="FileNote_id">
+          <input type="hidden" id="NoteID_favorites" name="NoteID">
         </form>
       </div>
       <div class="modal-footer">
@@ -394,18 +395,19 @@
         <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
       </div>
       <div class="modal-body">
-        <form class="form NotesForm">
+        <form class="form" id="NotesForm_bookmarks">
           {{-- {{csrf_field()}} --}}
           {{-- {{method_field('PATCH')}} --}}
-          <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
+          <input type="hidden" name="_token" id="Notestoken_bookmarks" value="{{csrf_token()}}">
+          <div id="methodHandler_bookmarks"></div>
           {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
 
           <div class="form-group">
             {{-- <label for="notes">Notes: </label> --}}
-            <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_bookmarks"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary" id="notesButton_bookmarks" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -415,17 +417,17 @@
             // alert($('#edit_notes').val());
             $.ajax({
               type: type,
-              url: $('.NotesForm').attr('action'),
+              url: $('#NotesForm_bookmarks').attr('action'),
               data: {
                 // '_method': $('#method').val(),
-                '_token': $('#Notestoken').val(),
-                'id': $('#NoteID').val(),
-                'note': $('#edit_notes').val(),
-                'file_id': $('#FileNote_id').val()
+                '_token': $('#Notestoken_bookmarks').val(),
+                'id': $('#NoteID_bookmarks').val(),
+                'note': $('#edit_notes_bookmarks').val(),
+                'file_id': $('#FileNote_id_bookmarks').val()
               },
-              success:function(){
+              success:function(data){
                 console.log(data);
-                $('#notesModal').modal('hide');
+                $('#notesModal_bookmarks').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
@@ -434,8 +436,8 @@
               }
             });
           "></button>
-          <input type="hidden" id="FileNote_id" name="FileNote_id">
-          <input type="hidden" id="NoteID" name="NoteID">
+          <input type="hidden" id="FileNote_id_bookmarks" name="FileNote_id">
+          <input type="hidden" id="NoteID_bookmarks" name="NoteID">
         </form>
       </div>
       <div class="modal-footer">

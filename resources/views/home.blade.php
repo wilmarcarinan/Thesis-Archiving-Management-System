@@ -323,7 +323,7 @@
   </div>
 </div>
 
-<!-- Add/Edit Notes Modal dor Suggested-->
+<!-- Add/Edit Notes Modal for Suggested-->
 <div class="modal fade" id="notesModal_suggested" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -332,18 +332,18 @@
         <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
       </div>
       <div class="modal-body">
-        <form class="form NotesForm">
+        <form class="form" id="NotesForm_suggested">
           {{-- {{csrf_field()}} --}}
           {{-- {{method_field('PATCH')}} --}}
-          <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
+          <input type="hidden" name="_token" id="Notestoken_suggested" value="{{csrf_token()}}">
           {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
-
+          <div id="methodHandler_suggested"></div>
           <div class="form-group">
             {{-- <label for="notes">Notes: </label> --}}
-            <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_suggested"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary" id="notesButton_suggested" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -353,17 +353,17 @@
             // alert($('#edit_notes').val());
             $.ajax({
               type: type,
-              url: $('.NotesForm').attr('action'),
+              url: $('#NotesForm_suggested').attr('action'),
               data: {
                 // '_method': $('#method').val(),
-                '_token': $('#Notestoken').val(),
-                'id': $('#NoteID').val(),
-                'note': $('#edit_notes').val(),
-                'file_id': $('#FileNote_id').val()
+                '_token': $('#Notestoken_suggested').val(),
+                'id': $('#NoteID_suggested').val(),
+                'note': $('#edit_notes_suggested').val(),
+                'file_id': $('#FileNote_id_suggested').val()
               },
               success:function(data){
-                // if(data)
-                $('#notesModal').modal('hide');
+                console.log(data);
+                $('#notesModal_suggested').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
@@ -372,8 +372,8 @@
               }
             });
           "></button>
-          <input type="hidden" id="FileNote_id" name="FileNote_id">
-          <input type="hidden" id="NoteID" name="NoteID">
+          <input type="hidden" id="FileNote_id_suggested" name="FileNote_id">
+          <input type="hidden" id="NoteID_suggested" name="NoteID">
         </form>
       </div>
       <div class="modal-footer">
@@ -392,18 +392,19 @@
         <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
       </div>
       <div class="modal-body">
-        <form class="form NotesForm">
+        <form class="form" id="NotesForm_most_viewed">
           {{-- {{csrf_field()}} --}}
           {{-- {{method_field('PATCH')}} --}}
-          <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
+          <input type="hidden" name="_token" id="Notestoken_most_viewed" value="{{csrf_token()}}">
+          <div id="methodHandler_most_viewed"></div>
           {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
 
           <div class="form-group">
             {{-- <label for="notes">Notes: </label> --}}
-            <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_most_viewed"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary" id="notesButton_most_viewed" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -413,17 +414,17 @@
             // alert($('#edit_notes').val());
             $.ajax({
               type: type,
-              url: $('.NotesForm').attr('action'),
+              url: $('#NotesForm_most_viewed').attr('action'),
               data: {
                 // '_method': $('#method').val(),
-                '_token': $('#Notestoken').val(),
-                'id': $('#NoteID').val(),
-                'note': $('#edit_notes').val(),
-                'file_id': $('#FileNote_id').val()
+                '_token': $('#Notestoken_most_viewed').val(),
+                'id': $('#NoteID_most_viewed').val(),
+                'note': $('#edit_notes_most_viewed').val(),
+                'file_id': $('#FileNote_id_most_viewed').val()
               },
               success:function(data){
-                // if(data)
-                $('#notesModal').modal('hide');
+                console.log(data);
+                $('#notesModal_most_viewed').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
@@ -432,8 +433,8 @@
               }
             });
           "></button>
-          <input type="hidden" id="FileNote_id" name="FileNote_id">
-          <input type="hidden" id="NoteID" name="NoteID">
+          <input type="hidden" id="FileNote_id_most_viewed" name="FileNote_id">
+          <input type="hidden" id="NoteID_most_viewed" name="NoteID">
         </form>
       </div>
       <div class="modal-footer">

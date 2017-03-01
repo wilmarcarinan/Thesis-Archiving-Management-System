@@ -394,20 +394,56 @@
             // $('.notesButton').attr('id','notesButton'+$(this).data('file_id'));
             // $('.NotesForm').attr('id','NotesForm'+$(this).data('file_id'));
             $('#NotesMethod').remove();
+            $('#NotesMethod_suggested').remove();
+            $('#NotesMethod_most_viewed').remove();
+            $('#NotesMethod_favorites').remove();
+            $('#NotesMethod_bookmarks').remove();
             $('#FileNote_id').val($(this).data('file_id'));
+            $('#FileNote_id_suggested').val($(this).data('file_id'));
+            $('#FileNote_id_most_viewed').val($(this).data('file_id'));
+            $('#FileNote_id_favorites').val($(this).data('file_id'));
+            $('#FileNote_id_bookmarks').val($(this).data('file_id'));
             $('#NoteID').val($(this).data('note_id'));
+            $('#NoteID_suggested').val($(this).data('note_id'));
+            $('#NoteID_most_viewed').val($(this).data('note_id'));
+            $('#NoteID_favorites').val($(this).data('note_id'));
+            $('#NoteID_bookmarks').val($(this).data('note_id'));
 
             if($(this).data('notes') == ""){
                 link_url = '/addNotes';
                 buttonValue = 'Save';                    
                 $('#edit_notes').val('');
+                $('#edit_notes_suggested').val('');
+                $('#edit_notes_most_viewed').val('');
+                $('#edit_notes_favorites').val('');
+                $('#edit_notes_bookmarks').val('');
             }else{
                 $('#edit_notes').val($(this).data('notes'));
-                $('.NotesForm').after('<input type="hidden" name="_method" id="NotesMethod" value="PATCH">');
+                $('#edit_notes_suggested').val($(this).data('notes'));
+                $('#edit_notes_most_viewed').val($(this).data('notes'));
+                $('#edit_notes_favorites').val($(this).data('notes'));
+                $('#edit_notes_bookmarks').val($(this).data('notes'));
+                $('#methodHandler').html('<input type="hidden" name="_method" id="NotesMethod" value="PATCH">');
+                $('#methodHandler_suggested').html('<input type="hidden" name="_method" id="NotesMethod_suggested" value="PATCH">');
+                $('#methodHandler_most_viewed').html('<input type="hidden" name="_method" id="NotesMethod_most_viewed" value="PATCH">');
+                $('#methodHandler_favorites').html('<input type="hidden" name="_method" id="NotesMethod_favorites" value="PATCH">');
+                $('#methodHandler_bookmarks').html('<input type="hidden" name="_method" id="NotesMethod_bookmarks" value="PATCH">');
             }
-            $('.NotesForm').attr('method',type);
-            $('.NotesForm').attr('action',link_url);
-            $('.notesButton').text(buttonValue);
+            $('#NotesForm').attr('method',type);
+            $('#NotesForm').attr('action',link_url);
+            $('#NotesForm_suggested').attr('method',type);
+            $('#NotesForm_suggested').attr('action',link_url);
+            $('#NotesForm_most_viewed').attr('method',type);
+            $('#NotesForm_most_viewed').attr('action',link_url);
+            $('#NotesForm_favorites').attr('method',type);
+            $('#NotesForm_favorites').attr('action',link_url);
+            $('#NotesForm_bookmarks').attr('method',type);
+            $('#NotesForm_bookmarks').attr('action',link_url);
+            $('#notesButton').text(buttonValue);
+            $('#notesButton_suggested').text(buttonValue);
+            $('#notesButton_most_viewed').text(buttonValue);
+            $('#notesButton_favorites').text(buttonValue);
+            $('#notesButton_bookmarks').text(buttonValue);
         });
     </script>
 </body>

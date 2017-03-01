@@ -187,18 +187,19 @@
         <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
       </div>
       <div class="modal-body">
-        <form class="form NotesForm">
+        <form class="form" id="NotesForm">
           {{-- {{csrf_field()}} --}}
           {{-- {{method_field('PATCH')}} --}}
           <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
           {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
+          <div id="methodHandler"></div>
 
           <div class="form-group">
             {{-- <label for="notes">Notes: </label> --}}
             <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
           </div>
 
-          <button type="button" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary" id="notesButton" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -208,7 +209,7 @@
             // alert(type);
             $.ajax({
               type: type,
-              url: $('.NotesForm').attr('action'),
+              url: $('#NotesForm').attr('action'),
               data: {
                 // '_method': $('#NotesMethod').val(),
                 '_token': $('#Notestoken').val(),
@@ -217,7 +218,7 @@
                 'file_id': $('#FileNote_id').val()
               },
               success:function(data){
-                // console.log(data);
+                console.log(data);
                 $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){

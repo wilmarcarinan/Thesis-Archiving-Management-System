@@ -393,32 +393,41 @@ class FileController extends Controller
     public function addNotes()
     {
         // return request()->all();
-        $this->validate(request(),[
-            'note' => 'required'
-        ]);
+        if(request()->note <> ''){
+            $this->validate(request(),[
+                'note' => 'required'
+            ]);
 
-        $note = new Note;
-        $note->note = request()->note;
-        $note->file_id = request()->file_id;
-        $note->user_id = Auth::id();
-        $note->save();
+            $note = new Note;
+            $note->note = request()->note;
+            $note->file_id = request()->file_id;
+            $note->user_id = Auth::id();
+            $note->save();
 
-        $file = File::find(request()->file_id);
+            $file = File::find(request()->file_id);
 
-        $log = new Log;
-        $log->Subject = 'Add Note';
-        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a note in a Thesis entitled ".$file->FileTitle;
-        $log->student_id = Auth::id();
-        $log->save();
+            $log = new Log;
+            $log->Subject = 'Add Note';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a note in a Thesis entitled ".$file->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
+
+            return $note;
+        }else{
+            return 'You did not enter any note!';
+        }
 
         // return $note;
     }
 
     public function editNotes()
     {
-        if(request()->note <> ''){
-            $note = Note::find(request()->id);
-
+        // return request()->all();
+        $note = Note::find(request()->id);
+        if(request()->note == $note->note){
+            return 'You did not change something!';
+        }
+        if(request()->note <> '' ){
             $note->update([
                 'note' => request()->note
             ]);
