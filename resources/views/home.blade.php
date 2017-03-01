@@ -195,7 +195,9 @@
                 </td>
                 <td>{{$file->Category}}</td>
                 {{-- <td>{{$file->Authors}}</td> --}}
-                <td>{{$file->Course}}</td>
+                <td>
+                  <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
+                </td>
                 {{-- <td>{{$file->Adviser}}</td> --}}
                 <td>{{$file->thesis_date->format('F j, Y')}}</td>
                 <td>
@@ -317,7 +319,9 @@
                 </td>
                 <td>{{$file->Category}}</td>
                 {{-- <td>{{$file->Authors}}</td> --}}
-                <td>{{$file->Course}}</td>
+                <td>
+                  <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
+                </td>
                 {{-- <td>{{$file->Adviser}}</td> --}}
                 <td>{{$file->thesis_date->format('F j, Y')}}</td>
                 <td>{{ $file->NumberOfViews }}</td>

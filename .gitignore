@@ -7,3 +7,4 @@ Homestead.json
 Homestead.yaml
 .env
 *.pdf
+/public/introduction-slider.slider.minimized
