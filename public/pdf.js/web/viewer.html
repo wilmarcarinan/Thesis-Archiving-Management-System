@@ -63,7 +63,9 @@ See https://github.com/adobe-type-tools/cmap-resources
       var fId = $.urlParam('fidder');
       $(document).ready(function(){
         $.get('/View_PDF',{'fidder': fId}).done(function(data){
-          // alert(data);
+          console.log(data);
+        }).fail(function() {
+          window.location.href = "http://localhost:8000/login";
         });
       });
       

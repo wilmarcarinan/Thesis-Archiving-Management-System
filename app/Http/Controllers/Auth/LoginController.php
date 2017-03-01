@@ -45,7 +45,7 @@ class LoginController extends Controller
 		return 'StudentID';
 	}
     
-    protected function authenticated()
+    protected function authenticated(Request $request)
     {
         if(Auth::check()){
             $log = new Log;

@@ -2,20 +2,24 @@
 
 @section('content')
     <div class="container">
-        <h2><span class="glyphicon glyphicon-list-alt"></span> Archived Files</h2>
-        <div class="table-responsive">          
-            <table class="table">
+        <div class="jumbotron">          
+            <h2><span class="glyphicon glyphicon-list-alt"></span> Archived Files</h2>
+            <table class="table" id="archived-table">
                 <thead>
                   <tr>
                     @if(Auth::user()->Role <> 'Admin')
                         <th></th>
                         <th></th>
+                        <th></th>
+                    @else
+                        <th></th>
+                        <th></th>
                     @endif
-                    <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                     <th>Title</th>
-                    <th>Category</th>
-                    <th>Author/s</th>
-                    <th>Adviser</th>
+                    <th>Tags</th>
+                    {{-- <th>Author/s</th> --}}
+                    {{-- <th>Adviser</th> --}}
+                    <th>Course</th>
                     <th>Thesis Date</th>
                     @if(Auth::user()->Role == 'Admin')
                         <th>Status</th>
@@ -39,4 +43,14 @@
             <button type="button" class="btn btn-info">Load more</button>
         </center> --}}
     </div>
+@endsection
+
+@section('script-section')
+    <script>
+        $(document).ready(function(){
+            $('#archived-table').DataTable({
+                responsive: true
+            });
+        });
+    </script>
 @endsection

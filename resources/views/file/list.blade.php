@@ -51,12 +51,19 @@
         <div class="container">
             <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
     @endif
-            <div class="table-responsive">          
+        @if(Auth::user()->Role == 'Admin')
+            <div class="jumbotron">
+        @else
+            <div>
+        @endif
                 <table id="files-list" class="table" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         @if(Auth::user()->Role <> 'Admin')
                             <th></th>
+                            <th></th>
+                            <th></th>
+                        @else
                             <th></th>
                             <th></th>
                         @endif
@@ -71,22 +78,16 @@
                         @endif
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
-                        @if(Auth::user()->Role == 'Admin')
-                        <th></th>
-                        <th></th>
-                        @endif
                       </tr>
                     </thead>
                     <tbody>
                         @include('file.table-contents')
                     </tbody>
                 </table>
-                <br />
-                </div>
-                {{-- {{$files->links()}} --}}
-                <center>
+            </div>
+            {{-- <center> --}}
                 {{-- <button type="button" class="btn btn-info">Load more</button> --}}
-            </center>
+            {{-- </center> --}}
         </div>
 @endsection
 

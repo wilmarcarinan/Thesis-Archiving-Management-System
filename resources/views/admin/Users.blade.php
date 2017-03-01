@@ -5,10 +5,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				{{-- <div class="table-responsive"> --}}
-				<div>
-					<table class="table" id="users-table">
+				<div class="jumbotron">
+					<h2>Manage Users</h2>
+					<table class="table nowrap" id="users-table">
 						<thead>
 							<tr>
+								<th></th>
+								<th></th>
 								<th>Student ID</th>
 								<th>Name</th>
 								<th>Course</th>
@@ -17,21 +20,11 @@
 								<th>Role</th>
 								<th>Status</th>
 								<th>Date Registered</th>
-								<th></th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($users as $user)
 							<tr>
-								<td>{{ $user->StudentID }}</td>
-								<td>{{ $user->FirstName }} {{ $user->MiddleName }} {{ $user->LastName }}</td>
-								<td>{{ $user->Course }}</td>
-								<td>{{ $user->College }}</td>
-								<td>{{ $user->email }}</td>
-								<td>{{ $user->Role }}</td>
-								<td>{{ $user->Status }}</td>
-								<td>{{ $user->created_at }}</td>
 								<td>
 								@if($user->Status == 'Inactive')
 									<form action="/UnlockUser" method="POST">
@@ -64,6 +57,14 @@
 								@endif
 									</form>
 								</td>
+								<td>{{ $user->StudentID }}</td>
+								<td>{{ $user->FirstName }} {{ $user->MiddleName }} {{ $user->LastName }}</td>
+								<td>{{ $user->Course }}</td>
+								<td>{{ $user->College }}</td>
+								<td>{{ $user->email }}</td>
+								<td>{{ $user->Role }}</td>
+								<td>{{ $user->Status }}</td>
+								<td>{{ $user->created_at->format('F j, Y') }}</td>
 							</tr>
 							@endforeach
 						</tbody>

@@ -120,6 +120,28 @@
         <i class="fa fa-sticky-note" aria-hidden="true"></i>
       </button>
     </td>
+    @else
+    <td>
+      @if($file->Status == 'Inactive')
+        <form action="/unlock" method="POST">
+          {{method_field('PATCH')}}
+          {{csrf_field()}}
+          <input type="hidden" name="file_id" value="{{$file->id}}">
+          <button class="btn btn-primary" type="submit"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+      @else
+        <form action="/lock" method="POST">
+          {{method_field('PATCH')}}
+          {{csrf_field()}}
+          <input type="hidden" name="file_id" value="{{$file->id}}">
+          <button class="btn btn-primary" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
+      @endif
+        </form>
+    </td>
+    <td>
+      {{-- <button class="btn btn-primary" type="submit"></button> --}}
+      <!-- Button trigger modal -->
+      <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+    </td>
     @endif
     <td class="FileTitle">
       <!-- Button trigger modal -->
@@ -135,7 +157,11 @@
       <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
     </td>
     {{-- <td id="Adviser{{$file->id}}">{{$file->Adviser}}</td> --}}
+    @if(Auth::user()->Role == 'Admin')
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('F j, Y')}}</td>
+    @else
+    <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('Y-m-d')}}</td>
+    @endif
     @if(Auth::user()->Role == 'Admin')
       <td>{{ $file->Status }}</td>
     @endif
@@ -145,31 +171,6 @@
     <td>
       {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
     </td>
-    @if(Auth::user()->Role == 'Admin')
-      <td>
-        @if($file->Status == 'Inactive')
-          <form action="/unlock" method="POST">
-            {{method_field('PATCH')}}
-            {{csrf_field()}}
-            <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
-        @else
-          <form action="/lock" method="POST">
-            {{method_field('PATCH')}}
-            {{csrf_field()}}
-            <input type="hidden" name="file_id" value="{{$file->id}}">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
-        @endif
-          </form>
-      </td>
-    @endif
-    @if(Auth::user()->Role == 'Admin')
-      <td>
-        {{-- <button class="btn btn-primary" type="submit"></button> --}}
-        <!-- Button trigger modal -->
-        <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-      </td>
-    @endif
   </tr>
 @endforeach
 
@@ -200,7 +201,7 @@
             }else{
               type = 'PATCH';
             }
-            alert(type);
+            // alert(type);
             $.ajax({
               type: type,
               url: $('.NotesForm').attr('action'),
@@ -212,7 +213,7 @@
                 'file_id': $('#FileNote_id').val()
               },
               success:function(data){
-                alert(data);
+                console.log(data);
                 // $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){

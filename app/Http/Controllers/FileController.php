@@ -218,7 +218,7 @@ class FileController extends Controller
         if($request->fidder){
             $file = File::select('id','FileTitle', 'FilePath')->where([['id',$request->fidder],['Status','Active']])->get();
             unlink('files/'.Auth::id().$file[0]['FilePath']);
-        }else{            
+        }else{
             // exec("echo rm files/".Auth::id().$file[0]['FilePath']."|at now +20 seconds");
             // sleep(10);//timeout to make sure does not STAY
             // unlink('files/'.$file[0]['FilePath'].$file[0]['id']);

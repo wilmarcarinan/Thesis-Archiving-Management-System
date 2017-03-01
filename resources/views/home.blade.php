@@ -61,7 +61,7 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Latest</h2>
         {{-- <div class="table-responsive">           --}}
-        <table class="table display-tables">
+        <table class="table" id="latest_table">
           <thead>
             <tr>
               <th></th>
@@ -97,7 +97,7 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Suggested</h2>                                                  
         {{-- <div class="table-responsive">           --}}
-        <table class="table display-tables">
+        <table class="table" id="suggested_table">
           <thead>
             <tr>
               <th></th>
@@ -111,10 +111,6 @@
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
-              @if(Auth::user()->Role == 'Admin')
-              <th></th>
-              {{-- <th></th> --}}
-              @endif
             </tr>
           </thead>
           <tbody>
@@ -202,33 +198,12 @@
                 <td>{{$file->Course}}</td>
                 {{-- <td>{{$file->Adviser}}</td> --}}
                 <td>{{$file->thesis_date->format('F j, Y')}}</td>
-                @if(Auth::user()->Role == 'Admin')
-                  <td>{{ $file->Status }}</td>
-                @endif
                 <td>
                   {{ DB::table('recent_views')->where('file_id',$file->id)->pluck('user_id')->count() }}
                 </td>
                 <td>
                   {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
                 </td>
-                @if(Auth::user()->Role == 'Admin')
-                  <td>
-                    @if($file->Status == 'Inactive')
-                      <form action="/unlock" method="POST">
-                        {{method_field('PATCH')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="file_id" value="{{$file->id}}">
-                        <button class="btn btn-primary" type="submit"><span class="fa fa-unlock-alt"></span></button>
-                    @else
-                      <form action="/lock" method="POST">
-                        {{method_field('PATCH')}}
-                        {{csrf_field()}}
-                        <input type="hidden" name="file_id" value="{{$file->id}}">
-                        <button class="btn btn-primary" type="submit"><span class="fa fa-lock"></span></button>
-                    @endif
-                      </form>
-                  </td>
-                @endif
               </tr>
             @endforeach
           </tbody>
@@ -245,7 +220,7 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Most Viewed</h2>                                                                        
         {{-- <div>           --}}
-        <table class="table display-tables">
+        <table class="table" id="most_viewed_table">
           <thead>
             <tr>
               <th></th>
@@ -259,10 +234,6 @@
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
-              @if(Auth::user()->Role == 'Admin')
-              <th></th>
-              {{-- <th></th> --}}
-              @endif
             </tr>
           </thead>
           <tbody>
@@ -574,8 +545,16 @@
 @section('script-section')
   <script>
     $(document).ready(function(){
-      $('.display-tables').DataTable({
-        responsive: true
+      $('#suggested_table').DataTable({
+        // responsive: true
+      });
+      $('#latest_table').DataTable({
+        responsive: true,
+        order: ['6','desc']
+      });
+      $('#most_viewed_table').DataTable({
+        responsive: true,
+        order: ['7','desc']
       });
     });
   </script>
