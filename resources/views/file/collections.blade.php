@@ -9,10 +9,12 @@
 	   
 	    <div class="category-title">
 	    	<div class="col-sm-3">
-	    		<h4>Information Technology (IT)</h4>	
+	    		<h4>
+	    			<a href="/collections/BSIT">Information Technology (IT)</a>
+	    		</h4>	
 	    	</div>
 	    	<div class="col-sm-2 col-sm-offset-7">
-	    		<h4>{{$bsit->count()}} Collections</h4>
+	    		<h4>{{$courses->where('Course','BSIT')->count()}} Collections</h4>
 	    	</div>
 	    </div>
 	    @if($category1 <> '[]')
@@ -24,7 +26,7 @@
 		    			@foreach($category1->slice(0,4) as $category)
 							<li class="col-sm-3">
 								<div class="thumbnail">
-									<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+									<a href="#"><img src="../../images/IT.jpg" alt=""></a>
 								</div>
 								<div class="caption">
 									{{-- <p>{{$loop->iteration}}</p> --}}
@@ -50,7 +52,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/IT.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -76,7 +78,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/IT.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -110,10 +112,12 @@
 		<!-- #myCarousel2 -->
 	    <div class="category-title">
 	    	<div class="col-sm-3">
-	    		<h4>Information System (IS)</h4>	
+	    		<h4>
+					<a href="/collections/BSIS">Information System (IS)</a>
+	    		</h4>	
 	    	</div>
 	    	<div class="col-sm-2 col-sm-offset-7">
-	    		<h4>{{$bsis->count()}} Collections</h4>
+	    		<h4>{{$courses->where('Course','BSIS')->count()}} Collections</h4>
 	    	</div>
 	    </div>
 	    @if($category2 <> '[]')
@@ -126,7 +130,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/IS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -151,7 +155,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/IS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -177,7 +181,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/IS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -210,10 +214,12 @@
 		<!-- #myCarousel3 -->
 		<div class="category-title">
 	    	<div class="col-sm-3">
-	    		<h4>Computer Science (CS)</h4>	
+	    		<h4>
+					<a href="/collections/BSCS">Computer Science (CS)</a>
+	    		</h4>	
 	    	</div>
 	    	<div class="col-sm-2 col-sm-offset-7">
-	    		<h4>{{$bscs->count()}} Collections</h4>
+	    		<h4>{{$courses->where('Course','BSCS')->count()}} Collections</h4>
 	    	</div>
 	    </div>
 	    @if($category3 <> '[]')
@@ -226,7 +232,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -251,7 +257,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
@@ -277,7 +283,7 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="#"><img src="../../images/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>

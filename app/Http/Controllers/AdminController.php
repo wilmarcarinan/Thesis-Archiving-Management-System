@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         if(Auth::user()->Role == 'Admin')
         {
-            $logs = Log::latest()->paginate(50);
+            $logs = Log::latest()->get();
 
             return view('admin.Logs',compact('logs'));
         }else{
@@ -34,7 +34,7 @@ class AdminController extends Controller
             $users = User::where([
                 ['id','!=',Auth::id()],
                 ['Status','Active'],
-            ])->paginate(15);
+            ])->get();
             return view('admin.Users',compact('users'));
         }else{
             return redirect()->action('HomeController@index');
@@ -43,7 +43,7 @@ class AdminController extends Controller
 
     public function ArchivedFiles()
     {
-        $files = File::where('Status','Inactive')->paginate(5);
+        $files = File::where('Status','Inactive')->get();
         return view('admin.ArchivedFiles',compact(['files']));
         // return var_dump($files);
     }

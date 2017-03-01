@@ -1,4 +1,3 @@
-<?php $no=1; ?>
 <p class="QRCode hidden">
   @if(Request::server('SERVER_NAME') <> '127.0.0.1')
     <?php 
@@ -110,31 +109,32 @@
       </button>
     </td>
     <td>
-        <!-- Button trigger modal -->
-        <button class="openNotes" data-toggle="modal" data-target="#notesModal" data-note_id="<?php
-          if(in_array($file->id,$notes_FileID))
-            echo $notes->where('file_id',$file->id)->pluck('id')[0];
-        ?>" data-notes="<?php 
-          if(in_array($file->id,$notes_FileID))
-            echo $notes->where('file_id',$file->id)->pluck('note')[0];
-          ?>" data-file_id="{{$file->id}}" data-user_id="{{Auth::id()}}">
-          <i class="fa fa-sticky-note" aria-hidden="true"></i>
-        </button>
-      </td>
+      <!-- Button trigger modal -->
+      <button class="openNotes" data-toggle="modal" data-target="#notesModal" data-note_id="<?php
+        if(in_array($file->id,$notes_FileID))
+          echo $notes->where('file_id',$file->id)->pluck('id')[0];
+      ?>" data-notes="<?php 
+        if(in_array($file->id,$notes_FileID))
+          echo $notes->where('file_id',$file->id)->pluck('note')[0];
+        ?>" data-file_id="{{$file->id}}" data-user_id="{{Auth::id()}}">
+        <i class="fa fa-sticky-note" aria-hidden="true"></i>
+      </button>
+    </td>
     @endif
-    <td>{{$no++}}</td>
     <td class="FileTitle">
       <!-- Button trigger modal -->
-      <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
+      <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-authors="{{$file->Authors}}" data-adviser="{{$file->Adviser}}" data-category="{{$file->Category}}">
         {{$file->FileTitle}}
       </a>
       {{-- <p class="fileAbstract"></p> --}}
       {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
     </td>
     <td id="Category{{$file->id}}">{{$file->Category}}</td>
-    <td id="Authors{{$file->id}}">{{$file->Authors}}</td>
-    <td id="Course{{$file->id}}">{{$file->Course}}</td>
-    <td id="Adviser{{$file->id}}">{{$file->Adviser}}</td>
+    {{-- <td id="Authors{{$file->id}}">{{$file->Authors}}</td> --}}
+    <td id="Course{{$file->id}}">
+      <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
+    </td>
+    {{-- <td id="Adviser{{$file->id}}">{{$file->Adviser}}</td> --}}
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('F j, Y')}}</td>
     @if(Auth::user()->Role == 'Admin')
       <td>{{ $file->Status }}</td>
@@ -200,7 +200,7 @@
             }else{
               type = 'PATCH';
             }
-            // alert($('#edit_notes').val());
+            alert(type);
             $.ajax({
               type: type,
               url: $('.NotesForm').attr('action'),
@@ -212,8 +212,8 @@
                 'file_id': $('#FileNote_id').val()
               },
               success:function(data){
-                // if(data)
-                $('#notesModal').modal('hide');
+                alert(data);
+                // $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
@@ -242,9 +242,20 @@
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-        <h3><b>Abstract</b></h3>
+        <h4><b>Authors</b></h4>
         <p>
-          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="authors"></span>
+        </p>
+        <h4><b>Adviser</b></h4>
+        <p>
+          <span class="adviser"></span>
+        </p>
+        <h4><b>Tags</b></h4>
+        <p>
+          <span class="category"></span>
+        </p>
+        <h4><b>Abstract</b></h4>
+        <p>
           <span class="abstract"></span>  
         </p>
         <p>

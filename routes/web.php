@@ -95,8 +95,4 @@ Route::post('/addNotes','FileController@addNotes');
 
 Route::patch('/editNotes','FileController@editNotes');
 
-Route::get('/collections/BSIT','CollectionsController@BSIT');
-
-Route::get('/collections/BSIT','CollectionsController@BSIS');
-
-Route::get('/collections/BSIT','CollectionsController@BSCS');
+Route::get('/collections/{Course}','CollectionsController@Course');

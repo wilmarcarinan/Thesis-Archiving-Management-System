@@ -52,7 +52,7 @@
             <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
     @endif
             <div class="table-responsive">          
-                <table class="table">
+                <table id="files-list" class="table" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         @if(Auth::user()->Role <> 'Admin')
@@ -60,20 +60,21 @@
                             <th></th>
                             <th></th>
                         @endif
-                        <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                         <th>Title</th>
                         <th>Tags</th>
-                        <th>Author/s</th>
+                        {{-- <th>Author/s</th> --}}
                         <th>Course</th>
-                        <th>Adviser</th>
+                        {{-- <th>Adviser</th> --}}
                         <th>Thesis Date</th>
                         @if(Auth::user()->Role == 'Admin')
                             <th>Status</th>
                         @endif
                         <th><span class="glyphicon glyphicon-eye-open"></span></th>
                         <th><span class="glyphicon glyphicon-star-empty"></span></th>
+                        @if(Auth::user()->Role == 'Admin')
                         <th></th>
                         <th></th>
+                        @endif
                       </tr>
                     </thead>
                     <tbody>
@@ -82,9 +83,19 @@
                 </table>
                 <br />
                 </div>
-                {{$files->links()}}
+                {{-- {{$files->links()}} --}}
                 <center>
                 {{-- <button type="button" class="btn btn-info">Load more</button> --}}
             </center>
         </div>
+@endsection
+
+@section('script-section')
+    <script>
+        $(document).ready(function(){
+            $('#files-list').DataTable({
+                responsive: true
+            });
+        });
+    </script>
 @endsection

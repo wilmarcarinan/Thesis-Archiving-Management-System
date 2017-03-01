@@ -173,8 +173,7 @@ class FileController extends Controller
 
     public function list()
     {
-        $files = File::where('Status','Active')
-                ->paginate(5);
+        $files = File::where('Status','Active')->get();
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         $years = File::distinct()->where('Status','Active')->get([DB::raw('YEAR(thesis_date)')]);

@@ -4,8 +4,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="table-responsive" id="FileTable">
-					<table class="table table-hover">
+				{{-- <div class="table-responsive"> --}}
+				<div>
+					<table class="table" id="users-table">
 						<thead>
 							<tr>
 								<th>Student ID</th>
@@ -72,9 +73,18 @@
 		                    <h3>No Users To Manage</h3>
 		                </center>
 		            @endif
-					{{ $users->links() }}
 				</div>
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('script-section')
+<script>
+	$(document).ready(function(){
+		$('#users-table').DataTable({
+			responsive: true
+		});
+	});
+</script>
 @endsection
