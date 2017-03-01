@@ -388,7 +388,7 @@ class HomeController extends Controller
             // return $files->first()->pivot->created_at;
         }
         else{
-            return back();
+            return view('errors.UnauthorizedAccess');
         }
     }
 }

@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function showLogs()
     {
-        if(Auth::user()->Role == 'Admin')
+        if(Auth::user()->is_admin())
         {
             $logs = Log::latest()->get();
 
@@ -29,7 +29,7 @@ class AdminController extends Controller
 
     public function showUsers()
     {
-        if(Auth::user()->Role == 'Admin' && Auth::user()->Status == 'Active')
+        if(Auth::user()->is_admin() && Auth::user()->Status == 'Active')
         {
             $users = User::where([
                 ['id','!=',Auth::id()],
@@ -43,9 +43,13 @@ class AdminController extends Controller
 
     public function ArchivedFiles()
     {
-        $files = File::where('Status','Inactive')->get();
-        return view('admin.ArchivedFiles',compact(['files']));
-        // return var_dump($files);
+        if(Auth::user()->is_admin()){
+            $files = File::where('Status','Inactive')->get();
+            return view('admin.ArchivedFiles',compact(['files']));
+            // return var_dump($files);
+        }else{
+            return redirect()->action('HomeController@index');
+        }
     }
 
     public function LockUser(Request $request)
@@ -110,7 +114,11 @@ class AdminController extends Controller
 
     public function InactiveUsers()
     {
-        $users = User::where('Status','Inactive')->get();
-        return view('admin.InactiveUsers',compact('users'));
+        if(Auth::user()->is_admin()){
+            $users = User::where('Status','Inactive')->get();
+            return view('admin.InactiveUsers',compact('users'));
+        }else{
+            return redirect()->action('HomeController@index');
+        }
     }
 }

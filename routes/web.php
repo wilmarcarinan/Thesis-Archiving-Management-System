@@ -17,9 +17,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/search','FileController@search');
+// Route::get('/search','FileController@search');
 
-Route::post('/results','FileController@SearchResults');
+// Route::post('/results','FileController@SearchResults');
 
 Route::get('/settings','SettingsController@index');
 

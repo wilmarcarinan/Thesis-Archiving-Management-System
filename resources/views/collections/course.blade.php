@@ -13,10 +13,11 @@
 		                <th></th>
 	                    @endif
 	                    <th>Title</th>
+	                    <th class="hidden">Abstract</th>
+	                    <th class="hidden">Author/s</th>
+	                    <th class="hidden">Adviser</th>
 	                    <th>Tags</th>
-	                    {{-- <th>Author/s</th> --}}
 	                    <th>Course</th>
-	                    {{-- <th>Adviser</th> --}}
 	                    <th>Thesis Date</th>
 	                    @if(Auth::user()->Role == 'Admin')
 	                    <th>Status</th>

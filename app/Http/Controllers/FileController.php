@@ -121,8 +121,12 @@ class FileController extends Controller
 
     public function FileForm()
     {
-        $courses = File::distinct()->where('Status','Active')->get(['Course']);
-    	return view('file.addfile',compact('courses'));
+        if(Auth::user()->is_admin() || Auth::user()->Role == 'Encoder'){
+            $courses = File::distinct()->where('Status','Active')->get(['Course']);
+            return view('file.addfile',compact('courses'));
+        }else{
+            return redirect()->action('HomeController@index');
+        }
     }
 
     public function AddFile(Request $request)
@@ -388,6 +392,7 @@ class FileController extends Controller
 
     public function addNotes()
     {
+        // return request()->all();
         $this->validate(request(),[
             'note' => 'required'
         ]);
@@ -406,7 +411,7 @@ class FileController extends Controller
         $log->student_id = Auth::id();
         $log->save();
 
-        return $note;
+        // return $note;
     }
 
     public function editNotes()

@@ -153,8 +153,6 @@
       <a class="btn viewInfo" data-toggle="modal" data-target="#myModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-authors="{{$file->Authors}}" data-adviser="{{$file->Adviser}}" data-category="{{$file->Category}}">
         {{$file->FileTitle}}
       </a>
-      {{-- <p class="fileAbstract"></p> --}}
-      {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
     </td>
     <td id="Abstract{{$file->id}}" class="hidden">{{$file->Abstract}}</td>
     <td id="Authors{{$file->id}}" class="hidden">{{$file->Authors}}</td>
@@ -163,7 +161,7 @@
     <td id="Course{{$file->id}}">
       <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
     </td>
-    @if(Auth::user()->Role == 'Admin' || Request::path()=='profile' || Request::path()=='list')
+    @if(Auth::user()->Role == 'Admin' || Request::path()=='profile' || Request::path()=='list' || Request::path()=='collections/'.$file->Course)
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('F j, Y')}}</td>
     @else
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('Y-m-d')}}</td>
@@ -200,7 +198,7 @@
             <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <button type="button" class="btn btn-primary notesButton" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -212,15 +210,15 @@
               type: type,
               url: $('.NotesForm').attr('action'),
               data: {
-                // '_method': $('#method').val(),
+                // '_method': $('#NotesMethod').val(),
                 '_token': $('#Notestoken').val(),
                 'id': $('#NoteID').val(),
                 'note': $('#edit_notes').val(),
                 'file_id': $('#FileNote_id').val()
               },
               success:function(data){
-                console.log(data);
-                // $('#notesModal').modal('hide');
+                // console.log(data);
+                $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
