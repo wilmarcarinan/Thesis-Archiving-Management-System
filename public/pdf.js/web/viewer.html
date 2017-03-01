@@ -65,7 +65,7 @@ See https://github.com/adobe-type-tools/cmap-resources
         $.get('/View_PDF',{'fidder': fId}).done(function(data){
           console.log(data);
         }).fail(function() {
-          window.location.href = "http://localhost:8000/login";
+          window.location.href = "/login";
         });
       });
       
