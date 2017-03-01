@@ -64,9 +64,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Tags</th>
@@ -97,8 +97,8 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Tags</th>
@@ -231,8 +231,8 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Tags</th>
@@ -343,24 +343,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
+      <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
         <h3><b>Abstract</b></h3>
         <p>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span class="abstract"></span>  
         </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});">
-            here.
-          </a>
-        </p>
         <br>
-        <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
       </div>
       <div class="modal-footer">
+          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});" class="btn btn-info">
+            Read More
+          </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -373,27 +370,29 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-        <h3><b>Abstract</b></h3>
+        <br>
+        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
+        <h3>Abstract</h3>
         <p>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span class="abstract"></span>  
         </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});">
-            here.
-          </a>
-        </p>
-        <br>
-        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
       </div>
       <div class="modal-footer">
+        <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});" class="btn btn-info">
+            Read More
+        </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+<style type="text/css">
+  .width{
+    width: 1px;
+  }
+</style>
 @endsection
