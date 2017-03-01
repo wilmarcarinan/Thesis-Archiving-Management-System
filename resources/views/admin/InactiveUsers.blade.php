@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <h2><span class="glyphicon glyphicon-list-alt"></span> Inactive Users</h2>
         <div class="table-responsive">          
             <table class="table">

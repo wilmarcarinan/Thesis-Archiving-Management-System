@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
+	<div class="container" style="padding-top: 70px;">
 		<div class="row">
 			<div class="col-md-12">
+			<h1><span class="glyphicon glyphicon-book"></span> Logs</h1>
 				<div class="table-responsive" id="FileTable">
 					<table class="table table-hover">
 						<thead>

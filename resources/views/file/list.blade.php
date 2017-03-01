@@ -2,10 +2,10 @@
 
 @section('content')
     @if(Auth::user()->Role == 'Admin')
-        <div class="container">
+        <div class="container" style="padding-top: 70px;">
             <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
             {{-- <div id="compress" class="jumbotron collapse col-sm-offset-3 col-sm-9">
-                <form action="/compress" method="POST">
+                <form action="/compress" method="POST" class="form-inline">
                     {{ csrf_field() }}
                     <div class="input-group">
                         <label for="filename" style="color: white;">Enter ZIP File Name: </label>
@@ -13,7 +13,7 @@
                     </div>
                     <div class="input-group">
                         <label for="filedate" style="color:white;">Enter Batch Year: </label>
-                        <input type="number" class="form-control" name="filedate" placeholder="Enter batch year" style="margin-bottom: 10px">
+                        <input type="number" class="form-control" name="filedate" placeholder="Enter batch year" style="margin-bottom: 10px;">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="compress" class="btn btn-info">    
@@ -48,7 +48,7 @@
             </div>
 
     @else
-        <div class="container">
+        <div class="container" style="padding-top: 70px;">
             <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
     @endif
             <div class="table-responsive">          

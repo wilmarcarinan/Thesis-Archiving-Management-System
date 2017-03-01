@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
+	<div class="container" style="padding-top: 70px;">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Change Password</h4>
+					<div class="panel-heading" style="background-color: #64b5f6;">
+						<h4 style="color: #fff;">Change Password</h4>
 					</div>
 					<div class="panel-body">
 						<form action="/changePassword" method="POST" class="form">
@@ -29,7 +29,7 @@
 							</div>
 
 							<div class="form-group">
-								<button class="btn btn-primary">Update Account</button>
+								<center><button class="btn btn-primary">Update Account</button></center>
 							</div>
 							@if(session('status'))
 							<div class="alert alert-danger">

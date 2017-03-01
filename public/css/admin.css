@@ -1,5 +1,5 @@
 body {
-  background: #222;
+  background: #fff;
   /* For browsers that do not support gradients */
 }
 
@@ -32,12 +32,14 @@ body {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
+  /*display: none;*/
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  height: 700px;
+  padding: 100%;
 }
 
 /* Links inside the dropdown */
@@ -45,7 +47,7 @@ body {
   color: white;
   padding: 12px 16px;
   text-decoration: none;
-  display: block;
+  /*display: block;*/
 }
 
 /* Change color of dropdown links on hover */
@@ -55,12 +57,12 @@ body {
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-  display: block;
+  /*display: block;*/
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-  visibility: hidden;
+  /*visibility: hidden;*/
 }
 
 /*.navbar {
@@ -70,37 +72,25 @@ body {
 	margin-left: 50px;
 }*/
 /* Side Navigation */
-@media (min-width: 225px) {
+@media (min-width: 100px) {
+    .side-nav > a:hover{
+    opacity: 0.8;
+  }
   .side-nav {
-    width: 10%;
     border: none;
     border-radius: 0;
     overflow-y: auto;
-    background-color: #111;
-    color: #eee;
-    opacity: 0.5;
+    color: #fff;
     float: left;
-    margin-top: -55px;
+    padding-top: 55px;
+    height: 750px;
+    position: fixed;
+    width: 100%;
   }
-  .side-nav > li > a {
-    width: 225px;
-  }
-  .side-nav li a:hover,
-  .side-nav li a:focus {
-    outline: none;
-    background-color: #000 !important;
-    color: #fff !important;
-  }
+  
 }
 
 /*.side-nav>li>ul {
 	padding: 0;
 }*/
-.side-nav > li > a {
-  display: block;
-  padding: 20px 30px;
-  text-decoration: none;
-  color: #999 !important;
-}
-
 /*# sourceMappingURL=admin.css.map */

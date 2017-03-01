@@ -27,7 +27,7 @@
 		}
 	}
 </script>
-	<div class="container">
+	<div class="container" style="padding-top: 50px;">
 		<div class="col-md-10 col-md-offset-1" style="padding: 10px 0px 10px ;">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="tab" href="#dailyview">Daily</a></li>

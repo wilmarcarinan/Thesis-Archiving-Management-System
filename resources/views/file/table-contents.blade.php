@@ -192,8 +192,12 @@
             {{-- <label for="notes">Notes: </label> --}}
             <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
           </div>
-
-          <button type="submit" class="btn btn-primary notesButton" onclick="
+          <input type="hidden" id="FileNote_id" name="FileNote_id">
+          <input type="hidden" id="NoteID" name="NoteID">
+        </form>
+      </div>
+      <div class="modal-footer">
+      <button type="submit" class="btn btn-primary notesButton" onclick="
             var type = '';
             if($(this).text() == 'Save'){
               type = 'POST';
@@ -222,11 +226,6 @@
               }
             });
           "></button>
-          <input type="hidden" id="FileNote_id" name="FileNote_id">
-          <input type="hidden" id="NoteID" name="NoteID">
-        </form>
-      </div>
-      <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -239,28 +238,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-        <h3><b>Abstract</b></h3>
+      <p class="qrcodeCanvas" style="text-align: center;"></p>
+        <h3>Abstract</h3>
         <p>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span class="abstract"></span>  
         </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/View_PDF', { 'file_id': $('#file_link').attr('file_id')})
+        <br>
+      </div>
+      <div class="modal-footer">
+      <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/View_PDF', { 'file_id': $('#file_link').attr('file_id')})
           .done(function(data){
 
           });
-          ">
-            here.
+          " class="btn btn-primary">
+            Read More
           </a>
-        </p>
-        <br>
-        <p class="qrcodeCanvas" style="text-align: center;"></p>
-      </div>
-      <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

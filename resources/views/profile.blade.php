@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-top: 70px;">
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#recent">Recent</a></li>
     <li><a data-toggle="tab" href="#favorites">Favorites</a></li>
@@ -15,8 +15,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -47,8 +48,8 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -126,7 +127,7 @@
                   <td>{{$favorite->Authors}}</td>
                   <td>{{$favorite->Course}}</td>
                   <td>{{$favorite->Adviser}}</td>
-                  <td>{{$favorite->thesis_date}}</td>
+                  <td>{{$favorite->thesis_date->format('F j, Y')}}</td>
                   <td>
                     {{ DB::table('recent_views')->where('file_id',$favorite->id)->pluck('user_id')->count() }}
                   </td>
@@ -152,8 +153,8 @@
           <table class="table">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
+                <th class="width"></th>
+                <th class="width"></th>
                 <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
                 <th>Title</th>
                 <th>Category</th>
@@ -232,7 +233,7 @@
                   <td>{{$bookmark->Authors}}</td>
                   <td>{{$bookmark->Course}}</td>
                   <td>{{$bookmark->Adviser}}</td>
-                  <td>{{$bookmark->thesis_date}}</td>
+                  <td>{{$bookmark->thesis_date->format('F j, Y')}}</td>
                   <td>
                     {{ DB::table('recent_views')->where('file_id',$bookmark->id)->pluck('user_id')->count() }}
                   </td>
@@ -260,24 +261,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-        <h3><b>Abstract</b></h3>
+      <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
+        <h3>Abstract</h3>
         <p>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span class="abstract"></span>  
         </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});">
-            here.
-          </a>
-        </p>
         <br>
-        <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
       </div>
       <div class="modal-footer">
+      <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});" class="btn btn-primary">
+            Read More
+          </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -290,27 +288,29 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-        <h3><b>Abstract</b></h3>
+      <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
+        <h3>Abstract</h3>
         <p>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span class="abstract"></span>  
         </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});">
-            here.
-          </a>
-        </p>
         <br>
-        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
       </div>
       <div class="modal-footer">
+      <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});" class="btn btn-primary">
+            Read More
+          </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+<style type="text/css">
+  .width{
+    width: 1px;
+  }
+</style>
 @endsection

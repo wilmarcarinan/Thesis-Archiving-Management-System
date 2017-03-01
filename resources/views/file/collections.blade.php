@@ -8,10 +8,10 @@
 	    </div> --}}
 	   
 	    <div class="category-title">
-	    	<div class="col-sm-3">
-	    		<h4>Information Technology (IT)</h4>	
+	    	<div class="col-sm-4">
+	    		<h3>Information Technology (IT)</h3>	
 	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
+	    	<div class="col-sm-2 col-sm-offset-6">
 	    		<h4>{{$bsit->count()}} Collections</h4>
 	    	</div>
 	    </div>
@@ -24,18 +24,18 @@
 		    			@foreach($category1->slice(0,4) as $category)
 							<li class="col-sm-3">
 								<div class="thumbnail">
-									<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+									<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IT.jpg" alt=""></a>
 								</div>
 								<div class="caption">
 									{{-- <p>{{$loop->iteration}}</p> --}}
 		    						<h4>"{{$category->FileTitle}}"</h4>
 		    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 		    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-			    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+			    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 		    						@else
-			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+			    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 		    						@endif
-		    						{{-- <a class="btn btn-mini" href="{{$category->FilePath}}"></a> --}}
+		    						{{-- <a class="btn btn-primary" href="{{$category->FilePath}}"></a> --}}
 		    					</div>
 							</li>
 		    			@endforeach
@@ -50,15 +50,15 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IT.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -76,15 +76,15 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IT.jpg" alt=""></a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IT.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -107,112 +107,14 @@
 		@endif
 
 
-		<!-- #myCarousel2 -->
-	    <div class="category-title">
-	    	<div class="col-sm-3">
-	    		<h4>Information System (IS)</h4>	
-	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
-	    		<h4>{{$bsis->count()}} Collections</h4>
-	    	</div>
-	    </div>
-	    @if($category2 <> '[]')
-	    <div class="carousel slide" id="myCarousel2">
-		    <div class="carousel-inner">
-		    	<!-- /Slide1 -->
-		    	<div class="item active">
-		    		<ul class="thumbnails">
-		    			@foreach($category2->slice(0,4) as $category)
-			    			<li class="col-sm-3">
-			    				<div class="fff">
-			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
-			    					</div>
-			    					<div class="caption">
-			    						<h4>"{{$category->FileTitle}}"</h4>
-			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
-			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
-			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
-			    						@endif
-			    					</div>
-			    				</div>
-			    			</li>
-			    		@endforeach
-		    		</ul>
-		    	</div> 
-
-		    	@if($category2->count() > 4)
-		    	<!-- /Slide2 --> 
-		    	<div class="item">
-		    		<ul class="thumbnails">
-		    			@foreach($category2->slice(4,4) as $category)
-			    			<li class="col-sm-3">
-			    				<div class="fff">
-			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
-			    					</div>
-			    					<div class="caption">
-			    						<h4>"{{$category->FileTitle}}"</h4>
-			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
-			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
-			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
-			    						@endif
-			    					</div>
-			    				</div>
-			    			</li>
-			    		@endforeach
-		    		</ul>
-		    	</div>
-		    	@endif
-
-		    	@if($category2->count() > 8)
-		    	<!-- /Slide3 -->
-		    	<div class="item">
-		    		<ul class="thumbnails">
-		    			@foreach($category2->slice(8,4) as $category)
-			    			<li class="col-sm-3">
-			    				<div class="fff">
-			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/IS.jpg" alt=""></a>
-			    					</div>
-			    					<div class="caption">
-			    						<h4>"{{$category->FileTitle}}"</h4>
-			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
-			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
-			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
-			    						@endif
-			    					</div>
-			    				</div>
-			    			</li>
-			    		@endforeach
-		    		</ul>
-		    	</div>
-		    	@endif 
-		    </div>
-		    @if($category2->count() > 4)
-		    <nav>
-		    	<ul class="control-box pager">
-		    		<li><a data-slide="prev" href="#myCarousel2" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-		    		<li><a data-slide="next" href="#myCarousel2" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
-		    	</ul>
-		    </nav>
-		    <!-- /.control-box -->
-		    @endif
-	    </div><!-- /#myCarousel2 -->
-		@endif
-
 		<!-- #myCarousel3 -->
+		<br />
+		<br />
 		<div class="category-title">
-	    	<div class="col-sm-3">
-	    		<h4>Computer Science (CS)</h4>	
+	    	<div class="col-sm-4">
+	    		<h3>Computer Science (CS)</h3>	
 	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
+	    	<div class="col-sm-2 col-sm-offset-6">
 	    		<h4>{{$bscs->count()}} Collections</h4>
 	    	</div>
 	    </div>
@@ -226,15 +128,15 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -251,15 +153,15 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -277,15 +179,15 @@
 			    			<li class="col-sm-3">
 			    				<div class="fff">
 			    					<div class="thumbnail">
-			    						<a href="#"><img src="../../img/CS.jpg" alt=""></a>
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/CS.jpg" alt=""></a>
 			    					</div>
 			    					<div class="caption">
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -308,6 +210,109 @@
 	    </div>
 	    <!-- /.myCarousel2 -->
 		@endif
+
+		<!-- #myCarousel2 -->
+		<br />
+		<br />
+	    <div class="category-title">
+	    	<div class="col-sm-4">
+	    		<h3>Information System (IS)</h3>	
+	    	</div>
+	    	<div class="col-sm-2 col-sm-offset-6">
+	    		<h4>{{$bsis->count()}} Collections</h4>
+	    	</div>
+	    </div>
+	    @if($category2 <> '[]')
+	    <div class="carousel slide" id="myCarousel2">
+		    <div class="carousel-inner">
+		    	<!-- /Slide1 -->
+		    	<div class="item active">
+		    		<ul class="thumbnails">
+		    			@foreach($category2->slice(0,4) as $category)
+			    			<li class="col-sm-3">
+			    				<div class="fff">
+			    					<div class="thumbnail">
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IS.jpg" alt=""></a>
+			    					</div>
+			    					<div class="caption">
+			    						<h4>"{{$category->FileTitle}}"</h4>
+			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
+			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@else
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@endif
+			    					</div>
+			    				</div>
+			    			</li>
+			    		@endforeach
+		    		</ul>
+		    	</div> 
+
+		    	@if($category2->count() > 4)
+		    	<!-- /Slide2 --> 
+		    	<div class="item">
+		    		<ul class="thumbnails">
+		    			@foreach($category2->slice(4,4) as $category)
+			    			<li class="col-sm-3">
+			    				<div class="fff">
+			    					<div class="thumbnail">
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IS.jpg" alt=""></a>
+			    					</div>
+			    					<div class="caption">
+			    						<h4>"{{$category->FileTitle}}"</h4>
+			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
+			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@else
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@endif
+			    					</div>
+			    				</div>
+			    			</li>
+			    		@endforeach
+		    		</ul>
+		    	</div>
+		    	@endif
+
+		    	@if($category2->count() > 8)
+		    	<!-- /Slide3 -->
+		    	<div class="item">
+		    		<ul class="thumbnails">
+		    			@foreach($category2->slice(8,4) as $category)
+			    			<li class="col-sm-3">
+			    				<div class="fff">
+			    					<div class="thumbnail">
+			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank"><img src="../../img/IS.jpg" alt=""></a>
+			    					</div>
+			    					<div class="caption">
+			    						<h4>"{{$category->FileTitle}}"</h4>
+			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
+			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
+				    						<center><a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@else
+				    						<center><a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-primary">» Read More</a></center>
+			    						@endif
+			    					</div>
+			    				</div>
+			    			</li>
+			    		@endforeach
+		    		</ul>
+		    	</div>
+		    	@endif 
+		    </div>
+		    @if($category2->count() > 4)
+		    <nav>
+		    	<ul class="control-box pager">
+		    		<li><a data-slide="prev" href="#myCarousel2" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+		    		<li><a data-slide="next" href="#myCarousel2" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
+		    	</ul>
+		    </nav>
+		    <!-- /.control-box -->
+		    @endif
+	    </div><!-- /#myCarousel2 -->
+		@endif
+
 	</div>
 	<!-- /.col-xs-12 -->
 </div>

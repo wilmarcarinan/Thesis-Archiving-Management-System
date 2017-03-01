@@ -44,8 +44,18 @@
 </head>
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-default navbar-static-top"> --}}
-        <nav class="navbar navbar-inverse navbar-static-top">
+        {{-- <nav class="navbar navbar-default navbar-fixed-top"> --}}
+                    <!-- Branding Image -->
+                    @if (Auth::guest())
+                        <!-- <a href="{{ url('/register') }}" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+
+                        <a href="{{ url('/login') }}" class="navbar-toggle">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                        </a> -->
+                    @else
+    <nav class="navbar navbar-fixed-top navig">
             <div class="container-fluid">
                 <div class="navbar-header">
 
@@ -56,17 +66,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button> --}}
-
-                    <!-- Branding Image -->
-                    @if (Auth::guest())
-                        <a href="{{ url('/register') }}" class="navbar-toggle">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </a>
-
-                        <a href="{{ url('/login') }}" class="navbar-toggle">
-                            <span class="glyphicon glyphicon-log-in"></span>
-                        </a>
-                    @else
                         <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="navbar-toggle">
                             <span class="glyphicon glyphicon-off"></span>
                         </a>
@@ -100,11 +99,10 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <a class="navbar-brand" href="{{ url('/home') }}">
+                    <a class="navbar-brand hover" href="{{ url('/home') }}">
                         <span>
                             <img src="../../img/tup.png" height="30px" width="30px">
                         </span>
-                        &nbsp;
                         {{ config('app.name') }}
                     </a>
 
@@ -122,20 +120,20 @@
                             @else
                                 <li>
                             @endif
-                                <a href="{{ url('/login') }}">
+                                <!-- <a href="{{ url('/login') }}">
                                     <span class="glyphicon glyphicon-log-in"></span>
                                     Login
-                                </a>
+                                </a> -->
                             </li>
                             @if(Request::path() == 'register')
                                 <li class="active">
                             @else
                                 <li>
                             @endif
-                                <a href="{{ url('/register') }}">
+                                <!-- <a href="{{ url('/register') }}">
                                     <span class="glyphicon glyphicon-user"></span>
                                     Register
-                                </a>
+                                </a> -->
                             </li>
                         @else
                             {{-- <li>
@@ -209,12 +207,12 @@
                                 <ul class="dropdown-menu" role="menu">
                                     @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
                                         <li>
-                                            <a href="/settings">Settings</a>
-                                        </li>
-                                        <li>
                                             <a href="/profile">My Profile</a>
                                         </li>
                                     @endif
+                                    <li>
+                                            <a href="/settings">Settings</a>
+                                        </li>
                                     <li>
                                         <a href="/changePassword">Change Password</a>
                                     </li>
@@ -238,18 +236,15 @@
             </nav>
             @if(!Auth::guest())
                 @if(Auth::user()->Role == 'Admin')
-                <div class="dropdown" style="float: left;">
-                <button class="dropbtn"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                <div class="dropdown-content side-nav">
-                    <a href="/">Dashboard</a>    
-                    <a href="/users">Manage Users</a>            
-                    <a href="/InactiveUsers">Inactive Users</a>            
-                    <a href="/list">Manage Files</a> 
-                    <a href="/ArchivedFiles">Archived Files</a>      
-                    <a href="/logs">Logs</a>
+                <div class="side-nav">
+                    <!-- <a href="/">Dashboard</a>     -->
+                    <a href="/users" data-toggle="tooltip" data-placement="right" title="Manage Users"><button class="glyphicon glyphicon-cog btn btn-primary btn-lg"></button></a><br />        
+                    <a href="/InactiveUsers" data-toggle="tooltip" data-placement="right" title="Inactive Users"><button class="glyphicon glyphicon-off btn btn-primary btn-lg"></button></a><br />         
+                    <a href="/list" data-toggle="tooltip" data-placement="right" title="Manage Files"><button class="glyphicon glyphicon-inbox btn btn-primary btn-lg"></button></a><br />   
+                    <a href="/ArchivedFiles" data-toggle="tooltip" data-placement="right" title="Archived Files"><button class="glyphicon glyphicon-lock btn btn-primary btn-lg"></button></a><br />   
+                    <a href="/logs" data-toggle="tooltip" data-placement="right" title="Activity Logs"><button class="glyphicon glyphicon-book btn btn-primary btn-lg"></button></a><br /> 
                     {{-- <a href="#">Reports</a>--}}
-                    <a href="/settings">Admin Settings</a>
-                </div>
+                    <!-- <a href="/settings">Admin Settings</a> -->
                 </div>
                 @endif
             @endif        
@@ -437,5 +432,22 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <style type="text/css">
+        .navig{
+            background-color:#1565c0;color:#eee;padding:2px;
+        }
+        .navbar-nav > li > a:hover{
+            background-color:#bbdefb;color:#fff;border-radius:5px;
+        }
+        .hover:hover{
+            color: #eee;
+
+        }
+    </style>
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 </body>
 </html>

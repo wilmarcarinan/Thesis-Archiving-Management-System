@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   @if(session('status'))
     <div class="alert alert-success" style="margin: 20px 0px -20px 0px">
       <li>{{session('status')}}</li>
@@ -86,7 +86,7 @@
         <br />
         </div>
         {{-- <center>
-          <button type="button" class="btn btn-info">View more</button>
+          <button type="button" class="btn btn-primary">View more</button>
         </center> --}}
       </div>
     </div>
@@ -219,7 +219,7 @@
             {{$suggested_files->links()}}
           <br />
           {{-- <center>
-            <button type="button" class="btn btn-info">View more</button>
+            <button type="button" class="btn btn-primary">View more</button>
           </center> --}}
         </div>
       </div>
@@ -317,7 +317,7 @@
                   <td>{{$file->Authors}}</td>
                   <td>{{$file->Course}}</td>
                   <td>{{$file->Adviser}}</td>
-                  <td>{{$file->thesis_date}}</td>
+                  <td>{{$file->thesis_date->format('F j, Y')}}</td>
                   <td>{{ $file->NumberOfViews }}</td>
                   <td>
                     {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
@@ -329,7 +329,7 @@
           {{$most_viewed->links()}}
           <br />
           {{-- <center>
-            <button type="button" class="btn btn-info">View more</button>
+            <button type="button" class="btn btn-primary">View more</button>
           </center> --}}
         </div>
       </div>
@@ -355,7 +355,7 @@
         <br>
       </div>
       <div class="modal-footer">
-          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});" class="btn btn-info">
+          <a href="" target="_blank" id="suggested_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#suggested_link').attr('file_id')});" class="btn btn-primary">
             Read More
           </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -382,13 +382,14 @@
         </p>
       </div>
       <div class="modal-footer">
-        <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});" class="btn btn-info">
+        <a href="" target="_blank" id="most_viewed_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#most_viewed_link').attr('file_id')});" class="btn btn-primary">
             Read More
         </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 </div>
 <style type="text/css">
   .width{

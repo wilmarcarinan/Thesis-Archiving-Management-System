@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
+	<div class="container" style="padding-top: 70px;">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				@if(session('status'))
@@ -10,8 +10,8 @@
 					</div>
 				@endif
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Add File Form</h4>
+					<div class="panel-heading" style="background-color: #64b5f6;">
+						<h4 style="color: white;">Add File Form</h4>
 					</div>
 					<div class="panel-body">
 						<form action="/AddFile" class="form-horizontal" method="POST" enctype="multipart/form-data">
