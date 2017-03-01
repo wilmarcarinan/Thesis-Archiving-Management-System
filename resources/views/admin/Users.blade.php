@@ -7,7 +7,7 @@
 				{{-- <div class="table-responsive"> --}}
 				<div class="jumbotron">
 					<h2>Manage Users</h2>
-					<table class="table nowrap" id="users-table">
+					<table class="table nowrap" id="users-table" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th></th>

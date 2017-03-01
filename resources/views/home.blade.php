@@ -36,9 +36,9 @@
           {{-- <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p> --}}
           <p>{{\Illuminate\Support\Str::words($latest_file->Abstract, $words = 70, $end = '...')}}</p>
           @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME')}}/files/{{$latest_file->FilePath }}" target="_blank" id="latest_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#latest_link').attr('file_id')});">
+            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$latest_file->FilePath}}&fidder={{$latest_file->id}}" target="_blank" id="latest_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#latest_link').attr('file_id')});">
           @else
-            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$latest_file->FilePath }}" target="_blank">
+            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{Auth::id()}}{{$latest_file->FilePath}}&fidder={{$latest_file->id}}" target="_blank">
           @endif
               <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3">View more</button>
             </a>
@@ -61,17 +61,18 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Latest</h2>
         {{-- <div class="table-responsive">           --}}
-        <table class="table" id="latest_table">
+        <table class="table" id="latest_table" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
               <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Tags</th>
-              {{-- <th>Author/s</th> --}}
               <th>Course</th>
-              {{-- <th>Adviser</th> --}}
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -97,17 +98,18 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Suggested</h2>                                                  
         {{-- <div class="table-responsive">           --}}
-        <table class="table" id="suggested_table">
+        <table class="table" id="suggested_table" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
               <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Tags</th>
-              {{-- <th>Author/s</th> --}}
               <th>Course</th>
-              {{-- <th>Adviser</th> --}}
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -117,19 +119,6 @@
             @foreach($suggested_files as $file)
               <tr>
                 @if(Auth::user()->Role <> 'Admin')
-                  {{-- <td> --}}
-                    <!-- Button trigger modal -->
-                    {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
-                      <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                    </button> --}}
-                    {{-- @if(in_array($file->id,$notes))
-                      <form action="/editNotes" method="POST">
-                        {{ csrf_field() }}
-                        {{method_field('PATCH')}}
-
-
-                      </form> --}}
-                  {{-- </td> --}}
                   <td>
                     <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="suggested_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
                       .done(function(){
@@ -193,12 +182,13 @@
                     {{$file->FileTitle}}
                   </a>
                 </td>
+                <td class="hidden">{{$file->Abstract}}</td>
+                <td class="hidden">{{$file->Authors}}</td>
+                <td class="hidden">{{$file->Adviser}}</td>
                 <td>{{$file->Category}}</td>
-                {{-- <td>{{$file->Authors}}</td> --}}
                 <td>
                   <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
                 </td>
-                {{-- <td>{{$file->Adviser}}</td> --}}
                 <td>{{$file->thesis_date->format('F j, Y')}}</td>
                 <td>
                   {{ DB::table('recent_views')->where('file_id',$file->id)->pluck('user_id')->count() }}
@@ -222,17 +212,18 @@
       <div class="container">
         <h2 style="margin-bottom: 15px">Most Viewed</h2>                                                                        
         {{-- <div>           --}}
-        <table class="table" id="most_viewed_table">
+        <table class="table" id="most_viewed_table" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
               <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Tags</th>
-              {{-- <th>Author/s</th> --}}
-              <th>Course</th>
-              {{-- <th>Adviser</th> --}}
+              <th>Course</th>              
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -242,18 +233,6 @@
             @foreach($most_viewed as $file)
               <tr>
                 @if(Auth::user()->Role <> 'Admin')
-                  {{-- <td> --}}
-                  <!-- Button trigger modal -->
-                  {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                  </button> --}}
-                  {{-- @if(in_array($file->id,$notes))
-                    <form action="/editNotes" method="POST">
-                      {{ csrf_field() }}
-                      {{method_field('PATCH')}}
-
-                  </form> --}}
-                  {{-- </td> --}}
                   <td>
                     <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="most_viewed_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
                       .done(function(){
@@ -317,12 +296,13 @@
                     {{$file->FileTitle}}
                   </a>
                 </td>
+                <td class="hidden">{{$file->Abstract}}</td>
+                <td class="hidden">{{$file->Authors}}</td>
+                <td class="hidden">{{$file->Adviser}}</td>
                 <td>{{$file->Category}}</td>
-                {{-- <td>{{$file->Authors}}</td> --}}
                 <td>
                   <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
                 </td>
-                {{-- <td>{{$file->Adviser}}</td> --}}
                 <td>{{$file->thesis_date->format('F j, Y')}}</td>
                 <td>{{ $file->NumberOfViews }}</td>
                 <td>
@@ -554,11 +534,11 @@
       });
       $('#latest_table').DataTable({
         responsive: true,
-        order: ['6','desc']
+        order: ['9','desc']
       });
       $('#most_viewed_table').DataTable({
         responsive: true,
-        order: ['7','desc']
+        order: ['10','desc']
       });
     });
   </script>

@@ -364,8 +364,8 @@ class HomeController extends Controller
                                     ['Status','Active'],
                                     ['user_id',Auth::id()]
                                     ])
-                                ->orderBy('pivot_created_at', 'DESC')
-                                ->paginate(20)
+                                // ->orderBy('pivot_created_at', 'DESC')
+                                ->get()
                                 ->unique();
             $favorite_list = Auth::user()->favorites()->where('Status','Active')
                                 // ->orderBy('created_at','DESC')
@@ -385,7 +385,7 @@ class HomeController extends Controller
             $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
             $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
             return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'files','notes','notes_FileID','notes_note'])); 
-            // return var_dump($recent_list);
+            // return $files->first()->pivot->created_at;
         }
         else{
             return back();

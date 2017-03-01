@@ -4,7 +4,7 @@
     <div class="container">
         <div class="jumbotron">          
             <h2><span class="glyphicon glyphicon-list-alt"></span> Archived Files</h2>
-            <table class="table" id="archived-table">
+            <table class="table" id="archived-table" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     @if(Auth::user()->Role <> 'Admin')

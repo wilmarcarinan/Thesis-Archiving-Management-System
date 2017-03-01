@@ -11,12 +11,16 @@
     <div id="recent" class="tab-pane fade in active">
       <div class="container">
         <h2><span class="glyphicon glyphicon-time"></span> Recent</h2>          
-        <table class="table profile-table">
+        <table class="table" id="recent-table" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th class="hidden"></th>
               <th></th>
               <th></th>
               <th></th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Title</th>
               <th>Category</th>
               {{-- <th>Author/s</th> --}}
@@ -43,12 +47,15 @@
     <div id="favorites" class="tab-pane fade">
       <div class="container">
         <h2><span class="fa fa-star-o"></span> Favorites</h2>          
-        <table class="table profile-table">
+        <table class="table profile-table" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Title</th>
               <th>Category</th>
               {{-- <th>Author/s</th> --}}
@@ -135,10 +142,13 @@
                     {{$favorite->FileTitle}}
                   </a>
                 </td>
+                <td class="hidden">{{$favorite->Abstract}}</td>
+                <td class="hidden">{{$favorite->Authors}}</td>
+                <td class="hidden">{{$favorite->Adviser}}</td>
                 <td>{{$favorite->Category}}</td>
-                {{-- <td>{{$favorite->Authors}}</td> --}}
-                <td>{{$favorite->Course}}</td>
-                {{-- <td>{{$favorite->Adviser}}</td> --}}
+                <td>
+                  <a href="/collections/{{$favorite->Course}}">{{$favorite->Course}}</a>
+                </td>
                 <td>{{$favorite->thesis_date->format('F j, Y')}}</td>
                 <td>
                   {{ DB::table('recent_views')->where('file_id',$favorite->id)->pluck('user_id')->count() }}
@@ -176,12 +186,15 @@
     <div id="toread" class="tab-pane fade">
       <div class="container">
         <h2><span class="fa fa-bookmark-o"></span> Bookmarks</h2>
-        <table class="table profile-table">
+        <table class="table profile-table" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
+              <th class="hidden">Abstract</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
               <th>Title</th>
               <th>Tags</th>
               {{-- <th>Author/s</th> --}}
@@ -268,10 +281,13 @@
                     {{$bookmark->FileTitle}}
                   </a>
                 </td>
+                <td class="hidden">{{$bookmark->Abstract}}</td>
+                <td class="hidden">{{$bookmark->Authors}}</td>
+                <td class="hidden">{{$bookmark->Adviser}}</td>
                 <td>{{$bookmark->Category}}</td>
-                {{-- <td>{{$bookmark->Authors}}</td> --}}
-                <td>{{$bookmark->Course}}</td>
-                {{-- <td>{{$bookmark->Adviser}}</td> --}}
+                <td>
+                  <a href="/collections/{{$bookmark->Course}}">{{$bookmark->Course}}</a>
+                </td>
                 <td>{{$bookmark->thesis_date->format('F j, Y')}}</td>
                 <td>
                   {{ DB::table('recent_views')->where('file_id',$bookmark->id)->pluck('user_id')->count() }}
@@ -517,7 +533,11 @@
   $(document).ready(function(){
     $('.profile-table').DataTable({
       responsive: true,
-      stateSave: true
+      stateSave: true,
+    });
+    $('#recent-table').DataTable({
+      responsive: true,
+      order: ['0','desc']
     });
   });
 </script>

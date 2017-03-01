@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-12 jumbotron">
 				<h2>Activity Logs</h2>
-				<table class="table" id="logs-table">
+				<table class="table" id="logs-table" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th>Subject</th>

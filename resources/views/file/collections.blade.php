@@ -8,12 +8,12 @@
 	    </div> --}}
 	   
 	    <div class="category-title">
-	    	<div class="col-sm-3">
+	    	<div class="col-sm-4">
 	    		<h4>
-	    			<a href="/collections/BSIT">Information Technology (IT)</a>
+	    			<a href="/collections/BSIT">»Information Technology (IT)</a>
 	    		</h4>	
 	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
+	    	<div class="col-sm-2 col-sm-offset-6">
 	    		<h4>{{$courses->where('Course','BSIT')->count()}} Collections</h4>
 	    	</div>
 	    </div>
@@ -33,9 +33,9 @@
 		    						<h4>"{{$category->FileTitle}}"</h4>
 		    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 		    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-			    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+			    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 		    						@else
-			    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+			    						<a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 		    						@endif
 		    						{{-- <a class="btn btn-mini" href="{{$category->FilePath}}"></a> --}}
 		    					</div>
@@ -58,9 +58,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -84,9 +84,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -111,12 +111,12 @@
 
 		<!-- #myCarousel2 -->
 	    <div class="category-title">
-	    	<div class="col-sm-3">
+	    	<div class="col-sm-4">
 	    		<h4>
-					<a href="/collections/BSIS">Information System (IS)</a>
+					<a href="/collections/BSIS">»Information System (IS)</a>
 	    		</h4>	
 	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
+	    	<div class="col-sm-2 col-sm-offset-6">
 	    		<h4>{{$courses->where('Course','BSIS')->count()}} Collections</h4>
 	    	</div>
 	    </div>
@@ -136,9 +136,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -161,9 +161,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -187,9 +187,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -213,12 +213,12 @@
 
 		<!-- #myCarousel3 -->
 		<div class="category-title">
-	    	<div class="col-sm-3">
+	    	<div class="col-sm-4">
 	    		<h4>
-					<a href="/collections/BSCS">Computer Science (CS)</a>
+					<a href="/collections/BSCS">»Computer Science (CS)</a>
 	    		</h4>	
 	    	</div>
-	    	<div class="col-sm-2 col-sm-offset-7">
+	    	<div class="col-sm-2 col-sm-offset-6">
 	    		<h4>{{$courses->where('Course','BSCS')->count()}} Collections</h4>
 	    	</div>
 	    </div>
@@ -238,9 +238,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -263,9 +263,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -289,9 +289,9 @@
 			    						<h4>"{{$category->FileTitle}}"</h4>
 			    						<p>{{\Illuminate\Support\Str::words($category->Abstract, $words = 20, $end = '...')}}</p>
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
-				    						<a href="http://{{Request::server('SERVER_NAME')}}/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="http://localhost:8000/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{$category->FilePath}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>

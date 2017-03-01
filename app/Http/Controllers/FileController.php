@@ -217,6 +217,7 @@ class FileController extends Controller
     {
         if($request->fidder){
             $file = File::select('id','FileTitle', 'FilePath')->where([['id',$request->fidder],['Status','Active']])->get();
+            Auth::user()->recent_views()->attach($file);
             unlink('files/'.Auth::id().$file[0]['FilePath']);
         }else{
             // exec("echo rm files/".Auth::id().$file[0]['FilePath']."|at now +20 seconds");
@@ -226,7 +227,6 @@ class FileController extends Controller
             // return $file[0]['FilePath'];
             //redirect(url()."pdf.js/web/viewer.html?fidder=".$request->file_id."file=".url()."/files".$file[0]['FilePath']);
         }
-        Auth::user()->recent_views()->attach($file);
     }
 
     public function favorite(Request $request)

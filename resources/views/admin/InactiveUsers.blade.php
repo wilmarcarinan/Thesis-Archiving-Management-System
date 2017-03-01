@@ -4,7 +4,7 @@
     <div class="container">
         <div class="jumbotron">          
             <h2>Inactive Users</h2>
-            <table class="table nowrap" id="inactive-users-table">
+            <table class="table nowrap" id="inactive-users-table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th></th>

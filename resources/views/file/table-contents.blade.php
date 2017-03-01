@@ -13,6 +13,11 @@
 </p>
 @foreach($files as $file)
   <tr>
+    @if(Request::path() == 'profile')
+      <td class="hidden">
+        {{$file->pivot->created_at}}
+      </td>
+    @endif
     @if(Auth::user()->Role <> 'Admin')
       <td>
         <button class="<?php if(in_array($file->id, $bookmarks)) echo 'not'; else echo 'btn' ?>-book" type="button" id="bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
@@ -151,13 +156,14 @@
       {{-- <p class="fileAbstract"></p> --}}
       {{-- (Background statement) The spread of antibiotic resistance is aided by mobile elements such as transposons and conjugative plasmids. (Narrowing statement) Recently, integrons have been recognised as genetic elements that have the capacity to contribute to the spread of resistance. (Elaboration of narrowing) (statement) Integrons constitute an efficient means of capturing gene cassettes and allow expression of encoded resistance. (Aims) The aims of this study were to screen clinical isolates for integrons, characterise gene cassettes and extended spectrum b-lactamase (ESBL) genes.  (Extended aim) Subsequent to this, genetic linkage between ESBL genes and gentamicin resistance was investigated.  (Results) In this study, 41 % of multiple antibiotic resistant bacteria and 79 % of extended-spectrum b-lactamase producing organisms were found to carry either one or two integrons, as detected by PCR.  (Results)  A novel gene cassette contained within an integron was identified from Stenotrophomonas maltophilia, encoding a protein that belongs to the small multidrug resistance (SMR) family of transporters. (Results)  pLJ1, a transferable plasmid that was present in 86 % of the extended-spectrum b-lactamase producing collection, was found to harbour an integron carrying aadB, a gene cassette for gentamicin, kanamycin and tobramycin resistance and a blaSHV-12 gene for third generation cephalosporin resistance. (Justification of results) The presence of this plasmid accounts for the gentamicin resistance phenotype that is often associated with organisms displaying an extended-spectrum b-lactamase phenotype. --}}
     </td>
+    <td id="Abstract{{$file->id}}" class="hidden">{{$file->Abstract}}</td>
+    <td id="Authors{{$file->id}}" class="hidden">{{$file->Authors}}</td>
+    <td id="Adviser{{$file->id}}" class="hidden">{{$file->Adviser}}</td>
     <td id="Category{{$file->id}}">{{$file->Category}}</td>
-    {{-- <td id="Authors{{$file->id}}">{{$file->Authors}}</td> --}}
     <td id="Course{{$file->id}}">
       <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
     </td>
-    {{-- <td id="Adviser{{$file->id}}">{{$file->Adviser}}</td> --}}
-    @if(Auth::user()->Role == 'Admin')
+    @if(Auth::user()->Role == 'Admin' || Request::path()=='profile' || Request::path()=='list')
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('F j, Y')}}</td>
     @else
     <td id="ThesisDate{{$file->id}}">{{$file->thesis_date->format('Y-m-d')}}</td>
