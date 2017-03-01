@@ -138,7 +138,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -163,7 +163,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -189,7 +189,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -240,7 +240,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -265,7 +265,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
@@ -291,7 +291,7 @@
 			    						@if(Request::server('SERVER_NAME') <> '127.0.0.1')
 				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank">» Read More</a>
 			    						@else
-				    						<a href="/pdf.js/web/viewer.html?file=http://{{Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
+				    						<a href="/pdf.js/web/viewer.html?file=http://localhost::8000/files/{{Auth::id()}}{{$category->FilePath}}&fidder={{$category->id}}" target="_blank" class="btn btn-mini">» Read More</a>
 			    						@endif
 			    					</div>
 			    				</div>
