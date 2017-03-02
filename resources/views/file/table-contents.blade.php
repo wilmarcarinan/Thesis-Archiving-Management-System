@@ -219,7 +219,8 @@
               },
               success:function(data){
                 console.log(data);
-                // $('#edit_notes').val(data.note);
+                $('button[data-file_id='+data.file_id+']').data('notes',data.note);
+                //$('button[data-file_id='+data.file_id+']').attr('data-notes',data.note);
                 // $('#edit_notes').text(data.note);
                 $('#notesModal').modal('hide');
               },

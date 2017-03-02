@@ -366,6 +366,7 @@
               },
               success:function(data){
                 console.log(data);
+                $('button[data-file_id='+data.file_id+']').data('notes',data.note);
                 $('#notesModal_favorites').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
@@ -427,6 +428,7 @@
               },
               success:function(data){
                 console.log(data);
+                $('button[data-file_id='+data.file_id+']').data('notes',data.note);
                 $('#notesModal_bookmarks').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){

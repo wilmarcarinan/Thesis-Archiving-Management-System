@@ -2,7 +2,9 @@
 
 @section('content')
 	<div class="container">
-		<h2 style="margin-bottom: 15px">{{$Course}}</h2>
+		<h2 style="margin-bottom: 15px">
+			<a href="/collections">/Collections/</a>{{$Course}}
+		</h2>
 		<div class="table-responsive">
 			<table id="files-course" class="table" cellspacing="0" width="100%">
 		        <thead>
