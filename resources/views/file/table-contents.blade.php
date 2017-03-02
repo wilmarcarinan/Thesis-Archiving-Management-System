@@ -219,6 +219,8 @@
               },
               success:function(data){
                 console.log(data);
+                // $('#edit_notes').val(data.note);
+                // $('#edit_notes').text(data.note);
                 $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
