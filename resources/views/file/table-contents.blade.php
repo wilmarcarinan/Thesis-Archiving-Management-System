@@ -231,6 +231,7 @@
               }
             });
           "></button>
+          <span id="deleteHandler"></span>
           <input type="hidden" id="FileNote_id" name="FileNote_id">
           <input type="hidden" id="NoteID" name="NoteID">
         </form>

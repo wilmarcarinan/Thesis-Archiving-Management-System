@@ -417,6 +417,7 @@
                 $('#edit_notes_most_viewed').val('');
                 $('#edit_notes_favorites').val('');
                 $('#edit_notes_bookmarks').val('');
+                $('#notesDeleteButton').remove();
             }else{
                 $('#edit_notes').val($(this).data('notes'));
                 $('#edit_notes_suggested').val($(this).data('notes'));
@@ -428,6 +429,7 @@
                 $('#methodHandler_most_viewed').html('<input type="hidden" name="_method" id="NotesMethod_most_viewed" value="PATCH">');
                 $('#methodHandler_favorites').html('<input type="hidden" name="_method" id="NotesMethod_favorites" value="PATCH">');
                 $('#methodHandler_bookmarks').html('<input type="hidden" name="_method" id="NotesMethod_bookmarks" value="PATCH">');
+                $('#deleteHandler').html('<button type="button" class="btn btn-danger" id="notesDeleteButton" onclick="deleteNotes();">Delete</button>');
             }
             $('#NotesForm').attr('method',type);
             $('#NotesForm').attr('action',link_url);
@@ -445,6 +447,30 @@
             $('#notesButton_favorites').text(buttonValue);
             $('#notesButton_bookmarks').text(buttonValue);
         });
+        function deleteNotes(){
+            $('#methodHandler').remove();
+            $('#NotesForm').attr('action','/deleteNotes');
+            $.ajax({
+                type: 'POST', 
+                url: '/deleteNotes',
+                data:{
+                    '_token': $('#Notestoken').val(),
+                    'id': $('#NoteID').val(),
+                    'note': $('#edit_notes').val(),
+                    'file_id': $('#FileNote_id').val()
+                }, 
+                success: function(data){
+                    $('button[data-file_id='+data.file_id+']').data('notes','');
+                    $('#notesModal').modal('hide');
+                    console.log(data);
+                },
+                error: function(xhr,textStatus,thrownError){
+                    console.log(textStatus);
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
     </script>
 </body>
 </html>

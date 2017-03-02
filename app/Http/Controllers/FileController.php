@@ -445,4 +445,14 @@ class FileController extends Controller
             return 'Unable to update!';
         }
     }
+
+    public function deleteNotes()
+    {
+        // return request()->all();
+        $note = Note::find(request()->id);
+        $note->delete();
+        // return $note;
+        return request()->all();
+        // return 'Success Deletion of Note';
+    }
 }
