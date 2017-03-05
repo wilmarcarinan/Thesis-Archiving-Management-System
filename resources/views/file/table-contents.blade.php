@@ -110,7 +110,7 @@
             }
           }
         });">
-        <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+        <i class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
       </button>
     </td>
     <td>
@@ -132,20 +132,26 @@
           {{method_field('PATCH')}}
           {{csrf_field()}}
           <input type="hidden" name="file_id" value="{{$file->id}}">
-          <button class="btn btn-primary" type="submit"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+          <button class="btn btn-primary" type="submit">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          </button>
+        </form>
       @else
         <form action="/lock" method="POST">
           {{method_field('PATCH')}}
           {{csrf_field()}}
           <input type="hidden" name="file_id" value="{{$file->id}}">
-          <button class="btn btn-primary" type="submit"><i class="fa fa-lock" aria-hidden="true"></i></button>
-      @endif
+          <button class="btn btn-primary" type="submit">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </button>
         </form>
+      @endif
     </td>
     <td>
-      {{-- <button class="btn btn-primary" type="submit"></button> --}}
-      <!-- Button trigger modal -->
-      <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+      <!-- Button trigger modal for Edit File-->
+      <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      </button>
     </td>
     @endif
     <td class="FileTitle">
@@ -188,14 +194,9 @@
       </div>
       <div class="modal-body">
         <form class="form" id="NotesForm">
-          {{-- {{csrf_field()}} --}}
-          {{-- {{method_field('PATCH')}} --}}
           <input type="hidden" name="_token" id="Notestoken" value="{{csrf_token()}}">
-          {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
           <div id="methodHandler"></div>
-
           <div class="form-group">
-            {{-- <label for="notes">Notes: </label> --}}
             <textarea name="notes" rows="10" class="form-control" id="edit_notes"></textarea>
           </div>
 
@@ -222,12 +223,30 @@
                 $('button[data-file_id='+data.file_id+']').data('notes',data.note);
                 //$('button[data-file_id='+data.file_id+']').attr('data-notes',data.note);
                 // $('#edit_notes').text(data.note);
+                if(type=='POST'){
+                  if(data == 'error'){
+                    swal('Error Saving!','You didn\'t enter anything!','error');
+                  }else{
+                    swal('Success','Note Saved!','success');
+                  }
+                }else{
+                  if(data == 'Nothing Changed!'){
+                    swal('Error Updating!','You didn\'t change anything!','error');
+                  }else{
+                    swal('Success','Note Updated!','success');
+                  }
+                }
                 $('#notesModal').modal('hide');
               },
               error: function(xhr,textStatus,thrownError){
                 console.log(textStatus);
                 console.log(xhr.status);
                 console.log(thrownError);
+                if(type == 'POST'){
+                  swal('Error!','Saving Note Failed!','error');
+                }else{
+                  swal('Error!','Updating Note Failed!','error');
+                }
               }
             });
           "></button>
@@ -243,63 +262,18 @@
   </div>
 </div>
 
-<!-- Link for More Details Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
-      </div>
-      <div class="modal-body">
-        <h4><b>Authors</b></h4>
-        <p>
-          <span class="authors"></span>
-        </p>
-        <h4><b>Adviser</b></h4>
-        <p>
-          <span class="adviser"></span>
-        </p>
-        <h4><b>Tags</b></h4>
-        <p>
-          <span class="category"></span>
-        </p>
-        <h4><b>Abstract</b></h4>
-        <p>
-          <span class="abstract"></span>  
-        </p>
-        <p>
-          Read the whole documentation 
-          <a href="" target="_blank" id="file_link" file_id="" onclick="$.get( '/View_PDF', { 'file_id': $('#file_link').attr('file_id')})
-          .done(function(data){
-
-          });
-          ">
-            here.
-          </a>
-        </p>
-        <br>
-        <p class="qrcodeCanvas" style="text-align: center;"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Update File Modal -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
-      <div class="modal-body">
-        <form action="/updateFile" method="POST" class="form">
-          {{-- {{csrf_field()}} --}}
-          {{-- {{method_field('PATCH')}} --}}
+      <form action="/updateFile" method="POST" class="form">
+        <div class="modal-body">
           <input type="hidden" name="_token" id="token" value="{{csrf_token()}}">
           <input type="hidden" name="_method" id="method" value="PATCH">
 
@@ -342,13 +316,14 @@
             <label for="edit_date">Thesis Date: </label>
             <input type="date" class="form-control" name="edit_date" id="edit_date">
           </div>
-
-          <button type="submit" class="btn btn-primary" onclick="
+          <input type="hidden" id="edit_id" name="edit_id">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="
             $.ajax({
               type: 'PATCH',
               url: '/updateFile',
               data: {
-                // '_method': $('#method').val(),
                 '_token': $('#token').val(),
                 'title': $('#edit_title').val(),
                 'abstract': $('#edit_abstract').val(),
@@ -359,27 +334,92 @@
                 'thesis_date': $('#edit_date').val(),
                 'id': $('#edit_id').val()
               },
-              // dataType: 'jsonp',
               success: function(data){
-                $('a[data-id='+data.id+']').text(data.FileTitle);
-                $('#Category'+data.id).text(data.Category);
-                $('#Authors'+data.id).text(data.Authors);
-                $('#Course'+data.id).html(data.Course);
-                $('#Adviser'+data.id).text(data.Adviser);
+                // console.log(data);
+                $('a[data-id='+data.id+']').data('title',data.title);
+                $('a[data-id='+data.id+']').data('abstract',data.abstract);
+                $('a[data-id='+data.id+']').data('category',data.categories);
+                // $('a[data-id='+data.id+']').data('path',data.FilePath);
+                $('a[data-id='+data.id+']').data('authors',data.authors);
+                $('a[data-id='+data.id+']').data('adviser',data.adviser);
+                $('a[data-id='+data.id+']').text(data.title);
+                $('button[data-id='+data.id+']').data('abstract',data.abstract);
+                $('button[data-id='+data.id+']').data('adviser',data.adviser);
+                $('button[data-id='+data.id+']').data('course',data.course);
+                $('button[data-id='+data.id+']').data('title',data.title);
+                $('button[data-id='+data.id+']').data('date',data.thesis_date);
+                $('#Abstract'+data.id).text(data.abstract);
+                $('#Category'+data.id).text(data.categories);
+                $('#Authors'+data.id).text(data.authors);
+                $('#Course'+data.id).html(data.course);
+                $('#Adviser'+data.id).text(data.adviser);
                 $('#ThesisDate'+data.id).text(data.thesis_date);
+                swal('Success!', 'File Updated Successfully!', 'success');
                 $('#updateModal').modal('hide');
               },
               error: function(xhr, textStatus, thrownError){
                 console.log(textStatus);
                 console.log(xhr.status);
                 console.log(thrownError);
+                swal('Error!', 'File Update Fail!', 'error');
               }
             });
           ">Update</button>
-          <input type="hidden" id="edit_id" name="edit_id">
-        </form>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Link for More Details Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <h4>
+          <b>Authors</b>
+        </h4>
+        <p>
+          <span class="authors"></span>
+        </p>
+        <h4>
+          <b>Adviser</b>
+        </h4>
+        <p>
+          <span class="adviser"></span>
+        </p>
+        <h4>
+          <b>Tags</b>
+        </h4>
+        <p>
+          <span class="category"></span>
+        </p>
+        <h4>
+          <b>Abstract</b>
+        </h4>
+        <p>
+          <span class="abstract"></span>  
+        </p>
+        <br>
+        <p class="qrcodeCanvas" style="text-align: center;"></p>
       </div>
       <div class="modal-footer">
+        <a href="" target="_blank" id="file_link" class="btn btn-primary" onclick="
+          $.ajax({
+            type: 'GET',
+            url: 'View_PDF',
+            data:{
+              'file_id': $('#file_link').attr('file_id')
+            }
+          });
+        ">Read More</a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

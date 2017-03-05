@@ -12,15 +12,16 @@
     <link rel="icon" href="../book.ico"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" type="text/css" href="/css/w3.css">
     <link rel="stylesheet" type="text/css" href="/css/fa/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="/css/responsive.dataTables.min.css">
+    
 
     <!-- Scripts-->
     <script type="text/javascript" src="/js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -257,6 +258,7 @@
     <script type="text/javascript" charset="utf8" src="/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="/js/sweetalert.min.js"></script>
     @yield('script-section')
     <script type="text/javascript">
         $.ajaxSetup
@@ -389,7 +391,7 @@
         $(document).on('click','.openNotes',function(){
             var type = 'POST';
             var link_url = '/editNotes';
-            var buttonValue = 'Update'
+            var buttonValue = 'Update';
 
             // $('.notesButton').attr('id','notesButton'+$(this).data('file_id'));
             // $('.NotesForm').attr('id','NotesForm'+$(this).data('file_id'));
@@ -461,6 +463,7 @@
                 }, 
                 success: function(data){
                     $('button[data-file_id='+data.file_id+']').data('notes','');
+                    swal('Success','Note Deleted!','success');
                     $('#notesModal').modal('hide');
                     console.log(data);
                 },
@@ -468,6 +471,7 @@
                     console.log(textStatus);
                     console.log(xhr.status);
                     console.log(thrownError);
+                    swal('Error!','Deleting Note Failed!','error');
                 }
             });
         }

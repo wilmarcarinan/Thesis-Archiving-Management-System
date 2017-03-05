@@ -387,7 +387,7 @@ class FileController extends Controller
         $log->student_id = Auth::id();
         $log->save();
 
-        return $file;
+        return request()->all();
     }
 
     public function addNotes()
@@ -414,7 +414,7 @@ class FileController extends Controller
 
             return $note;
         }else{
-            return 'You did not enter any note!';
+            return 'error';
         }
 
         // return $note;
@@ -425,7 +425,7 @@ class FileController extends Controller
         // return request()->all();
         $note = Note::find(request()->id);
         if(request()->note == $note->note){
-            return 'You did not change something!';
+            return 'Nothing Changed!';
         }
         if(request()->note <> '' ){
             $note->update([
