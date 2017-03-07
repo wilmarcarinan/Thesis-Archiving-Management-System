@@ -98,3 +98,5 @@ Route::patch('/editNotes','FileController@editNotes');
 Route::post('/deleteNotes','FileController@deleteNotes');
 
 Route::get('/collections/{Course}','CollectionsController@Course');
+
+Route::get('/Reports','AdminController@Reports');

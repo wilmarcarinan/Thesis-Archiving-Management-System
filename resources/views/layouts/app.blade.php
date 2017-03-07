@@ -243,7 +243,7 @@
                     <a href="/list">Manage Files</a> 
                     <a href="/ArchivedFiles">Archived Files</a>      
                     <a href="/logs">Logs</a>
-                    {{-- <a href="#">Reports</a>--}}
+                    <a href="/Reports">Reports</a>
                     <a href="/settings">Admin Settings</a>
                 </div>
                 </div>

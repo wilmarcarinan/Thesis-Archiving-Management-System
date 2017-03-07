@@ -336,6 +336,8 @@
               },
               success: function(data){
                 // console.log(data);
+                var thesis_date = new Date(data.thesis_date);
+                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 $('a[data-id='+data.id+']').data('title',data.title);
                 $('a[data-id='+data.id+']').data('abstract',data.abstract);
                 $('a[data-id='+data.id+']').data('category',data.categories);
@@ -353,7 +355,8 @@
                 $('#Authors'+data.id).text(data.authors);
                 $('#Course'+data.id).html(data.course);
                 $('#Adviser'+data.id).text(data.adviser);
-                $('#ThesisDate'+data.id).text(data.thesis_date);
+                // $('#ThesisDate'+data.id).text(data.thesis_date);
+                $('#ThesisDate'+data.id).text(months[thesis_date.getMonth()]+' '+thesis_date.getDate()+', '+thesis_date.getFullYear());
                 swal('Success!', 'File Updated Successfully!', 'success');
                 $('#updateModal').modal('hide');
               },

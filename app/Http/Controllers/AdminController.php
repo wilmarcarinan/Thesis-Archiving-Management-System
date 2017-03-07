@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Log;
 use App\User;
 use App\File;
+use DB;
+use Charts;
 
 class AdminController extends Controller
 {
@@ -120,5 +122,31 @@ class AdminController extends Controller
         }else{
             return redirect()->action('HomeController@index');
         }
+    }
+
+    public function Reports()
+    {
+        // Charts::database(File::get(), 'bar', 'highcharts')
+        //     ->dateColumn('thesis_date')
+        //     ->title('Thesis per Course per Year')
+        //     ->elementLabel("Total Files")
+        //     ->dimensions(1000, 500)
+        //     ->responsive(True)
+        //     ->lastByYear();
+        $years = File::distinct()->latest()->get([DB::raw('YEAR(created_at) AS year')]);
+        $courses = File::distinct()->select('Course')->get();
+        $chart_course_year = Charts::multiDatabase('bar', 'highcharts')
+            ->dataset('BSIT', File::where('Course','BSIT')->get())
+            ->dataset('BSCS', File::where('Course','BSCS')->get())
+            ->dataset('BSIS', File::where('Course','BSIS')->get())
+            ->dateColumn('year')
+            ->title('Thesis Per Course Per Year')
+            ->elementLabel("Total Files")
+            ->dimensions(1000, 500)
+            ->colors(['rgb(46,112,160)', 'rgb(192,65,62)','orange'])
+            // ->responsive(True)
+            ->lastByYear();
+        return view('admin.Reports',compact(['years','courses','chart_course_year']));
+        // return var_dump(File::distinct()->select('Course')->get()->toArray()[0]['Course']);
     }
 }
