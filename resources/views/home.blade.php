@@ -69,6 +69,7 @@
               <th></th>
               <th>Title</th>
               <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Tags</th>
@@ -106,6 +107,7 @@
               <th></th>
               <th>Title</th>
               <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Tags</th>
@@ -183,9 +185,11 @@
                   </a>
                 </td>
                 <td class="hidden">{{$file->Abstract}}</td>
+                <td>{{$file->SubjectArea}}</td>
                 <td class="hidden">{{$file->Authors}}</td>
                 <td class="hidden">{{$file->Adviser}}</td>
-                <td>{{$file->Category}}</td>
+                {{-- <td>{{$file->Category}}</td> --}}
+                <td>{{$file->tags->pluck('tag_name')->implode(',')}}</td>
                 <td>
                   <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
                 </td>
@@ -220,6 +224,7 @@
               <th></th>
               <th>Title</th>
               <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Tags</th>
@@ -297,9 +302,11 @@
                   </a>
                 </td>
                 <td class="hidden">{{$file->Abstract}}</td>
+                <td>{{$file->SubjectArea}}</td>
                 <td class="hidden">{{$file->Authors}}</td>
                 <td class="hidden">{{$file->Adviser}}</td>
-                <td>{{$file->Category}}</td>
+                {{-- <td>{{$file->Category}}</td> --}}
+                <td>{{$file->tags->pluck('tag_name')->implode(',')}}</td>
                 <td>
                   <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
                 </td>
@@ -537,11 +544,11 @@
       });
       $('#latest_table').DataTable({
         responsive: true,
-        order: ['9','desc']
+        order: ['10','desc']
       });
       $('#most_viewed_table').DataTable({
         responsive: true,
-        order: ['10','desc']
+        order: ['11','desc']
       });
     });
   </script>

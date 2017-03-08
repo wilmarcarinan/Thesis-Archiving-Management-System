@@ -37,6 +37,16 @@ class User extends Authenticatable
         return false;
     }
 
+    public function is_encoder()
+    {
+        $role = $this->Role;
+        if( $role == 'Encoder' )
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function log()
     {
         return $this->hasMany('App\Log');

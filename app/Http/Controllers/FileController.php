@@ -12,6 +12,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
 use App\Note;
+use App\Tag;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
@@ -131,14 +132,14 @@ class FileController extends Controller
 
     public function AddFile(Request $request)
     {
-        // return $request->all();
         $this->validate(request(),[
             'FileTitle' => [
                 'required',
                 Rule::unique('files')->ignore(auth()->id())
             ],
-            'Category' => 'required',
+            'Tags' => 'required',
             'Abstract' => 'required',
+            'SubjectArea' => 'required',
             'Authors' => 'required',
             'Course' => 'required',
             // 'Adviser' => 'required',
@@ -156,14 +157,30 @@ class FileController extends Controller
         );
         
         $file->FileTitle = $request->FileTitle;
-        $file->Category = $request->Category;
+        // $file->Category = $request->Category;
         $file->Abstract = $request->Abstract;
+        $file->SubjectArea = $request->SubjectArea;
         $file->Authors = $request->Authors;
         $file->Course = $request->Course;
         $file->Adviser = $request->Adviser;
         $file->thesis_date = $request->thesis_date;
         $file->FilePath = $fileName;
         $file->save();
+
+        $tags = explode(",",$request->Tags);
+        for($i = 0; $i < count($tags); $i++){
+            $check_tag = Tag::where('tag_name',$tags[$i])->get();
+            if($check_tag == '[]'){
+                $create_tag = new Tag;
+                $create_tag->tag_name = $tags[$i];
+                $create_tag->save();
+                $file->tags()->attach($create_tag);
+                // return 'Walang Laman';
+            }else{
+                $file->tags()->attach($check_tag);
+                // return 'May Laman';
+            }
+        }
 
         $log = new Log;
         $log->Subject = 'File Upload';
@@ -363,7 +380,8 @@ class FileController extends Controller
         $this->validate(request(),[
             'title' => 'required',
             'abstract' => 'required',
-            'categories' => 'required',
+            'subject' => 'required',
+            'tags' => 'required',
             'authors' => 'required',
             'course' => 'required',
             'thesis_date' => 'required'
@@ -374,12 +392,40 @@ class FileController extends Controller
         $file->update([
             'FileTitle' => request()->title,
             'Abstract' => request()->abstract,
-            'Category' => request()->categories,
+            // 'Category' => request()->categories,
+            'SubjectArea' => request()->subject,
             'Authors' => request()->authors,
             'Course' => request()->course,
             'Adviser' => request()->adviser,
             'thesis_date' => request()->thesis_date
         ]);
+        // return $file;
+
+        $tags = explode(",",request()->tags);
+        $current_tags = explode(",",$file->tags->pluck('tag_name')->implode(','));
+        $check_tags_add = array_values(array_diff($tags, $current_tags)); // tags that have been tagged by user
+        $check_tags_remove = array_values(array_diff($current_tags, $tags)); // tags that have been un-tag by user
+        // return array_values($check_tags_remove);
+        // return $check_tags_add;
+        // Loop through each tags
+        for($i = 0; $i < count($check_tags_add); $i++){
+            $check_tag = Tag::where('tag_name',$check_tags_add[$i])->get();
+            // Check if tag doesn't exist
+            if($check_tag == '[]'){
+                $create_tag = new Tag;
+                $create_tag->tag_name = $check_tags_add[$i];
+                $create_tag->save();
+                $file->tags()->attach($create_tag);
+            }else{
+                $file->tags()->attach($check_tag);
+            }
+        }
+
+        // Loop through each tags
+        for($i = 0; $i < count($check_tags_remove); $i++){
+            $tag_to_remove = Tag::where('tag_name',$check_tags_remove[$i])->get();
+            $file->tags()->detach($tag_to_remove);
+        }
 
         $log = new Log;
         $log->Subject = 'File Update';

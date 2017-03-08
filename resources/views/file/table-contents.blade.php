@@ -149,7 +149,7 @@
     </td>
     <td>
       <!-- Button trigger modal for Edit File-->
-      <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-category="{{$file->Category}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}">
+      <button class="btn btn-primary updateFile" data-toggle="modal" data-target="#updateModal" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-subject="{{$file->SubjectArea}}" data-path="{{$file->FilePath}}" data-category="{{$file->tags->pluck('tag_name')->implode(',')}}" data-authors="{{$file->Authors}}" data-course="{{$file->Course}}" data-adviser="{{$file->Adviser}}" data-date="{{$file->thesis_date->toDateString()}}">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       </button>
     </td>
@@ -161,9 +161,11 @@
       </a>
     </td>
     <td id="Abstract{{$file->id}}" class="hidden">{{$file->Abstract}}</td>
+    <td id="SubjectArea{{$file->id}}">{{$file->SubjectArea}}</td>
     <td id="Authors{{$file->id}}" class="hidden">{{$file->Authors}}</td>
     <td id="Adviser{{$file->id}}" class="hidden">{{$file->Adviser}}</td>
-    <td id="Category{{$file->id}}">{{$file->Category}}</td>
+    {{-- <td id="Category{{$file->id}}">{{$file->Category}}</td> --}}
+    <td id="Category{{$file->id}}">{{$file->tags->pluck('tag_name')->implode(',')}}</td>
     <td id="Course{{$file->id}}">
       <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
     </td>
@@ -288,8 +290,13 @@
           </div>
 
           <div class="form-group">
-            <label for="edit_category">Categories: </label>
-            <textarea name="edit_category" id="edit_category" rows="2" class="form-control"></textarea>
+            <label for="edit_subject">Subject Area: </label>
+            <input type="text" class="form-control" name="edit_subject" id="edit_subject">
+          </div>
+
+          <div class="form-group">
+            <label for="edit_category">Tags: </label>
+            <input type="text" data-role="tagsinput" name="edit_category" id="edit_category">
           </div>
           
           <div class="form-group">
@@ -327,7 +334,8 @@
                 '_token': $('#token').val(),
                 'title': $('#edit_title').val(),
                 'abstract': $('#edit_abstract').val(),
-                'categories': $('#edit_category').val(),
+                'subject': $('#edit_subject').val(),
+                'tags': $('#edit_category').val(),
                 'authors': $('#edit_authors').val(),
                 'course': $('#edit_course').val(),
                 'adviser': $('#edit_adviser').val(),
@@ -335,12 +343,13 @@
                 'id': $('#edit_id').val()
               },
               success: function(data){
-                // console.log(data);
+                console.log(data);
                 var thesis_date = new Date(data.thesis_date);
                 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 $('a[data-id='+data.id+']').data('title',data.title);
                 $('a[data-id='+data.id+']').data('abstract',data.abstract);
-                $('a[data-id='+data.id+']').data('category',data.categories);
+                $('a[data-id='+data.id+']').data('subject',data.subject);
+                $('a[data-id='+data.id+']').data('category',data.tags);
                 // $('a[data-id='+data.id+']').data('path',data.FilePath);
                 $('a[data-id='+data.id+']').data('authors',data.authors);
                 $('a[data-id='+data.id+']').data('adviser',data.adviser);
@@ -351,7 +360,8 @@
                 $('button[data-id='+data.id+']').data('title',data.title);
                 $('button[data-id='+data.id+']').data('date',data.thesis_date);
                 $('#Abstract'+data.id).text(data.abstract);
-                $('#Category'+data.id).text(data.categories);
+                $('#SubjectArea'+data.id).text(data.subject);
+                $('#Category'+data.id).text(data.tags);
                 $('#Authors'+data.id).text(data.authors);
                 $('#Course'+data.id).html(data.course);
                 $('#Adviser'+data.id).text(data.adviser);

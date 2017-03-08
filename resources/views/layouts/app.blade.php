@@ -22,13 +22,14 @@
     <!-- Scripts-->
     <script type="text/javascript" src="/js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-tagsinput.css">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
     @if(! Auth::guest())
-        @if(Auth::user()->Role == 'Admin')
+        @if(Auth::user()->is_admin())
             <link rel="stylesheet" href="/css/admin.css">
         @else
             <link rel="stylesheet" href="/css/style.css">
@@ -86,7 +87,7 @@
                                 <span class="glyphicon glyphicon-th-large"></span>                
                             </a>
                         @endif
-                        @if(Auth::user()->Role == 'Encoder' || Auth::user()->Role == 'Admin')
+                        @if(Auth::user()->is_encoder() || Auth::user()->is_admin())
                             <a href="/AddFile" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
@@ -113,7 +114,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            @if(Request::path() == 'login')
+                            {{-- @if(Request::path() == 'login')
                                 <li class="active">
                             @else
                                 <li>
@@ -132,7 +133,7 @@
                                     <span class="glyphicon glyphicon-user"></span>
                                     Register
                                 </a>
-                            </li>
+                            </li> --}}
                         @else
                             {{-- <li>
                                 <form action="/search" method="POST" class="form-horizontal">
@@ -153,7 +154,7 @@
                                      Home
                                 </a>
                             </li>
-                            @if(Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Encoder')
+                            @if(Auth::user()->is_admin() || Auth::user()->is_encoder())
                                 @if(Request::path() == 'AddFile')
                                     <li class="active">
                                 @else
@@ -165,7 +166,7 @@
                                         </a>
                                     </li>
                             @endif
-                            {{-- @if(Request::path() == 'search')
+                            @if(Request::path() == 'search')
                                 <li class="active">
                             @else
                                 <li>
@@ -174,8 +175,8 @@
                                         <span class="glyphicon glyphicon-search"></span>
                                          Search
                                     </a>
-                                </li> --}}
-                            @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
+                                </li>
+                            @if(Auth::user()->Role == 'User' || Auth::user()->is_encoder())
                                 @if(Request::path() == 'collections')
                                     <li class="active">
                                 @else
@@ -203,13 +204,18 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
-                                        <li>
-                                            <a href="/settings">Settings</a>
-                                        </li>
-                                        <li>
-                                            <a href="/profile">My Profile</a>
-                                        </li>
+                                    @if(Auth::user()->Role == 'User' || Auth::user()->is_encoder())
+                                    <li>
+                                        <a href="/settings">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="/profile">My Profile</a>
+                                    </li>
+                                    @endif
+                                    @if(Auth::user()->is_admin() || Auth::user()->is_encoder())
+                                    <li>
+                                        <a href="/register">Register a User</a>
+                                    </li>
                                     @endif
                                     <li>
                                         <a href="/changePassword">Change Password</a>
@@ -259,6 +265,7 @@
     <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-tagsinput.min.js"></script>
     @yield('script-section')
     <script type="text/javascript">
         $.ajaxSetup
@@ -378,15 +385,21 @@
         });
 
         $(document).on('click','.updateFile',function(){
+            // console.log($(this).data('category'));
             $('#edit_title').val($(this).data('title'));
             $('#edit_abstract').val($(this).data('abstract'));
-            $('#edit_category').html($(this).data('category'));
+            $('#edit_subject').val($(this).data('subject'));
+            $('#edit_category').tagsinput('add',$(this).data('category'));
             $('#edit_authors').html($(this).data('authors'));
             $('#edit_course').val($(this).data('course'));
             $('#edit_adviser').val($(this).data('adviser'));
             $('#edit_date').val($(this).data('date'));
             $('#edit_id').val($(this).data('id'));
         });
+
+        $('#updateModal').on('hidden.bs.modal', function (e) {
+          $('#edit_category').tagsinput('removeAll');
+        })
 
         $(document).on('click','.openNotes',function(){
             var type = 'POST';

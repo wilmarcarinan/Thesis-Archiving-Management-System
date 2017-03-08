@@ -16,6 +16,7 @@
                         <th></th>
                     @endif
                     <th>Title</th>
+                    <th>Subject Area</th>
                     <th>Tags</th>
                     {{-- <th>Author/s</th> --}}
                     {{-- <th>Adviser</th> --}}

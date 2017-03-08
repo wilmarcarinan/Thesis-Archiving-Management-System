@@ -22,10 +22,9 @@
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Title</th>
+              <th>Subject Area</th>
               <th>Category</th>
-              {{-- <th>Author/s</th> --}}
               <th>Course</th>
-              {{-- <th>Adviser</th> --}}
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -57,10 +56,9 @@
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Title</th>
-              <th>Category</th>
-              {{-- <th>Author/s</th> --}}
+              <th>Subject Area</th>
+              <th>Tags</th>
               <th>Course</th>
-              {{-- <th>Adviser</th> --}}
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -143,9 +141,11 @@
                   </a>
                 </td>
                 <td class="hidden">{{$favorite->Abstract}}</td>
+                <td>{{$favorite->SubjectArea}}</td>
                 <td class="hidden">{{$favorite->Authors}}</td>
                 <td class="hidden">{{$favorite->Adviser}}</td>
-                <td>{{$favorite->Category}}</td>
+                {{-- <td>{{$favorite->Category}}</td> --}}
+                <td>{{$favorite->tags->pluck('tag_name')->implode(',')}}</td>
                 <td>
                   <a href="/collections/{{$favorite->Course}}">{{$favorite->Course}}</a>
                 </td>
@@ -196,10 +196,9 @@
               <th class="hidden">Authors</th>
               <th class="hidden">Adviser</th>
               <th>Title</th>
+              <th>Subject Area</th>
               <th>Tags</th>
-              {{-- <th>Author/s</th> --}}
               <th>Course</th>
-              {{-- <th>Adviser</th> --}}
               <th>Thesis Date</th>
               <th><span class="glyphicon glyphicon-eye-open"></span></th>
               <th><span class="glyphicon glyphicon-star-empty"></span></th>
@@ -282,9 +281,11 @@
                   </a>
                 </td>
                 <td class="hidden">{{$bookmark->Abstract}}</td>
+                <td>{{$bookmark->SubjectArea}}</td>
                 <td class="hidden">{{$bookmark->Authors}}</td>
                 <td class="hidden">{{$bookmark->Adviser}}</td>
-                <td>{{$bookmark->Category}}</td>
+                {{-- <td>{{$bookmark->Category}}</td> --}}
+                <td>{{$bookmark->tags->pluck('tag_name')->implode(',')}}</td>
                 <td>
                   <a href="/collections/{{$bookmark->Course}}">{{$bookmark->Course}}</a>
                 </td>

@@ -169,22 +169,13 @@ class HomeController extends Controller
                 ->where('Status','Active')
                 ->first();
             $suggested_files = File::where('Course',Auth::user()->Course)->get();
-            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->get();
+            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->groupBY('file_id')->get();
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
             $notes = Note::where('user_id',Auth::id())->get();
             $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
             $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
             return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files','notes_FileID','notes_note','notes']));
-            // return $notes->where('file_id',5)->pluck('note');
-            // return Auth::user()->favorites;
-            // foreach(Auth::user()->favorites as $favorite){
-            //     if($favorite->id == 6){
-            //         return $favorite;    
-            //     }else{
-            //         return 'Error';
-            //     }
-            // }
         }
         // return var_dump($favorites);
     }

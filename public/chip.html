@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="text" onkeypress="chip(event)" id="text">
+	<input id="here" onclick="pwet()" name="chipchip">
+	<p id="heres"></p>
+</body>
+<style type="text/css">
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #000000;
+	color: #ffffff;
+}
+<!-- .closebtn { -->
+    <!-- padding-left: 10px; -->
+    <!-- color: #888; -->
+    <!-- font-weight: bold; -->
+    <!-- float: right; -->
+    <!-- font-size: 20px; -->
+    <!-- cursor: pointer; -->
+<!-- } -->
+
+<!-- .closebtn:hover { -->
+    <!-- color: #000; -->
+<!-- } -->
+</style>
+<script type="text/javascript">
+var i = 0;
+var value = [];
+	function chip(e){
+	if (e.keyCode === 13 ){
+	var div = document.createElement('div');
+	var text = document.getElementById('text').value;
+	if (!text.match(/\S/)){}else{
+	value[i] = text;
+	document.getElementById('here').value = value;
+	document.getElementById('arr1').appendChild(div);
+	div.className = 'chip';
+	div.setAttribute('id',i);
+	div.textContent = text;
+	var j = i;
+	div.onclick = function(){
+		value.splice(this.getAttribute('id'), 1);
+		this.parentElement.removeChild(this); 
+		sort();
+		// document.getElementById('here').value = '';
+	};
+	i = i + 1;
+	document.getElementById('text').value = null;
+	// console.log(value);
+	}}
+	}
+	function sort(){
+		var elesis = document.getElementsByClassName('chip');
+		if(elesis.length == 0){value = [];}else{ 
+		for(var i=0;i<elesis.length;i++){
+			var ele = elesis[i];
+			ele.setAttribute('id',i);
+		}}
+	}
+	function pwet(){
+		document.getElementById('heres').innerHTML = value.filter(noblank);
+	}
+	function noblank(val){
+		return val != null;
+	}
+
+</script>
+<div id="arr1">
+</div>
+</html>

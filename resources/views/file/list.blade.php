@@ -51,6 +51,7 @@
                         <th class="hidden">Authors</th>
                         <th class="hidden">Adviser</th>
                         <th>Title</th>
+                        <th>Subject Area</th>
                         <th>Tags</th>
                         {{-- <th>Author/s</th> --}}
                         <th>Course</th>
