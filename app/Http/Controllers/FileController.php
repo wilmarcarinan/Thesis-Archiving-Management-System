@@ -33,88 +33,105 @@ class FileController extends Controller
 
     public function SearchResults(Request $request)
     {
-        $files = new File;
+        // $files = new File;
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         $notes = Note::where('user_id',Auth::id())->get();
         $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
         $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
         $requests = $request->all();
-        if(empty($request->search)){
-            return back()->with('status','Sorry! You didn\'t input any keywords');
-        }
-        if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
-            $files = File::where('FileTitle','like','%'.$request->search.'%')
-                ->where('Status','Active')
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->orwhere('Adviser', $request->Adviser)
-                ->orwhere(DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where(DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where('Adviser',$request->Adviser)
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
-            $files = File::where('Status','Active')
-                ->where('FileTitle','like','%'.$request->search.'%')
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where([
-                    [DB::raw('YEAR(thesis_date)'), $request->Year],
-                    ['Adviser', $request->Adviser],
-                ])
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
-            $files = File::where([
-                    ['Status','Active'],
-                    [DB::raw('YEAR(thesis_date)'), $request->Year],
-                    ['FileTitle','like','%'.$request->search.'%'],
-                ])
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
-            $files = File::where([
-                ['Status','Active'],
-                ['FileTitle','like','%'.$request->search.'%'],
-                ['Adviser', $request->Adviser],
-                ])
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-            // return 'Search and Adviser has a value of '.$request->search.' and '.$request->Adviser;
-        }else
+        // if(empty($request->search)){
+        //     return back()->with('status','Sorry! You didn\'t input any keywords');
+        // }
+        // if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
+        //     $files = File::where('FileTitle','like','%'.$request->search.'%')
+        //         ->where('Status','Active')
+        //         ->orwhere('Abstract','like','%'.$request->search.'%')
+        //         ->orwhere('Category','like','%'.$request->search.'%')
+        //         ->orwhere('Adviser', $request->Adviser)
+        //         ->orwhere(DB::raw('YEAR(thesis_date)'), $request->Year)
+        //         ->paginate(5);
+        // }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
+        //     $files = File::where('Status','Active')
+        //         ->where(DB::raw('YEAR(thesis_date)'), $request->Year)
+        //         ->paginate(5);
+        // }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
+        //     $files = File::where('Status','Active')
+        //         ->where('Adviser',$request->Adviser)
+        //         ->paginate(5);
+        // }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
+        //     $files = File::where('Status','Active')
+        //         ->where('FileTitle','like','%'.$request->search.'%')
+        //         ->orwhere('Abstract','like','%'.$request->search.'%')
+        //         ->orwhere('Category','like','%'.$request->search.'%')
+        //         ->paginate(5);
+        // }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
+        //     $files = File::where('Status','Active')
+        //         ->where([
+        //             [DB::raw('YEAR(thesis_date)'), $request->Year],
+        //             ['Adviser', $request->Adviser],
+        //         ])
+        //         ->paginate(5);
+        // }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
+        //     $files = File::where([
+        //             ['Status','Active'],
+        //             [DB::raw('YEAR(thesis_date)'), $request->Year],
+        //             ['FileTitle','like','%'.$request->search.'%'],
+        //         ])
+        //         ->orwhere('Abstract','like','%'.$request->search.'%')
+        //         ->orwhere('Category','like','%'.$request->search.'%')
+        //         ->paginate(5);
+        // }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
+        //     $files = File::where([
+        //         ['Status','Active'],
+        //         ['FileTitle','like','%'.$request->search.'%'],
+        //         ['Adviser', $request->Adviser],
+        //         ])
+        //         ->orwhere('Abstract','like','%'.$request->search.'%')
+        //         ->orwhere('Category','like','%'.$request->search.'%')
+        //         ->paginate(5);
+        //     // return 'Search and Adviser has a value of '.$request->search.' and '.$request->Adviser;
+        // }else
         
-        if($request->Year <> '' || $request->Adviser <> '' || $request->search <> ''){
-            $log = new Log;
-            $log->Subject = 'Search';
+        // if($request->Year <> '' || $request->Adviser <> '' || $request->search <> ''){
+        //     $log = new Log;
+        //     $log->Subject = 'Search';
             
-            if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
-            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Year;
-            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Adviser;
-            }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->search;
-            }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
-            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
-            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
+        //     if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
+        //     }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Year;
+        //     }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Adviser;
+        //     }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->search;
+        //     }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
+        //     }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
+        //     }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
+        //         $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
+        //     }
+        //     $log->student_id = Auth::id();
+        //     $log->save();
+        // }
+        if($request->search == '' && $request->Field1 == '' && $request->Field2 == ''){
+            return back()->with('status','Sorry! You didn\'t input any keywords');
+        }else{
+            if($request->Operator == 'And'){
+                $files = File::where([
+                    [$request->TableName1,'like','%'.$request->Field1.'%'],
+                    [$request->TableName2,'like','%'.$request->Field2.'%']
+                ])->get();
+            }elseif($request->Operator == 'Or'){
+                $files = File::where($request->TableName1,'like','%'.$request->Field1.'%')
+                        ->orwhere($request->TableName2,'like','%'.$request->Field2.'%')
+                        ->get();
+            }else{
+                return back()->with('status','Sorry! You didn\'t input any keywords in two fields');
             }
-            $log->student_id = Auth::id();
-            $log->save();
-        }
+            // return $files;
+        }        
 
         return view('file.results',compact(['files', 'bookmarks','requests', 'favorites','notes','notes_FileID','notes_note']));
         // return $requests;
