@@ -90,15 +90,19 @@
 						@foreach($courses as $course)
 						<tr>
 							<td>{{$course->Course}}</td>
-							<td>{{App\File::where([['Course',$course->Course],[DB::raw('YEAR(thesis_date)'), 2016]])->get()->count()}}</td>
-							<td>{{App\File::where([['Course',$course->Course],[DB::raw('YEAR(thesis_date)'), 2017]])->get()->count()}}</td>
+							@foreach($years as $year)
+							<td>{{App\File::where([['Course',$course->Course],[DB::raw('YEAR(thesis_date)'), $year->year]])->get()->count()}}</td>
+							{{-- <td>{{App\File::where([['Course',$course->Course],[DB::raw('YEAR(thesis_date)'), 2017]])->get()->count()}}</td> --}}
+							@endforeach
 							<td>{{App\File::where('Course',$course->Course)->get()->count()}}</td>
 						</tr>
 						@endforeach
 						<tr>
 							<td>Total</td>
-							<td>{{App\File::where(DB::raw('YEAR(thesis_date)'), 2016)->get()->count()}}</td>
-							<td>{{App\File::where(DB::raw('YEAR(thesis_date)'), 2017)->get()->count()}}</td>
+							@foreach($years as $year)
+							<td>{{App\File::where(DB::raw('YEAR(thesis_date)'), $year->year)->get()->count()}}</td>
+							{{-- <td>{{App\File::where(DB::raw('YEAR(thesis_date)'), 2017)->get()->count()}}</td> --}}
+							@endforeach
 							<td>{{App\File::get()->count()}}</td>
 						</tr>
 					</tbody>

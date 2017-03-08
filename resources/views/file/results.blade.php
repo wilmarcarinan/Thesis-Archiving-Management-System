@@ -57,6 +57,7 @@
 <script>
     $(document).ready(function(){
         $('#FileTable').DataTable({
+            searching: false,
             responsive: true
         });
     });
