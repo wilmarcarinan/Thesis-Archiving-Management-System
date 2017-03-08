@@ -286,7 +286,7 @@
 
           <div class="form-group">
             <label for="edit_abstract">Abstract: </label>
-            <textarea name="edit_abstract" id="edit_abstract" rows="4" class="form-control"></textarea>
+            <textarea name="edit_abstract" id="edit_abstract" rows="4" class="form-control" onkeydown="charLimit(this.form.edit_abstract,this.form.countdown,1250);" maxlength="1250"></textarea>
           </div>
 
           <div class="form-group">
@@ -346,28 +346,37 @@
                 console.log(data);
                 var thesis_date = new Date(data.thesis_date);
                 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                // Update the File Title link data-fields
                 $('a[data-id='+data.id+']').data('title',data.title);
                 $('a[data-id='+data.id+']').data('abstract',data.abstract);
-                $('a[data-id='+data.id+']').data('subject',data.subject);
                 $('a[data-id='+data.id+']').data('category',data.tags);
-                // $('a[data-id='+data.id+']').data('path',data.FilePath);
                 $('a[data-id='+data.id+']').data('authors',data.authors);
                 $('a[data-id='+data.id+']').data('adviser',data.adviser);
                 $('a[data-id='+data.id+']').text(data.title);
+
+                // Update the Edit File Button data-fields                
                 $('button[data-id='+data.id+']').data('abstract',data.abstract);
+                $('button[data-id='+data.id+']').data('subject',data.subject);
+                $('button[data-id='+data.id+']').data('category',data.tags);
                 $('button[data-id='+data.id+']').data('adviser',data.adviser);
                 $('button[data-id='+data.id+']').data('course',data.course);
                 $('button[data-id='+data.id+']').data('title',data.title);
                 $('button[data-id='+data.id+']').data('date',data.thesis_date);
+
+                // Update the fields in the table that users can see
                 $('#Abstract'+data.id).text(data.abstract);
                 $('#SubjectArea'+data.id).text(data.subject);
                 $('#Category'+data.id).text(data.tags);
                 $('#Authors'+data.id).text(data.authors);
                 $('#Course'+data.id).html(data.course);
                 $('#Adviser'+data.id).text(data.adviser);
-                // $('#ThesisDate'+data.id).text(data.thesis_date);
                 $('#ThesisDate'+data.id).text(months[thesis_date.getMonth()]+' '+thesis_date.getDate()+', '+thesis_date.getFullYear());
+
+                // Prompts Success 
                 swal('Success!', 'File Updated Successfully!', 'success');
+
+                // Hide modal after updating
                 $('#updateModal').modal('hide');
               },
               error: function(xhr, textStatus, thrownError){

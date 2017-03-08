@@ -39,7 +39,7 @@ class FileController extends Controller
         $notes = Note::where('user_id',Auth::id())->get();
         $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
         $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
-        // $requests = $request->all();
+        $requests = $request->all();
         if(empty($request->search)){
             return back()->with('status','Sorry! You didn\'t input any keywords');
         }
@@ -138,7 +138,7 @@ class FileController extends Controller
                 Rule::unique('files')->ignore(auth()->id())
             ],
             'Tags' => 'required',
-            'Abstract' => 'required',
+            'Abstract' => 'required|max:1250',
             'SubjectArea' => 'required',
             'Authors' => 'required',
             'Course' => 'required',
@@ -379,7 +379,8 @@ class FileController extends Controller
 
         $this->validate(request(),[
             'title' => 'required',
-            'abstract' => 'required',
+            // Research says that max words in writing abstract is 250 words, and an average word is 5 characters
+            'abstract' => 'required|max:1250',
             'subject' => 'required',
             'tags' => 'required',
             'authors' => 'required',

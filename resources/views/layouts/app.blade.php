@@ -275,6 +275,14 @@
             }
         });
 
+        function charLimit(limitField, limitCount, limitNum) {
+            if (limitField.value.length > limitNum) {
+                limitField.value = limitField.value.substring(0, limitNum);
+            } else {
+                limitCount.value = limitNum - limitField.value.length;
+            }
+        }
+
         function post(path, params, method) {
             method = method || "post"; // Set method to post by default if not specified.
 

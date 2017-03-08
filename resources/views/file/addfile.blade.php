@@ -26,7 +26,7 @@
 							<div class="form-group">
 								<label for="Abstract" class="col-md-4 control-label">Abstract: </label>
 								<div class="col-md-6">
-									<textarea class="form-control" name="Abstract" rows="9">
+									<textarea class="form-control" name="Abstract" rows="9" onkeydown="charLimit(this.form.Abstract,this.form.countdown,1250);" maxlength="1250">
 										{{ old('Abstract') }}
 									</textarea>
 								</div>
