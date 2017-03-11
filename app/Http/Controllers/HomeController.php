@@ -189,7 +189,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
+            ->lastByDay();
             // $chartvd = Charts::multi('areaspline', 'highcharts')
             // ->title('Burndown Chart')
             // ->colors(['rgb(46,112,160)', 'rgb(192,65,62)'])
@@ -214,7 +214,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartvm->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -230,7 +230,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartvy->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -249,7 +249,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
+            ->lastByDay();
             return $chartud->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -267,7 +267,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartum->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -286,7 +286,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartuy->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -306,7 +306,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
+            ->lastByDay();
             return $chartld->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -323,7 +323,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartlm->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -341,7 +341,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartly->render();
         }else{
             return "Access Denied: Restricted for Admin only.";

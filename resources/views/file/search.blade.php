@@ -56,7 +56,7 @@
 						<div class="row">
 							<div class="form-group col-md-4">
 								<select name="TableName1" id="TableName2" class="form-control">
-									<option value="">Select Field</option>
+									<option value="" disabled selected>Select Field</option>
 									<option value="FileTitle">Title</option>
 									<option value="Abstract">Abstract</option>
 									<option value="SubjectArea">Subject Area</option>
@@ -78,7 +78,7 @@
 
 							<div class="form-group col-md-4">
 								<select name="TableName2" id="TableName2" class="form-control">
-									<option value="">Select Field</option>
+									<option value="" disabled selected>Select Field</option>
 									<option value="FileTitle">Title</option>
 									<option value="Abstract">Abstract</option>
 									<option value="SubjectArea">Subject Area</option>
@@ -143,7 +143,7 @@
 		</div>
 		@if(session('status'))
 			<div class="container alert alert-danger">
-				<li>{{session('status')}}</li>
+				<li style="list-style: none">{{session('status')}}</li>
 			</div>
 		@endif
 	</div>
