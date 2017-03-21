@@ -3,7 +3,6 @@
 @section('content')
     @if(Auth::user()->Role == 'Admin')
         <div class="container">
-            <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
             <div class="jumbotron">
                 <form action="/compress" method="POST">
                     {{ csrf_field() }}
@@ -33,6 +32,7 @@
     @endif
         @if(Auth::user()->Role == 'Admin')
             <div class="jumbotron">
+                <h2><span class="glyphicon glyphicon-list-alt"></span> List All</h2>
         @else
             <div>
         @endif

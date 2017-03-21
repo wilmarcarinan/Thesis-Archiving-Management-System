@@ -11,6 +11,7 @@
 							<th>Subject</th>
 							<th>Details</th>
 							<th>Date/Time</th>
+							<th class="hidden"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -19,6 +20,7 @@
 							<td>{{ $log->Subject }}</td>
 							<td>{{ $log->Details }}</td>
 							<td>{{ $log->created_at->toDayDateTimeString() }}</td>
+							<td class="hidden">{{$log->created_at}}</td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -38,7 +40,8 @@
     <script>
         $(document).ready(function(){
             $('#logs-table').DataTable({
-                responsive: true
+                responsive: true,
+                order: ['4','desc']
             });
         });
     </script>

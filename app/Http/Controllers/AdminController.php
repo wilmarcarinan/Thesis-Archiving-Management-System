@@ -135,6 +135,7 @@ class AdminController extends Controller
         //     ->lastByYear();
         $years = File::distinct()->latest()->get([DB::raw('YEAR(thesis_date) AS year')]);
         $courses = File::distinct()->select('Course')->get();
+        $advisers = File::distinct()->select('Adviser')->get();
         $chart_course_year = Charts::multiDatabase('bar', 'highcharts')
             ->dateColumn('thesis_date')
             ->dataset('BSIT', File::where('Course','BSIT')->get())
@@ -145,7 +146,17 @@ class AdminController extends Controller
             ->dimensions(1000, 500)
             ->colors(['rgb(46,112,160)', 'rgb(192,65,62)','orange'])
             ->lastByYear();
-        return view('admin.Reports',compact(['years','courses','chart_course_year']));
+        $chart_adviser_year = Charts::multiDatabase('bar', 'highcharts')
+            ->dateColumn('thesis_date')
+            ->dataset('BSIT', File::where('Course','BSIT')->get())
+            ->dataset('BSCS', File::where('Course','BSCS')->get())
+            ->dataset('BSIS', File::where('Course','BSIS')->get())
+            ->title('Thesis Per Adviser Per Year')
+            ->elementLabel("Total Files")
+            ->dimensions(1000, 500)
+            ->colors(['rgb(46,112,160)', 'rgb(192,65,62)','orange'])
+            ->lastByYear();
+        return view('admin.Reports',compact(['years','courses','chart_course_year','advisers','chart_adviser_year']));
         // return var_dump(File::distinct()->select('Course')->get()->toArray()[0]['Course']);
     }
 }
