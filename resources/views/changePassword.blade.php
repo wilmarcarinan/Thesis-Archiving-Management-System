@@ -4,6 +4,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
+				@if(session('status'))
+			        <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+			            <li style="list-style: none">{{session('status')}}</li>
+			        </div>
+			    @endif
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4>Change Password</h4>
@@ -31,9 +36,9 @@
 							<div class="form-group">
 								<button class="btn btn-primary">Update Account</button>
 							</div>
-							@if(session('status'))
+							@if(session('ChangePasswordStatus'))
 							<div class="alert alert-danger">
-								<li>{{session('status')}}</li>
+								<li>{{session('ChangePasswordStatus')}}</li>
 							</div>
 							@endif
 							@if(count($errors) > 0)

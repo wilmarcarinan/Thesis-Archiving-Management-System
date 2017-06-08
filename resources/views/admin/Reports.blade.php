@@ -6,6 +6,11 @@
 
 @section('content')
 <div class="container">
+	@if(session('status'))
+        <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+            <li style="list-style: none">{{session('status')}}</li>
+        </div>
+    @endif
 	<div class="row jumbotron">
 		<div class="col-md-6">
 			<caption>As of {{\Carbon\Carbon::now()->format('M d, Y h:i:s a')}}</caption>

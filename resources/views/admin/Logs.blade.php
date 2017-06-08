@@ -2,6 +2,11 @@
 
 @section('content')
 	<div class="container">
+		@if(session('status'))
+            <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+                <li style="list-style: none">{{session('status')}}</li>
+            </div>
+        @endif
 		<div class="row">
 			<div class="col-md-12 jumbotron">
 				<h2>Activity Logs</h2>

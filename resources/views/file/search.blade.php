@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+	<div class="container">
+		@if(session('status'))
+			<div class="alert alert-success" style="margin: 20px 0px -30px 0px">
+				<li style="list-style: none">{{session('status')}}</li>
+			</div>
+		@endif
+	</div>
 @if(Auth::user()->Role == 'User')
 	<div class="container jumbotron" style="margin-top: 50px">
 @else
@@ -141,9 +148,9 @@
 				</form>
 			</div>
 		</div>
-		@if(session('status'))
+		@if(session('SearchStatus'))
 			<div class="container alert alert-danger">
-				<li style="list-style: none">{{session('status')}}</li>
+				<li style="list-style: none">{{session('SearchStatus')}}</li>
 			</div>
 		@endif
 	</div>

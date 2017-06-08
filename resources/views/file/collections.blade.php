@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container" style="margin-top: 70px">
+	@if(session('status'))
+        <div class="alert alert-success" style="margin: -40px 0px 15px 0px">
+            <li style="list-style: none">{{session('status')}}</li>
+        </div>
+    @endif
 	<div class="col-xs-12">
 	    {{-- <div class="page-header">
 	        <h3 style="padding: 15px 0px 0px 0px;">Categories</h3>

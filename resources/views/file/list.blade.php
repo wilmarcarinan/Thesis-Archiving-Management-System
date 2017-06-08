@@ -3,6 +3,11 @@
 @section('content')
     @if(Auth::user()->Role == 'Admin')
         <div class="container">
+            @if(session('status'))
+                <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+                    <li style="list-style: none">{{session('status')}}</li>
+                </div>
+            @endif
             <div class="jumbotron">
                 <form action="/compress" method="POST">
                     {{ csrf_field() }}

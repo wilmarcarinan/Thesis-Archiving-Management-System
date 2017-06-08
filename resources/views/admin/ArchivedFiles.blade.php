@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if(session('status'))
+            <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+                <li style="list-style: none">{{session('status')}}</li>
+            </div>
+        @endif
         <div class="jumbotron">          
             <h2><span class="glyphicon glyphicon-list-alt"></span> Archived Files</h2>
             <table class="table" id="archived-table" width="100%" cellspacing="0">
