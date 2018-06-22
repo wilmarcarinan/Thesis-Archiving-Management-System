@@ -12,6 +12,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Carbon\Carbon;
 use App\Log;
 use App\Note;
+use App\Tag;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,88 +33,31 @@ class FileController extends Controller
 
     public function SearchResults(Request $request)
     {
-        $files = new File;
+        // $files = new File;
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         $notes = Note::where('user_id',Auth::id())->get();
         $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
         $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
-        // $requests = $request->all();
-        if(empty($request->search)){
-            return back()->with('status','Sorry! You didn\'t input any keywords');
-        }
-        if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
-            $files = File::where('FileTitle','like','%'.$request->search.'%')
-                ->where('Status','Active')
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->orwhere('Adviser', $request->Adviser)
-                ->orwhere(DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where(DB::raw('YEAR(thesis_date)'), $request->Year)
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where('Adviser',$request->Adviser)
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
-            $files = File::where('Status','Active')
-                ->where('FileTitle','like','%'.$request->search.'%')
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
-            $files = File::where('Status','Active')
-                ->where([
-                    [DB::raw('YEAR(thesis_date)'), $request->Year],
-                    ['Adviser', $request->Adviser],
-                ])
-                ->paginate(5);
-        }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
-            $files = File::where([
-                    ['Status','Active'],
-                    [DB::raw('YEAR(thesis_date)'), $request->Year],
-                    ['FileTitle','like','%'.$request->search.'%'],
-                ])
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-        }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
-            $files = File::where([
-                ['Status','Active'],
-                ['FileTitle','like','%'.$request->search.'%'],
-                ['Adviser', $request->Adviser],
-                ])
-                ->orwhere('Abstract','like','%'.$request->search.'%')
-                ->orwhere('Category','like','%'.$request->search.'%')
-                ->paginate(5);
-            // return 'Search and Adviser has a value of '.$request->search.' and '.$request->Adviser;
-        }else
-        
-        if($request->Year <> '' || $request->Adviser <> '' || $request->search <> ''){
-            $log = new Log;
-            $log->Subject = 'Search';
-            
-            if($request->Year <> '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search.", ".$request->Adviser." and ".$request->Year;
-            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Year;
-            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->Adviser;
-            }elseif($request->Year == '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the term ".$request->search;
-            }elseif($request->Year <> '' && $request->Adviser <> '' && $request->search == ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->Year." and ".$request->Adviser;
-            }elseif($request->Year <> '' && $request->Adviser == '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Year;
-            }elseif($request->Year == '' && $request->Adviser <> '' && $request->search <> ''){
-                $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has searched the terms ".$request->search." and ".$request->Adviser;
+        $requests = $request->all();
+
+        if($request->search == '' && $request->Field1 == '' && $request->Field2 == ''){
+            return back()->with('SearchStatus','Sorry! You didn\'t input any keywords');
+        }else{
+            if($request->Operator == 'And'){
+                $files = File::where([
+                    [$request->TableName1,'like','%'.$request->Field1.'%'],
+                    [$request->TableName2,'like','%'.$request->Field2.'%']
+                ])->get();
+            }elseif($request->Operator == 'Or'){
+                $files = File::where($request->TableName1,'like','%'.$request->Field1.'%')
+                        ->orwhere($request->TableName2,'like','%'.$request->Field2.'%')
+                        ->get();
+            }else{
+                return back()->with('SearchStatus','Sorry! You didn\'t input any keywords in two fields');
             }
-            $log->student_id = Auth::id();
-            $log->save();
-        }
+            // return $files;
+        }        
 
         return view('file.results',compact(['files', 'bookmarks','requests', 'favorites','notes','notes_FileID','notes_note']));
         // return $requests;
@@ -121,20 +65,24 @@ class FileController extends Controller
 
     public function FileForm()
     {
-        $courses = File::distinct()->where('Status','Active')->get(['Course']);
-    	return view('file.addfile',compact('courses'));
+        if(Auth::user()->is_admin() || Auth::user()->Role == 'Encoder'){
+            $courses = File::distinct()->where('Status','Active')->get(['Course']);
+            return view('file.addfile',compact('courses'));
+        }else{
+            return redirect()->action('HomeController@index');
+        }
     }
 
     public function AddFile(Request $request)
     {
-        // return $request->all();
         $this->validate(request(),[
             'FileTitle' => [
                 'required',
                 Rule::unique('files')->ignore(auth()->id())
             ],
-            'Category' => 'required',
-            'Abstract' => 'required',
+            'Tags' => 'required',
+            'Abstract' => 'required|max:1250',
+            'SubjectArea' => 'required',
             'Authors' => 'required',
             'Course' => 'required',
             // 'Adviser' => 'required',
@@ -152,14 +100,30 @@ class FileController extends Controller
         );
         
         $file->FileTitle = $request->FileTitle;
-        $file->Category = $request->Category;
+        // $file->Category = $request->Category;
         $file->Abstract = $request->Abstract;
+        $file->SubjectArea = $request->SubjectArea;
         $file->Authors = $request->Authors;
         $file->Course = $request->Course;
         $file->Adviser = $request->Adviser;
         $file->thesis_date = $request->thesis_date;
         $file->FilePath = $fileName;
         $file->save();
+
+        $tags = explode(",",$request->Tags);
+        for($i = 0; $i < count($tags); $i++){
+            $check_tag = Tag::where('tag_name',$tags[$i])->get();
+            if($check_tag == '[]'){
+                $create_tag = new Tag;
+                $create_tag->tag_name = $tags[$i];
+                $create_tag->save();
+                $file->tags()->attach($create_tag);
+                // return 'Walang Laman';
+            }else{
+                $file->tags()->attach($check_tag);
+                // return 'May Laman';
+            }
+        }
 
         $log = new Log;
         $log->Subject = 'File Upload';
@@ -173,8 +137,7 @@ class FileController extends Controller
 
     public function list()
     {
-        $files = File::where('Status','Active')
-                ->paginate(5);
+        $files = File::where('Status','Active')->get();
         $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
         $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
         $years = File::distinct()->where('Status','Active')->get([DB::raw('YEAR(thesis_date)')]);
@@ -218,8 +181,9 @@ class FileController extends Controller
     {
         if($request->fidder){
             $file = File::select('id','FileTitle', 'FilePath')->where([['id',$request->fidder],['Status','Active']])->get();
+            Auth::user()->recent_views()->attach($file);
             unlink('files/'.Auth::id().$file[0]['FilePath']);
-        }else{            
+        }else{
             // exec("echo rm files/".Auth::id().$file[0]['FilePath']."|at now +20 seconds");
             // sleep(10);//timeout to make sure does not STAY
             // unlink('files/'.$file[0]['FilePath'].$file[0]['id']);
@@ -227,7 +191,6 @@ class FileController extends Controller
             // return $file[0]['FilePath'];
             //redirect(url()."pdf.js/web/viewer.html?fidder=".$request->file_id."file=".url()."/files".$file[0]['FilePath']);
         }
-        Auth::user()->recent_views()->attach($file);
     }
 
     public function favorite(Request $request)
@@ -359,8 +322,10 @@ class FileController extends Controller
 
         $this->validate(request(),[
             'title' => 'required',
-            'abstract' => 'required',
-            'categories' => 'required',
+            // Research says that max words in writing abstract is 250 words, and an average word is 5 characters
+            'abstract' => 'required|max:1250',
+            'subject' => 'required',
+            'tags' => 'required',
             'authors' => 'required',
             'course' => 'required',
             'thesis_date' => 'required'
@@ -371,12 +336,40 @@ class FileController extends Controller
         $file->update([
             'FileTitle' => request()->title,
             'Abstract' => request()->abstract,
-            'Category' => request()->categories,
+            // 'Category' => request()->categories,
+            'SubjectArea' => request()->subject,
             'Authors' => request()->authors,
             'Course' => request()->course,
             'Adviser' => request()->adviser,
             'thesis_date' => request()->thesis_date
         ]);
+        // return $file;
+
+        $tags = explode(",",request()->tags);
+        $current_tags = explode(",",$file->tags->pluck('tag_name')->implode(','));
+        $check_tags_add = array_values(array_diff($tags, $current_tags)); // tags that have been tagged by user
+        $check_tags_remove = array_values(array_diff($current_tags, $tags)); // tags that have been un-tag by user
+        // return array_values($check_tags_remove);
+        // return $check_tags_add;
+        // Loop through each tags
+        for($i = 0; $i < count($check_tags_add); $i++){
+            $check_tag = Tag::where('tag_name',$check_tags_add[$i])->get();
+            // Check if tag doesn't exist
+            if($check_tag == '[]'){
+                $create_tag = new Tag;
+                $create_tag->tag_name = $check_tags_add[$i];
+                $create_tag->save();
+                $file->tags()->attach($create_tag);
+            }else{
+                $file->tags()->attach($check_tag);
+            }
+        }
+
+        // Loop through each tags
+        for($i = 0; $i < count($check_tags_remove); $i++){
+            $tag_to_remove = Tag::where('tag_name',$check_tags_remove[$i])->get();
+            $file->tags()->detach($tag_to_remove);
+        }
 
         $log = new Log;
         $log->Subject = 'File Update';
@@ -384,37 +377,47 @@ class FileController extends Controller
         $log->student_id = Auth::id();
         $log->save();
 
-        return $file;
+        return request()->all();
     }
 
     public function addNotes()
     {
-        $this->validate(request(),[
-            'note' => 'required'
-        ]);
+        // return request()->all();
+        if(request()->note <> ''){
+            $this->validate(request(),[
+                'note' => 'required'
+            ]);
 
-        $note = new Note;
-        $note->note = request()->note;
-        $note->file_id = request()->file_id;
-        $note->user_id = Auth::id();
-        $note->save();
+            $note = new Note;
+            $note->note = request()->note;
+            $note->file_id = request()->file_id;
+            $note->user_id = Auth::id();
+            $note->save();
 
-        $file = File::find(request()->file_id);
+            $file = File::find(request()->file_id);
 
-        $log = new Log;
-        $log->Subject = 'Add Note';
-        $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a note in a Thesis entitled ".$file->FileTitle;
-        $log->student_id = Auth::id();
-        $log->save();
+            $log = new Log;
+            $log->Subject = 'Add Note';
+            $log->Details = Auth::user()->FirstName." ".Auth::user()->MiddleName." ".Auth::user()->LastName." [".Auth::user()->Role."] has added a note in a Thesis entitled ".$file->FileTitle;
+            $log->student_id = Auth::id();
+            $log->save();
 
-        return $note;
+            return $note;
+        }else{
+            return 'error';
+        }
+
+        // return $note;
     }
 
     public function editNotes()
     {
-        if(request()->note <> ''){
-            $note = Note::find(request()->id);
-
+        // return request()->all();
+        $note = Note::find(request()->id);
+        if(request()->note == $note->note){
+            return 'Nothing Changed!';
+        }
+        if(request()->note <> '' ){
             $note->update([
                 'note' => request()->note
             ]);
@@ -431,5 +434,15 @@ class FileController extends Controller
         }else{
             return 'Unable to update!';
         }
+    }
+
+    public function deleteNotes()
+    {
+        // return request()->all();
+        $note = Note::find(request()->id);
+        $note->delete();
+        // return $note;
+        return request()->all();
+        // return 'Success Deletion of Note';
     }
 }

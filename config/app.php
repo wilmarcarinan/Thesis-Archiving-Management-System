@@ -179,9 +179,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
-
-
-
     ],
 
     /*

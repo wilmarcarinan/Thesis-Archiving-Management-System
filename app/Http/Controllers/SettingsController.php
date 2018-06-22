@@ -73,7 +73,7 @@ class SettingsController extends Controller
 
         if(!Hash::check(request()->CurrentPassword, Auth::user()->password)){
             return back()
-                    ->with('status','The specified password does not match the database password');
+                    ->with('ChangePasswordStatus','The specified password does not match the database password');
         }else{
             auth()->user()->update([
                 'password' => bcrypt(request('NewPassword'))
@@ -85,7 +85,7 @@ class SettingsController extends Controller
             $log->student_id = Auth::id();
             $log->save();
 
-            return redirect()->action('HomeController@index')->with('status','Your password has been successfully updated!');
+            return redirect()->action('HomeController@index')->with('ChangePasswordStatus','Your password has been successfully updated!');
         }
     }
 }

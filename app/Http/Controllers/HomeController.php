@@ -164,27 +164,18 @@ class HomeController extends Controller
         }else{
             $files = File::latest('thesis_date')
                 ->where('Status','Active')
-                ->paginate(5);
+                ->get();
             $latest_file = File::latest('thesis_date')
                 ->where('Status','Active')
                 ->first();
-            $suggested_files = File::where('Course',Auth::user()->Course)->paginate(5);
-            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->select('id','FileTitle','Abstract','Category','Authors','Course','Adviser','FilePath','thesis_date',DB::raw('COUNT(file_id) AS NumberOfViews'))->groupBY('file_id')->paginate(5);
+            $suggested_files = File::where('Course',Auth::user()->Course)->get();
+            $most_viewed = File::join('recent_views','files.id','=','recent_views.file_id')->groupBY('file_id')->get();
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
             $notes = Note::where('user_id',Auth::id())->get();
             $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
             $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
             return view('home',compact(['files','latest_file', 'favorites', 'bookmarks', 'most_viewed', 'suggested_files','notes_FileID','notes_note','notes']));
-            // return $notes->where('file_id',5)->pluck('note');
-            // return Auth::user()->favorites;
-            // foreach(Auth::user()->favorites as $favorite){
-            //     if($favorite->id == 6){
-            //         return $favorite;    
-            //     }else{
-            //         return 'Error';
-            //     }
-            // }
         }
         // return var_dump($favorites);
     }
@@ -198,16 +189,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
-            // $chartvd = Charts::multi('areaspline', 'highcharts')
-            // ->title('Burndown Chart')
-            // ->colors(['rgb(46,112,160)', 'rgb(192,65,62)'])
-            // ->labels(['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'])
-            // ->elementLabel('Total Story Points')
-            // ->dataset('Ideal Story Points', [11,32,58,74])
-            // ->dataset('Current Story Points Completed',[11,11,11,11])
-            // ->dimensions(780,350)
-            // ->responsive(True);
+            ->lastByDay();
             return $chartvd->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -223,7 +205,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartvm->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -239,7 +221,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartvy->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -258,7 +240,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
+            ->lastByDay();
             return $chartud->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -276,7 +258,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartum->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -295,7 +277,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartuy->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -315,7 +297,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByDay();
+            ->lastByDay();
             return $chartld->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -332,7 +314,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByMonth();
+            ->lastByMonth();
             return $chartlm->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -350,7 +332,7 @@ class HomeController extends Controller
             ->elementLabel("Total")
             ->dimensions(1000, 500)
             ->responsive(True)
-            ->groupByYear();
+            ->lastByYear();
             return $chartly->render();
         }else{
             return "Access Denied: Restricted for Admin only.";
@@ -364,31 +346,31 @@ class HomeController extends Controller
                                     ['Status','Active'],
                                     ['user_id',Auth::id()]
                                     ])
-                                ->orderBy('pivot_created_at', 'DESC')
-                                ->paginate(20)
+                                // ->orderBy('pivot_created_at', 'DESC')
+                                ->get()
                                 ->unique();
-            // $favorite_list = Auth::user()->favorites()->where('Status','Active')
-            //                     ->orderBy('created_at','DESC')
-            //                     ->paginate(20);
-            // $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')
-            //                     ->orderBy('created_at','DESC')
-            //                     ->paginate(20);
-            $favorite_list = File::where('Status','Active')
-                                ->orderBy('created_at','DESC')
+            $favorite_list = Auth::user()->favorites()->where('Status','Active')
+                                // ->orderBy('created_at','DESC')
                                 ->get();
-            $bookmark_list = File::where('Status','Active')
-                                ->orderBy('created_at','DESC')
+            $bookmark_list = Auth::user()->bookmarks()->where('Status','Active')
+                                // ->orderBy('created_at','DESC')
                                 ->get();
+            // $favorite_list = File::where('Status','Active')
+            //                     // ->orderBy('created_at','DESC')
+            //                     ->get();
+            // $bookmark_list = File::where('Status','Active')
+            //                     // ->orderBy('created_at','DESC')
+            //                     ->get();
             $favorites = DB::table('favorites')->where('user_id',Auth::id())->pluck('file_id')->all();
             $bookmarks = DB::table('bookmarks')->where('user_id',Auth::id())->pluck('file_id')->all();
             $notes = Note::where('user_id',Auth::id())->get();
             $notes_FileID = Note::where('user_id',Auth::id())->pluck('file_id')->all();
             $notes_note = Note::where('user_id',Auth::id())->pluck('note')->all();
             return view('profile',compact(['favorite_list','bookmark_list','favorites','bookmarks', 'files','notes','notes_FileID','notes_note'])); 
-            // return var_dump($recent_list);
+            // return $files->first()->pivot->created_at;
         }
         else{
-            return back();
+            return view('errors.UnauthorizedAccess');
         }
     }
 }

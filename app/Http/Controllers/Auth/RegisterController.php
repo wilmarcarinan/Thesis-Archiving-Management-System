@@ -40,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -83,6 +83,20 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        if(Auth::user()->is_admin() || Auth::user()->is_encoder()){
+            return view('auth.register');
+        }else{
+            return redirect()->action('HomeController@index');
+        }
+    }
+
      /**
      * Handle a registration request for the application.
      *
@@ -95,27 +109,27 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
-        $this->guard()->login($user);
+        // $this->guard()->login($user);
 
-        if(Auth::check()){
+        // if(Auth::check()){
             $log = new Log;
 
             $log->Subject = 'Register';
-            $log->Details = Auth::user()->FirstName.' '.Auth::user()->MiddleName.' '.Auth::user()->LastName.' [User] has been registered.';
+            $log->Details = $request->FirstName.' '.$request->MiddleName.' '.$request->LastName.' [User] has been registered by '.Auth::user()->FirstName.' '.Auth::user()->MiddleName.' '.Auth::user()->LastName.'['.Auth::user()->Role.']';
             $log->student_id = Auth::id();
 
             $log->save();
 
-            $log = new Log;
+            // $log = new Log;
 
-            $log->Subject = 'Login';
-            $log->Details = Auth::user()->FirstName.' '.Auth::user()->MiddleName.' '.Auth::user()->LastName.' [User] has been logged in.';
-            $log->student_id = Auth::id();
+            // $log->Subject = 'Login';
+            // $log->Details = $request->FirstName.' '.$request->MiddleName.' '.$request->LastName.' [User] has been logged in.';
+            // $log->student_id = Auth::id();
 
             $log->save();
-        }
-
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath())->with('status','You have now been registered!');
+        // }
+        return back()->with('status','Registration Successful');
+        // return $this->registered($request, $user)
+        //     ?: redirect($this->redirectPath())->with('status','You have now been registered!');
     }
 }

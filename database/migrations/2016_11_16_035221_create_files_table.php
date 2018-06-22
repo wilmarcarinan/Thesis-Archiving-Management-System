@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->string('FileTitle')->unique();
             $table->text('Abstract');
+            $table->string('SubjectArea');
             $table->string('Category');
             $table->string('Authors');
             $table->string('Course');

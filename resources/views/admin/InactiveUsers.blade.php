@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container" style="padding-top: 70px;">
-        <h2><span class="glyphicon glyphicon-list-alt"></span> Inactive Users</h2>
-        <div class="table-responsive">          
-            <table class="table">
+    <div class="container">
+        <div class="jumbotron">          
+            <h2>Inactive Users</h2>
+            <table class="table nowrap" id="inactive-users-table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th></th>
+                        <th></th>
                         <th>Student ID</th>
                         <th>Name</th>
                         <th>Course</th>
@@ -15,21 +17,11 @@
                         <th>Role</th>
                         <th>Status</th>
                         <th>Date Registered</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->StudentID }}</td>
-                        <td>{{ $user->FirstName }} {{ $user->MiddleName }} {{ $user->LastName }}</td>
-                        <td>{{ $user->Course }}</td>
-                        <td>{{ $user->College }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->Role }}</td>
-                        <td>{{ $user->Status }}</td>
-                        <td>{{ $user->created_at }}</td>
                         <td>
                         @if($user->Status == 'Inactive')
                             <form action="/UnlockUser" method="POST">
@@ -62,6 +54,14 @@
                         @endif
                             </form>
                         </td>
+                        <td>{{ $user->StudentID }}</td>
+                        <td>{{ $user->FirstName }} {{ $user->MiddleName }} {{ $user->LastName }}</td>
+                        <td>{{ $user->Course }}</td>
+                        <td>{{ $user->College }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->Role }}</td>
+                        <td>{{ $user->Status }}</td>
+                        <td>{{ $user->created_at->format('F j, Y') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -77,4 +77,14 @@
             <button type="button" class="btn btn-info">Load more</button>
         </center> --}}
     </div>
+@endsection
+
+@section('script-section')
+<script>
+    $(document).ready(function(){
+        $('#inactive-users-table').DataTable({
+            responsive: true
+        });
+    });
+</script>
 @endsection

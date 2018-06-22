@@ -4,6 +4,11 @@
 <div class="container" style="padding-top: 50px;">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            @if(session('status'))
+                <div class="alert alert-success">
+                  <li style="list-style: none;">{{session('status')}}</li>
+                </div>
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading" style="background-color: #64b5f6;color:#fff;">Register</div>
                 <div class="panel-body">

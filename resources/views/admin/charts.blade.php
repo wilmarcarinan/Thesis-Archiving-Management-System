@@ -27,7 +27,12 @@
 		}
 	}
 </script>
-	<div class="container" style="padding-top: 50px;">
+	<div class="container">
+		@if(session('status'))
+            <div class="alert alert-success" style="margin: 20px 0px 15px 0px">
+                <li style="list-style: none; text-align: left;">{{session('status')}}</li>
+            </div>
+        @endif
 		<div class="col-md-10 col-md-offset-1" style="padding: 10px 0px 10px ;">
 			<ul class="nav nav-pills">
 				<li class="active"><a data-toggle="tab" href="#dailyview">Daily</a></li>
@@ -133,79 +138,9 @@
 			//$("#yearlyview , #monthlyview").removeClass("in active");
 	});
 	</script>
-<!-- 	<div>
-		<div class="col-md-5" style="padding: 10px 10px 10px 10px;">
-			<ul class="nav nav-pills">
-				<li class="active"><a data-toggle="tab" href="#dailyupload">Daily</a></li>
-				<li><a data-toggle="tab" href="#monthlyupload">Monthly</a></li>
-				<li><a data-toggle="tab" href="#yearlyupload">Yearly</a></li>
-			</ul>
-			<div class="tab-content">
-				<div id="dailyupload" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartud" )
-							  .done(function( data ) {
-								$('#dailyupload').html(data);
-							  });
-						</script>{{-- {!! $chartud->render() !!} --}}
-				</div>
-				<div id="monthlyupload" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartum" )
-							  .done(function( data ) {
-								$('#monthlyupload').html(data);
-							  });
-						</script>{{-- {!! $chartum->render() !!} --}}
-				</div>
-				<div id="yearlyupload" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartuy" )
-							  .done(function( data ) {
-								$('#yearlyupload').html(data);
-							  });
-						</script>{{-- {!! $chartuy->render() !!} --}}
-				</div>
-			</div>			
-		</div>
-	</div> -->
 	<script>
 		$(document).ready(function(){$("#yearlyupload , #monthlyupload").removeClass("in active");});
 	</script>
-<!-- 		<div class="container">
-		<div class="col-md-10 col-md-offset-2" style="padding: 10px 0px 10px;">
-			<ul class="nav nav-pills">
-				<li class="active"><a data-toggle="tab" href="#dailylogin">Daily</a></li>
-				<li><a data-toggle="tab" href="#monthlylogin">Monthly</a></li>
-				<li><a data-toggle="tab" href="#yearlylogin">Yearly</a></li>
-			</ul>
-			<div class="tab-content">
-				<div id="dailylogin" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartld" )
-							  .done(function( data ) {
-								$('#dailylogin').html(data);
-							  });
-						</script>{{-- {!! $chartld->render() !!} --}}
-				</div>
-				<div id="monthlylogin" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartlm" )
-							  .done(function( data ) {
-								$('#monthlylogin').html(data);
-							  });
-						</script>{{-- {!! $chartlm->render() !!} --}}
-				</div>
-				<div id="yearlylogin" class="tab-pane fade in active">
-						<script>
-							$.get( "/getchartly" )
-							  .done(function( data ) {
-								$('#yearlylogin').html(data);
-							  });
-						</script>{{-- {!! $chartly->render() !!} --}}
-				</div>
-			</div>			
-		</div>		
-	</div> -->
 	<script>
 		$(document).ready(function(){$("#yearlylogin , #monthlylogin").removeClass("in active");});
 	</script>	

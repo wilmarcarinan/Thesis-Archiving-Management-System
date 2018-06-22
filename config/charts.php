@@ -13,6 +13,7 @@ return [
         'library'       => 'google',
         'element_label' => 'Element',
         'title'         => 'My chart',
+        'legend'        => true,
         'height'        => 400,
         'width'         => 500,
         'responsive'    => true,

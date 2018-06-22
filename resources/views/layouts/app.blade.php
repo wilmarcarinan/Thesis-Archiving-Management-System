@@ -12,27 +12,24 @@
     <link rel="icon" href="../book.ico"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link href="/css/app.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/w3.css">
-    <link rel="stylesheet" href="/css/fa/css/font-awesome.min.css">
-    <!-- Scripts -->
-    {{-- <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script> --}}
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="/css/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.dataTables.min.css">
     
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/JavaScript" src="../js/kjua-0.1.1.min.js"></script>
 
+    <!-- Scripts-->
+    <script type="text/javascript" src="/js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-tagsinput.css">
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
     @if(! Auth::guest())
-        @if(Auth::user()->Role == 'Admin')
+        @if(Auth::user()->is_admin())
             <link rel="stylesheet" href="/css/admin.css">
         @else
             <link rel="stylesheet" href="/css/style.css">
@@ -69,9 +66,9 @@
                         <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="navbar-toggle">
                             <span class="glyphicon glyphicon-off"></span>
                         </a>
-                        <a href="/search" class="navbar-toggle">
+                        {{-- <a href="/search" class="navbar-toggle">
                             <span class="glyphicon glyphicon-search"></span>                        
-                        </a>
+                        </a> --}}
                         <a href="/home" class="navbar-toggle">
                             <span class="glyphicon glyphicon-home"></span>                        
                         </a>
@@ -89,7 +86,7 @@
                                 <span class="glyphicon glyphicon-th-large"></span>                
                             </a>
                         @endif
-                        @if(Auth::user()->Role == 'Encoder' || Auth::user()->Role == 'Admin')
+                        @if(Auth::user()->is_encoder() || Auth::user()->is_admin())
                             <a href="/AddFile" class="navbar-toggle">
                                 <span class="glyphicon glyphicon-upload"></span>                        
                             </a>
@@ -101,7 +98,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <a class="navbar-brand hover" href="{{ url('/home') }}">
                         <span>
-                            <img src="../../img/tup.png" height="30px" width="30px">
+                            <img src="../../images/tup.png" height="30px" width="30px">
                         </span>
                         {{ config('app.name') }}
                     </a>
@@ -115,7 +112,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            @if(Request::path() == 'login')
+                            {{-- @if(Request::path() == 'login')
                                 <li class="active">
                             @else
                                 <li>
@@ -133,8 +130,8 @@
                                 <!-- <a href="{{ url('/register') }}">
                                     <span class="glyphicon glyphicon-user"></span>
                                     Register
-                                </a> -->
-                            </li>
+                                </a>
+                            </li> --}}
                         @else
                             {{-- <li>
                                 <form action="/search" method="POST" class="form-horizontal">
@@ -155,7 +152,7 @@
                                      Home
                                 </a>
                             </li>
-                            @if(Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Encoder')
+                            @if(Auth::user()->is_admin() || Auth::user()->is_encoder())
                                 @if(Request::path() == 'AddFile')
                                     <li class="active">
                                 @else
@@ -177,7 +174,7 @@
                                          Search
                                     </a>
                                 </li>
-                            @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
+                            @if(Auth::user()->Role == 'User' || Auth::user()->is_encoder())
                                 @if(Request::path() == 'collections')
                                     <li class="active">
                                 @else
@@ -205,14 +202,19 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    @if(Auth::user()->Role == 'User' || Auth::user()->Role == 'Encoder')
-                                        <li>
-                                            <a href="/profile">My Profile</a>
-                                        </li>
-                                    @endif
+                                    @if(Auth::user()->Role == 'User' || Auth::user()->is_encoder())
                                     <li>
-                                            <a href="/settings">Settings</a>
-                                        </li>
+                                        <a href="/settings">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="/profile">My Profile</a>
+                                    </li>
+                                    @endif
+                                    @if(Auth::user()->is_admin() || Auth::user()->is_encoder())
+                                    <li>
+                                        <a href="/register">Register a User</a>
+                                    </li>
+                                    @endif
                                     <li>
                                         <a href="/changePassword">Change Password</a>
                                     </li>
@@ -236,218 +238,261 @@
             </nav>
             @if(!Auth::guest())
                 @if(Auth::user()->Role == 'Admin')
-                <div class="side-nav">
-                    <!-- <a href="/">Dashboard</a>     -->
-                    <a href="/users" data-toggle="tooltip" data-placement="right" title="Manage Users"><button class="glyphicon glyphicon-cog btn btn-primary btn-lg"></button></a><br />        
-                    <a href="/InactiveUsers" data-toggle="tooltip" data-placement="right" title="Inactive Users"><button class="glyphicon glyphicon-off btn btn-primary btn-lg"></button></a><br />         
-                    <a href="/list" data-toggle="tooltip" data-placement="right" title="Manage Files"><button class="glyphicon glyphicon-inbox btn btn-primary btn-lg"></button></a><br />   
-                    <a href="/ArchivedFiles" data-toggle="tooltip" data-placement="right" title="Archived Files"><button class="glyphicon glyphicon-lock btn btn-primary btn-lg"></button></a><br />   
-                    <a href="/logs" data-toggle="tooltip" data-placement="right" title="Activity Logs"><button class="glyphicon glyphicon-book btn btn-primary btn-lg"></button></a><br /> 
-                    {{-- <a href="#">Reports</a>--}}
-                    <!-- <a href="/settings">Admin Settings</a> -->
+                <div class="dropdown" style="float: left;">
+                <button class="dropbtn"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                <div class="dropdown-content side-nav">
+                    <a href="/">Dashboard</a>    
+                    <a href="/users">Manage Users</a>            
+                    <a href="/InactiveUsers">Inactive Users</a>            
+                    <a href="/list">Manage Files</a> 
+                    <a href="/ArchivedFiles">Archived Files</a>      
+                    <a href="/logs">Logs</a>
+                    <a href="/Reports">Reports</a>
+                    <a href="/settings">Admin Settings</a>
                 </div>
                 @endif
             @endif        
         @yield('content')
         @yield('footer')        
-        @yield('script-section')
-
-        <script type="text/javascript">
-            $.ajaxSetup
-            ({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            function post(path, params, method) {
-                method = method || "post"; // Set method to post by default if not specified.
-
-                // The rest of this code assumes you are not using a library.
-                // It can be made less wordy if you use one.
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-
-                for(var key in params) {
-                    if(params.hasOwnProperty(key)) {
-                        var hiddenField = document.createElement("input");
-                        hiddenField.setAttribute("type", "hidden");
-                        hiddenField.setAttribute("name", key);
-                        hiddenField.setAttribute("value", params[key]);
-
-                        var hiddenToken = document.createElement("input");
-                        hiddenToken.setAttribute("type", "hidden");
-                        hiddenToken.setAttribute("name", "_token");
-                        hiddenToken.setAttribute("value", "{{ csrf_token() }}");
-
-                        form.appendChild(hiddenToken);
-
-                        form.appendChild(hiddenField);
-                     }
-                }
-
-                document.body.appendChild(form);
-                // alert(form.innerHTML);
-                form.submit();
-            }
-
-            $(document).on('click', '.viewInfo', function(){
-                
-                // var encrypted_data = $('.QRCode').text().replace(/\s/g, "");
-                // var decrypted_data = "";
-
-                // $.ajax({
-                //     type: 'GET',
-                //     url: '/encrypted_data?' + encrypted_data,
-                //     data: encrypted_data,
-                //     dataType: 'json',
-                //     success: function(data){
-                //         console.log(data);
-                //     },
-                //     error: function(data){
-                //         console.log("Error" + data);
-                //     }
-                // });
-
-                // $.get("/encrypted_data?" + encrypted_data, { "data": encrypted_data } )
-                //     .done(function(data) {
-                //         // decrypted_data = data;
-                //         console.log(data);
-                // });
-                {{-- var qrcode = "{{decrypt(".encrypted_data.")}}" + $(this).data('path'); --}}
-                
-                var qrcode = $('.QRCode').html();
-                var file_name = qrcode.replace(/\s/g, "") + "{{Auth::id()}}" + $(this).data('path')+ "&fidder=" + $(this).data('id');
-                var el = kjua({
-                    text: file_name,
-                    size: 300,
-                    fill: '#000'
-                });
-
-                var el1 = kjua({
-                    text: file_name,
-                    size: 300,
-                    fill: '#000'
-                });
-
-                var el2 = kjua({
-                    text: file_name,
-                    size: 300,
-                    fill: '#000'
-                });
-                // console.log(file_name);
-                $('.modal-title').html($(this).data('title'));
-                $('.abstract').html($(this).data('abstract'));
-
-                if(document.getElementById('file_link') != null){
-                    $('#file_link').attr('file_id',$(this).data('id'));
-                    document.getElementById('file_link').setAttribute('href',file_name);
-                    if(isEmpty($('.qrcodeCanvas'))){
-                        document.querySelector('.qrcodeCanvas').appendChild(el);
-                        // console.log('Its empty');
-                    }else{
-                        $('.qrcodeCanvas').empty();
-                        document.querySelector('.qrcodeCanvas').appendChild(el);
-                    }
-                }
-
-                if(document.getElementById('suggested_link') != null){
-                    $('#suggested_link').attr('file_id',$(this).data('id'));    
-                    document.getElementById('suggested_link').setAttribute('href',file_name);
-                    if(isEmpty($('.suggested_qrcodeCanvas'))){
-                        document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
-                        // console.log('Its empty');
-                    }else{
-                        $('.suggested_qrcodeCanvas').empty();
-                        document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
-                    }
-                }
-                else{
-                    console.log('suggested_link does not exist.')
-                }
-
-                if(document.getElementById('most_viewed_link') != null){
-                    $('#most_viewed_link').attr('file_id',$(this).data('id'));    
-                    document.getElementById('most_viewed_link').setAttribute('href',file_name);
-                    if(isEmpty($('.most_viewed_qrcodeCanvas'))){
-                        document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
-                        // console.log('Its empty');
-                    }else{
-                        $('.most_viewed_qrcodeCanvas').empty();
-                        document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
-                    }
-                }
-                // $('.abstract-title').html($(this).data('title'));
-                
-                // document.getElementById('file_link').setAttribute('href',"");
-                // document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
-
-                function isEmpty( el ){
-                  return !$.trim(el.html())
-                }
-
-                // $('#file_link').on('click', function(){
-                //     post('/generate_temp', {name: file_name});
-                // });
-            });
-
-            $(document).on('click','.updateFile',function(){
-                $('#edit_title').val($(this).data('title'));
-                $('#edit_abstract').val($(this).data('abstract'));
-                $('#edit_category').html($(this).data('category'));
-                $('#edit_authors').html($(this).data('authors'));
-                $('#edit_course').val($(this).data('course'));
-                $('#edit_adviser').val($(this).data('adviser'));
-                $('#edit_date').val($(this).data('date'));
-                $('#edit_id').val($(this).data('id'));
-            });
-
-            $(document).on('click','.openNotes',function(){
-                var type = 'POST';
-                var link_url = '/editNotes';
-                var buttonValue = 'Update'
-
-                // $('.notesButton').attr('id','notesButton'+$(this).data('file_id'));
-                // $('.NotesForm').attr('id','NotesForm'+$(this).data('file_id'));
-                $('#NotesMethod').remove();
-                $('#FileNote_id').val($(this).data('file_id'));
-                $('#NoteID').val($(this).data('note_id'));
-
-                if($(this).data('notes') == ""){
-                    link_url = '/addNotes';
-                    buttonValue = 'Save';                    
-                    $('#edit_notes').val('');
-                }else{
-                    $('#edit_notes').val($(this).data('notes'));
-                    $('.NotesForm').after('<input type="hidden" name="_method" id="NotesMethod" value="PATCH">');
-                }
-                $('.NotesForm').attr('method',type);
-                $('.NotesForm').attr('action',link_url);
-                $('.notesButton').text(buttonValue);
-
-            });
-        </script>
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    <style type="text/css">
-        .navig{
-            background-color:#1565c0;color:#eee;padding:2px;
-        }
-        .navbar-nav > li > a:hover{
-            background-color:#bbdefb;color:#fff;border-radius:5px;
-        }
-        .hover:hover{
-            color: #eee;
+    <script type="text/javascript" src="../js/kjua-0.1.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-tagsinput.min.js"></script>
+    @yield('script-section')
+    <script type="text/javascript">
+        $.ajaxSetup
+        ({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        function charLimit(limitField, limitCount, limitNum) {
+            if (limitField.value.length > limitNum) {
+                limitField.value = limitField.value.substring(0, limitNum);
+            } else {
+                limitCount.value = limitNum - limitField.value.length;
+            }
         }
-    </style>
-    <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
+
+        function post(path, params, method) {
+            method = method || "post"; // Set method to post by default if not specified.
+
+            // The rest of this code assumes you are not using a library.
+            // It can be made less wordy if you use one.
+            var form = document.createElement("form");
+            form.setAttribute("method", method);
+            form.setAttribute("action", path);
+
+            for(var key in params) {
+                if(params.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params[key]);
+
+                    var hiddenToken = document.createElement("input");
+                    hiddenToken.setAttribute("type", "hidden");
+                    hiddenToken.setAttribute("name", "_token");
+                    hiddenToken.setAttribute("value", "{{ csrf_token() }}");
+
+                    form.appendChild(hiddenToken);
+
+                    form.appendChild(hiddenField);
+                 }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        $(document).on('click', '.viewInfo', function(){
+            var qrcode = $('.QRCode').html();
+            var file_name = qrcode.replace(/\s/g, "") + "{{Auth::id()}}" + $(this).data('path')+ "&fidder=" + $(this).data('id');
+            var el = kjua({
+                text: file_name,
+                size: 300,
+                fill: '#000'
+            });
+
+            var el1 = kjua({
+                text: file_name,
+                size: 300,
+                fill: '#000'
+            });
+
+            var el2 = kjua({
+                text: file_name,
+                size: 300,
+                fill: '#000'
+            });
+            $('.modal-title').html($(this).data('title'));
+            $('.authors').html($(this).data('authors'));
+            $('.adviser').html($(this).data('adviser'));
+            $('.category').html($(this).data('category'));
+            $('.abstract').html($(this).data('abstract'));
+
+            if(document.getElementById('file_link') != null){
+                $('#file_link').attr('file_id',$(this).data('id'));
+                document.getElementById('file_link').setAttribute('href',file_name);
+                if(isEmpty($('.qrcodeCanvas'))){
+                    document.querySelector('.qrcodeCanvas').appendChild(el);
+                    // console.log('Its empty');
+                }else{
+                    $('.qrcodeCanvas').empty();
+                    document.querySelector('.qrcodeCanvas').appendChild(el);
+                }
+            }
+
+            if(document.getElementById('suggested_link') != null){
+                $('#suggested_link').attr('file_id',$(this).data('id'));    
+                document.getElementById('suggested_link').setAttribute('href',file_name);
+                if(isEmpty($('.suggested_qrcodeCanvas'))){
+                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                    // console.log('Its empty');
+                }else{
+                    $('.suggested_qrcodeCanvas').empty();
+                    document.querySelector('.suggested_qrcodeCanvas').appendChild(el1);
+                }
+            }
+            else{
+                console.log('suggested_link does not exist.')
+            }
+
+            if(document.getElementById('most_viewed_link') != null){
+                $('#most_viewed_link').attr('file_id',$(this).data('id'));    
+                document.getElementById('most_viewed_link').setAttribute('href',file_name);
+                if(isEmpty($('.most_viewed_qrcodeCanvas'))){
+                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                    // console.log('Its empty');
+                }else{
+                    $('.most_viewed_qrcodeCanvas').empty();
+                    document.querySelector('.most_viewed_qrcodeCanvas').appendChild(el2);
+                }
+            }
+            // $('.abstract-title').html($(this).data('title'));
+            
+            // document.getElementById('file_link').setAttribute('href',"");
+            // document.getElementById('file_link').setAttribute('onclick',"return false;post('/generate_temp', {name: '"+file_name+"'});");
+
+            function isEmpty( el ){
+              return !$.trim(el.html())
+            }
+
+            // $('#file_link').on('click', function(){
+            //     post('/generate_temp', {name: file_name});
+            // });
+        });
+
+        $(document).on('click','.updateFile',function(){
+            // console.log($(this).data('category'));
+            $('#edit_title').val($(this).data('title'));
+            $('#edit_abstract').val($(this).data('abstract'));
+            $('#edit_subject').val($(this).data('subject'));
+            $('#edit_category').tagsinput('add',$(this).data('category'));
+            $('#edit_authors').html($(this).data('authors'));
+            $('#edit_course').val($(this).data('course'));
+            $('#edit_adviser').val($(this).data('adviser'));
+            $('#edit_date').val($(this).data('date'));
+            $('#edit_id').val($(this).data('id'));
+        });
+
+        $('#updateModal').on('hidden.bs.modal', function (e) {
+          $('#edit_category').tagsinput('removeAll');
+        })
+
+        $(document).on('click','.openNotes',function(){
+            var type = 'POST';
+            var link_url = '/editNotes';
+            var buttonValue = 'Update';
+
+            // $('.notesButton').attr('id','notesButton'+$(this).data('file_id'));
+            // $('.NotesForm').attr('id','NotesForm'+$(this).data('file_id'));
+            $('#NotesMethod').remove();
+            $('#NotesMethod_suggested').remove();
+            $('#NotesMethod_most_viewed').remove();
+            $('#NotesMethod_favorites').remove();
+            $('#NotesMethod_bookmarks').remove();
+            $('#FileNote_id').val($(this).data('file_id'));
+            $('#FileNote_id_suggested').val($(this).data('file_id'));
+            $('#FileNote_id_most_viewed').val($(this).data('file_id'));
+            $('#FileNote_id_favorites').val($(this).data('file_id'));
+            $('#FileNote_id_bookmarks').val($(this).data('file_id'));
+            $('#NoteID').val($(this).data('note_id'));
+            $('#NoteID_suggested').val($(this).data('note_id'));
+            $('#NoteID_most_viewed').val($(this).data('note_id'));
+            $('#NoteID_favorites').val($(this).data('note_id'));
+            $('#NoteID_bookmarks').val($(this).data('note_id'));
+
+            if($(this).data('notes') == ""){
+                link_url = '/addNotes';
+                buttonValue = 'Save';                    
+                $('#edit_notes').val('');
+                $('#edit_notes_suggested').val('');
+                $('#edit_notes_most_viewed').val('');
+                $('#edit_notes_favorites').val('');
+                $('#edit_notes_bookmarks').val('');
+                $('#notesDeleteButton').remove();
+            }else{
+                $('#edit_notes').val($(this).data('notes'));
+                $('#edit_notes_suggested').val($(this).data('notes'));
+                $('#edit_notes_most_viewed').val($(this).data('notes'));
+                $('#edit_notes_favorites').val($(this).data('notes'));
+                $('#edit_notes_bookmarks').val($(this).data('notes'));
+                $('#methodHandler').html('<input type="hidden" name="_method" id="NotesMethod" value="PATCH">');
+                $('#methodHandler_suggested').html('<input type="hidden" name="_method" id="NotesMethod_suggested" value="PATCH">');
+                $('#methodHandler_most_viewed').html('<input type="hidden" name="_method" id="NotesMethod_most_viewed" value="PATCH">');
+                $('#methodHandler_favorites').html('<input type="hidden" name="_method" id="NotesMethod_favorites" value="PATCH">');
+                $('#methodHandler_bookmarks').html('<input type="hidden" name="_method" id="NotesMethod_bookmarks" value="PATCH">');
+                $('#deleteHandler').html('<button type="button" class="btn btn-danger" id="notesDeleteButton" onclick="deleteNotes();">Delete</button>');
+            }
+            $('#NotesForm').attr('method',type);
+            $('#NotesForm').attr('action',link_url);
+            $('#NotesForm_suggested').attr('method',type);
+            $('#NotesForm_suggested').attr('action',link_url);
+            $('#NotesForm_most_viewed').attr('method',type);
+            $('#NotesForm_most_viewed').attr('action',link_url);
+            $('#NotesForm_favorites').attr('method',type);
+            $('#NotesForm_favorites').attr('action',link_url);
+            $('#NotesForm_bookmarks').attr('method',type);
+            $('#NotesForm_bookmarks').attr('action',link_url);
+            $('#notesButton').text(buttonValue);
+            $('#notesButton_suggested').text(buttonValue);
+            $('#notesButton_most_viewed').text(buttonValue);
+            $('#notesButton_favorites').text(buttonValue);
+            $('#notesButton_bookmarks').text(buttonValue);
+        });
+        function deleteNotes(){
+            $('#methodHandler').remove();
+            $('#NotesForm').attr('action','/deleteNotes');
+            $.ajax({
+                type: 'POST', 
+                url: '/deleteNotes',
+                data:{
+                    '_token': $('#Notestoken').val(),
+                    'id': $('#NoteID').val(),
+                    'note': $('#edit_notes').val(),
+                    'file_id': $('#FileNote_id').val()
+                }, 
+                success: function(data){
+                    $('button[data-file_id='+data.file_id+']').data('notes','');
+                    swal('Success','Note Deleted!','success');
+                    $('#notesModal').modal('hide');
+                    console.log(data);
+                },
+                error: function(xhr,textStatus,thrownError){
+                    console.log(textStatus);
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    swal('Error!','Deleting Note Failed!','error');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

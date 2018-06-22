@@ -5,8 +5,8 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				@if(session('status'))
-					<div class="alert alert-success" style="margin: 20px 0px -20px 0px">
-						<li>{{ session('status') }}</li>
+					<div class="alert alert-success">
+						<li style="list-style: none">{{session('status')}}</li>
 					</div>
 				@endif
 				<div class="panel panel-default">
@@ -22,20 +22,28 @@
 									<input type="text" class="form-control" name="FileTitle" value="{{ old('FileTitle') }}">
 								</div>
 							</div>
-
-							<div class="form-group">
-								<label for="Categories" class="col-md-4 control-label">Tags: </label>
-								<div class="col-md-6">
-									<input type="text" class="form-control" name="Category" value="{{ old('Category') }}">
-								</div>
-							</div>
 							
 							<div class="form-group">
 								<label for="Abstract" class="col-md-4 control-label">Abstract: </label>
 								<div class="col-md-6">
-									<textarea class="form-control" name="Abstract" rows="9">
+									<textarea class="form-control" name="Abstract" rows="9" onkeydown="charLimit(this.form.Abstract,this.form.countdown,1250);" maxlength="1250">
 										{{ old('Abstract') }}
 									</textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="SubjectArea" class="col-md-4 control-label">Subject Area: </label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="SubjectArea" value="{{ old('SubjectArea') }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="Categories" class="col-md-4 control-label">Tags: </label>
+								<div class="col-md-6">
+									{{-- <input type="text" class="form-control" name="Category" value="{{ old('Category') }}" id="Category"> --}}
+									<input type="text" data-role="tagsinput" name="Tags" value="{{old('Tags')}}" id="Tags">
 								</div>
 							</div>
 

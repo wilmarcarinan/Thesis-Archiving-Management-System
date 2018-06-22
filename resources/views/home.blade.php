@@ -8,7 +8,7 @@
 <div class="container" style="padding-top: 20px;">
   @if(session('status'))
     <div class="alert alert-success" style="margin: 20px 0px -20px 0px">
-      <li>{{session('status')}}</li>
+      <li style="list-style: none">{{session('status')}}</li>
     </div>
   @endif
   <div class="panel panel-default">
@@ -36,9 +36,9 @@
           {{-- <p style="height: 7.5em; overflow: hidden;">{{$latest_file->Abstract}}</p> --}}
           <p>{{\Illuminate\Support\Str::words($latest_file->Abstract, $words = 70, $end = '...')}}</p>
           @if(Request::server('SERVER_NAME') <> '127.0.0.1')
-            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME')}}/files/{{$latest_file->FilePath }}" target="_blank" id="latest_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#latest_link').attr('file_id')});">
+            <a href="/pdf.js/web/viewer.html?file=http://{{ Request::server('SERVER_NAME')}}/files/{{Auth::id()}}{{$latest_file->FilePath}}&fidder={{$latest_file->id}}" target="_blank" id="latest_link" file_id="" onclick="$.get( '/increment_views', { 'file_id': $('#latest_link').attr('file_id')});">
           @else
-            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{$latest_file->FilePath }}" target="_blank">
+            <a href="/pdf.js/web/viewer.html?file=http://localhost:8000/files/{{Auth::id()}}{{$latest_file->FilePath}}&fidder={{$latest_file->id}}" target="_blank">
           @endif
               <button type="button" class="btn btn-info col-sm-offset-1 col-xs-offset-3">View more</button>
             </a>
@@ -59,32 +59,37 @@
   <div class="tab-content">
     <div id="latest" class="tab-pane fade in active">
       <div class="container">
-        <h2>Latest</h2>
-        <div class="table-responsive">          
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="width"></th>
-                <th class="width"></th>
-                <th class="width"></th>
-                <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
-                <th>Title</th>
-                <th>Tags</th>
-                <th>Author/s</th>
-                <th>Course</th>
-                <th>Adviser</th>
-                <th>Thesis Date</th>
-                <th><span class="glyphicon glyphicon-eye-open"></span></th>
-                <th><span class="glyphicon glyphicon-star-empty"></span></th>
-              </tr>
-            </thead>
-            <tbody>
-              @include('file.table-contents')
-            </tbody>
-          </table>
-          {{$files->links()}}
-        <br />
-        </div>
+        <h2 style="margin-bottom: 15px">Latest</h2>
+        {{-- <div class="table-responsive">           --}}
+        <table class="table" id="latest_table" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
+              <th>Tags</th>
+              <th>Course</th>
+              <th>Thesis Date</th>
+              <th><span class="glyphicon glyphicon-eye-open"></span></th>
+              <th><span class="glyphicon glyphicon-star-empty"></span></th>
+              @if(Auth::user()->Role == 'Admin')
+              <th></th>
+              <th></th>
+              @endif
+            </tr>
+          </thead>
+          <tbody>
+            @include('file.table-contents')
+          </tbody>
+        </table>
+          {{-- {{$files->links()}} --}}
+        {{-- <br /> --}}
+        {{-- </div> --}}
         {{-- <center>
           <button type="button" class="btn btn-primary">View more</button>
         </center> --}}
@@ -92,246 +97,357 @@
     </div>
     <div id="suggested" class="tab-pane fade">
       <div class="container">
-        <h2>Suggested</h2>                                                                                 
-        <div class="table-responsive">          
-          <table class="table">
-            <thead>
+        <h2 style="margin-bottom: 15px">Suggested</h2>                                                  
+        {{-- <div class="table-responsive">           --}}
+        <table class="table" id="suggested_table" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
+              <th>Tags</th>
+              <th>Course</th>
+              <th>Thesis Date</th>
+              <th><span class="glyphicon glyphicon-eye-open"></span></th>
+              <th><span class="glyphicon glyphicon-star-empty"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($suggested_files as $file)
               <tr>
-                <th class="width"></th>
-                <th class="width"></th>
-                <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
-                <th>Title</th>
-                <th>Tags</th>
-                <th>Author/s</th>
-                <th>Course</th>
-                <th>Adviser</th>
-                <th>Thesis Date</th>
-                <th><span class="glyphicon glyphicon-eye-open"></span></th>
-                <th><span class="glyphicon glyphicon-star-empty"></span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no=1; ?>
-              @foreach($suggested_files as $file)
-                <tr>
-                  @if(Auth::user()->Role <> 'Admin')
-                    {{-- <td> --}}
-                      <!-- Button trigger modal -->
-                      {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
-                        <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                      </button> --}}
-                      {{-- @if(in_array($file->id,$notes))
-                        <form action="/editNotes" method="POST">
-                          {{ csrf_field() }}
-                          {{method_field('PATCH')}}
-
-
-                        </form> --}}
-                    {{-- </td> --}}
-                    <td>
-                      <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="suggested_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
-                        .done(function(){
-                          if($('#suggested_bookmark{{$file->id}}').attr('class')=='not-book'){
-                            $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                            $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                            $('#bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                          }else{
-                            $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
-                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                            $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
-                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                            $('#bookmark{{$file->id}}').attr('class','not-book');
-                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                          }
-                        });">
-                        <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                    <td>
-                        <button class="<?php if(in_array($file->id, $favorites)) echo 'not'; else echo 'btn' ?>-fav" type="button" id="suggested_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
-                        .done(function(){
-                          if($('#suggested_favorite{{$file->id}}').attr('class')=='not-fav'){
-                            $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                            $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                            $('#favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                          }else{
-                            $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
-                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
-                            $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
-                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
-                            $('#favorite{{$file->id}}').attr('class','not-fav');
-                            $('#favorite{{$file->id}} i').attr('class','fa fa-star');
-                          }
-                        });">
-                        <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  @endif
-                  <td>{{$no++}}</td>
-                  <td class="FileTitle">
+                @if(Auth::user()->Role <> 'Admin')
+                  <td>
+                    <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="suggested_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
+                      .done(function(){
+                        if($('#suggested_bookmark{{$file->id}}').attr('class')=='not-book'){
+                          $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          $('#bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                        }else{
+                          $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
+                          $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
+                          $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          $('#bookmark{{$file->id}}').attr('class','not-book');
+                          $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                        }
+                      });">
+                      <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  <td>
+                      <button class="<?php if(in_array($file->id, $favorites)) echo 'not'; else echo 'btn' ?>-fav" type="button" id="suggested_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
+                      .done(function(){
+                        if($('#suggested_favorite{{$file->id}}').attr('class')=='not-fav'){
+                          $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          $('#favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                        }else{
+                          $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
+                          $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
+                          $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          $('#favorite{{$file->id}}').attr('class','not-fav');
+                          $('#favorite{{$file->id}} i').attr('class','fa fa-star');
+                        }
+                      });">
+                      <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  <td>
                     <!-- Button trigger modal -->
-                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal2" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
-                      {{$file->FileTitle}}
-                    </a>
+                    <button class="openNotes" data-toggle="modal" data-target="#notesModal_suggested" data-note_id="<?php
+                      if(in_array($file->id,$notes_FileID))
+                        echo $notes->where('file_id',$file->id)->pluck('id')[0];
+                    ?>" data-notes="<?php 
+                      if(in_array($file->id,$notes_FileID))
+                        echo $notes->where('file_id',$file->id)->pluck('note')[0];
+                      ?>" data-file_id="{{$file->id}}" data-user_id="{{Auth::id()}}">
+                      <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                    </button>
                   </td>
-                  <td>{{$file->Category}}</td>
-                  <td>{{$file->Authors}}</td>
-                  <td>{{$file->Course}}</td>
-                  <td>{{$file->Adviser}}</td>
-                  <td>{{$file->thesis_date->format('F j, Y')}}</td>
-                  @if(Auth::user()->Role == 'Admin')
-                    <td>{{ $file->Status }}</td>
-                  @endif
-                  <td>
-                    {{ DB::table('recent_views')->where('file_id',$file->id)->pluck('user_id')->count() }}
-                  </td>
-                  <td>
-                    {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
-                  </td>
-                  @if(Auth::user()->Role == 'Admin')
-                    <td>
-                      @if($file->Status == 'Inactive')
-                        <form action="/unlock" method="POST">
-                          {{method_field('PATCH')}}
-                          {{csrf_field()}}
-                          <input type="hidden" name="file_id" value="{{$file->id}}">
-                          <button class="btn btn-primary" type="submit"><span class="fa fa-unlock-alt"></span></button>
-                      @else
-                        <form action="/lock" method="POST">
-                          {{method_field('PATCH')}}
-                          {{csrf_field()}}
-                          <input type="hidden" name="file_id" value="{{$file->id}}">
-                          <button class="btn btn-primary" type="submit"><span class="fa fa-lock"></span></button>
-                      @endif
-                        </form>
-                    </td>
-                  @endif
-                </tr>
-              @endforeach
-            </tbody>
-            </table>
-            {{$suggested_files->links()}}
-          <br />
+                @endif
+                <td class="FileTitle">
+                  <!-- Button trigger modal -->
+                  <a class="btn viewInfo" data-toggle="modal" data-target="#Modal2" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-authors="{{$file->Authors}}" data-adviser="{{$file->Adviser}}" data-category="{{$file->Category}}">
+                    {{$file->FileTitle}}
+                  </a>
+                </td>
+                <td class="hidden">{{$file->Abstract}}</td>
+                <td>{{$file->SubjectArea}}</td>
+                <td class="hidden">{{$file->Authors}}</td>
+                <td class="hidden">{{$file->Adviser}}</td>
+                {{-- <td>{{$file->Category}}</td> --}}
+                <td>{{$file->tags->pluck('tag_name')->implode(',')}}</td>
+                <td>
+                  <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
+                </td>
+                <td>{{$file->thesis_date->format('F j, Y')}}</td>
+                <td>
+                  {{ DB::table('recent_views')->where('file_id',$file->id)->pluck('user_id')->count() }}
+                </td>
+                <td>
+                  {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+            {{-- {{$suggested_files->links()}} --}}
+          {{-- <br /> --}}
           {{-- <center>
             <button type="button" class="btn btn-primary">View more</button>
           </center> --}}
-        </div>
+        {{-- </div> --}}
       </div>
     </div>
     <div id="mostviewed" class="tab-pane fade">
       <div class="container">
-        <h2>Most Viewed</h2>                                                                        
-        <div class="table-responsive">          
-          <table class="table">
-            <thead>
+        <h2 style="margin-bottom: 15px">Most Viewed</h2>                                                                        
+        {{-- <div>           --}}
+        <table class="table" id="most_viewed_table" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Title</th>
+              <th class="hidden">Abstract</th>
+              <th>Subject Area</th>
+              <th class="hidden">Authors</th>
+              <th class="hidden">Adviser</th>
+              <th>Tags</th>
+              <th>Course</th>              
+              <th>Thesis Date</th>
+              <th><span class="glyphicon glyphicon-eye-open"></span></th>
+              <th><span class="glyphicon glyphicon-star-empty"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($most_viewed as $file)
               <tr>
-                <th class="width"></th>
-                <th class="width"></th>
-                <th><span class="glyphicon glyphicon-sort-by-order"></span></th>
-                <th>Title</th>
-                <th>Tags</th>
-                <th>Author/s</th>
-                <th>Course</th>
-                <th>Adviser</th>
-                <th>Thesis Date</th>
-                <th><span class="glyphicon glyphicon-eye-open"></span></th>
-                <th><span class="glyphicon glyphicon-star-empty"></span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $no=1; ?>
-              @foreach($most_viewed as $file)
-                <tr>
-                  @if(Auth::user()->Role <> 'Admin')
-                    {{-- <td> --}}
-                    <!-- Button trigger modal -->
-                    {{-- <button class="openModal" data-toggle="modal" data-target="#myModal">
-                      <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
-                    </button> --}}
-                    {{-- @if(in_array($file->id,$notes))
-                      <form action="/editNotes" method="POST">
-                        {{ csrf_field() }}
-                        {{method_field('PATCH')}}
-
-                    </form> --}}
-                    {{-- </td> --}}
-                    <td>
-                      <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="most_viewed_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
-                        .done(function(){
-                          if($('#most_viewed_bookmark{{$file->id}}').attr('class')=='not-book'){
-                            $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                            $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                            $('#bookmark{{$file->id}}').attr('class','btn-book');
-                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
-                          }else{
-                            $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
-                            $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                            $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
-                            $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                            $('#bookmark{{$file->id}}').attr('class','not-book');
-                            $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
-                          }
-                        });">
-                        <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                    <td>
-                        <button class="<?php if(in_array($file->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="most_viewed_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
-                        .done(function(){
-                          if($('#most_viewed_favorite{{$file->id}}').attr('class')=='not-fav'){
-                            $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                            $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                            $('#favorite{{$file->id}}').attr('class','btn-fav');
-                            $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
-                          }else{
-                            $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
-                            $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
-                            $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
-                            $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
-                            $('#favorite{{$file->id}}').attr('class','not-fav');
-                            $('#favorite{{$file->id}} i').attr('class','fa fa-star');
-                          }
-                        });">
-                        <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  @endif
-                  <td>{{$no++}}</td>
-                  <td class="FileTitle">
-                    <!-- Button trigger modal -->
-                    <a class="btn viewInfo" data-toggle="modal" data-target="#Modal3" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}">
-                      {{$file->FileTitle}}
-                    </a>
-                  </td>
-                  <td>{{$file->Category}}</td>
-                  <td>{{$file->Authors}}</td>
-                  <td>{{$file->Course}}</td>
-                  <td>{{$file->Adviser}}</td>
-                  <td>{{$file->thesis_date->format('F j, Y')}}</td>
-                  <td>{{ $file->NumberOfViews }}</td>
+                @if(Auth::user()->Role <> 'Admin')
                   <td>
-                    {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
+                    <button class="<?php if(in_array($file->id, $bookmarks)) echo'not'; else echo "btn" ?>-book" type="button" id="most_viewed_bookmark{{$file->id}}" onclick="$.get( '/bookmark', { 'file_id': {{$file->id}} })
+                      .done(function(){
+                        if($('#most_viewed_bookmark{{$file->id}}').attr('class')=='not-book'){
+                          $('#most_viewed_bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          $('#suggested_bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                          $('#bookmark{{$file->id}}').attr('class','btn-book');
+                          $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark-o');
+                        }else{
+                          $('#most_viewed_bookmark{{$file->id}}').attr('class','not-book');
+                          $('#most_viewed_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          $('#suggested_bookmark{{$file->id}}').attr('class','not-book');
+                          $('#suggested_bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                          $('#bookmark{{$file->id}}').attr('class','not-book');
+                          $('#bookmark{{$file->id}} i').attr('class','fa fa-bookmark');
+                        }
+                      });">
+                      <i  class="fa fa-bookmark<?php if(!in_array($file->id, $bookmarks)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
                   </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{$most_viewed->links()}}
-          <br />
+                  <td>
+                      <button class="<?php if(in_array($file->id, $favorites)) echo'not'; else echo "btn" ?>-fav" type="button" id="most_viewed_favorite{{$file->id}}" onclick="$.get( '/favorite', { 'file_id': {{$file->id}} })
+                      .done(function(){
+                        if($('#most_viewed_favorite{{$file->id}}').attr('class')=='not-fav'){
+                          $('#most_viewed_favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          $('#suggested_favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                          $('#favorite{{$file->id}}').attr('class','btn-fav');
+                          $('#favorite{{$file->id}} i').attr('class','fa fa-star-o');
+                        }else{
+                          $('#most_viewed_favorite{{$file->id}}').attr('class','not-fav');
+                          $('#most_viewed_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          $('#suggested_favorite{{$file->id}}').attr('class','not-fav');
+                          $('#suggested_favorite{{$file->id}} i').attr('class','fa fa-star');
+                          $('#favorite{{$file->id}}').attr('class','not-fav');
+                          $('#favorite{{$file->id}} i').attr('class','fa fa-star');
+                        }
+                      });">
+                      <i  class="fa fa-star<?php if(!in_array($file->id, $favorites)) echo'-o'; ?>" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <!-- Button trigger modal -->
+                    <button class="openNotes" data-toggle="modal" data-target="#notesModal_most_viewed" data-note_id="<?php
+                      if(in_array($file->id,$notes_FileID))
+                        echo $notes->where('file_id',$file->id)->pluck('id')[0];
+                    ?>" data-notes="<?php 
+                      if(in_array($file->id,$notes_FileID))
+                        echo $notes->where('file_id',$file->id)->pluck('note')[0];
+                      ?>" data-file_id="{{$file->id}}" data-user_id="{{Auth::id()}}">
+                      <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                @endif
+                <td class="FileTitle">
+                  <!-- Button trigger modal -->
+                  <a class="btn viewInfo" data-toggle="modal" data-target="#Modal3" data-id="{{$file->id}}" data-title="{{$file->FileTitle}}" data-abstract="{{$file->Abstract}}" data-path="{{$file->FilePath}}" data-authors="{{$file->Authors}}" data-adviser="{{$file->Adviser}}" data-category="{{$file->Category}}">
+                    {{$file->FileTitle}}
+                  </a>
+                </td>
+                <td class="hidden">{{$file->Abstract}}</td>
+                <td>{{$file->SubjectArea}}</td>
+                <td class="hidden">{{$file->Authors}}</td>
+                <td class="hidden">{{$file->Adviser}}</td>
+                {{-- <td>{{$file->Category}}</td> --}}
+                <td>{{$file->tags->pluck('tag_name')->implode(',')}}</td>
+                <td>
+                  <a href="/collections/{{$file->Course}}">{{$file->Course}}</a>
+                </td>
+                <td>{{$file->thesis_date->format('F j, Y')}}</td>
+                <td>{{ $file->NumberOfViews }}</td>
+                <td>
+                  {{ DB::table('favorites')->where('file_id',$file->id)->pluck('user_id')->count() }}
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+          {{-- {{$most_viewed->links()}} --}}
+          {{-- <br /> --}}
           {{-- <center>
             <button type="button" class="btn btn-primary">View more</button>
           </center> --}}
-        </div>
+        {{-- </div> --}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Notes Modal for Suggested-->
+<div class="modal fade" id="notesModal_suggested" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" id="NotesForm_suggested">
+          {{-- {{csrf_field()}} --}}
+          {{-- {{method_field('PATCH')}} --}}
+          <input type="hidden" name="_token" id="Notestoken_suggested" value="{{csrf_token()}}">
+          {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
+          <div id="methodHandler_suggested"></div>
+          <div class="form-group">
+            {{-- <label for="notes">Notes: </label> --}}
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_suggested"></textarea>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="notesButton_suggested" onclick="
+            var type = '';
+            if($(this).text() == 'Save'){
+              type = 'POST';
+            }else{
+              type = 'PATCH';
+            }
+            // alert($('#edit_notes').val());
+            $.ajax({
+              type: type,
+              url: $('#NotesForm_suggested').attr('action'),
+              data: {
+                // '_method': $('#method').val(),
+                '_token': $('#Notestoken_suggested').val(),
+                'id': $('#NoteID_suggested').val(),
+                'note': $('#edit_notes_suggested').val(),
+                'file_id': $('#FileNote_id_suggested').val()
+              },
+              success:function(data){
+                console.log(data);
+                $('button[data-file_id='+data.file_id+']').data('notes',data.note);
+                $('#notesModal_suggested').modal('hide');
+              },
+              error: function(xhr,textStatus,thrownError){
+                console.log(textStatus);
+                console.log(xhr.status);
+                console.log(thrownError);
+              }
+            });
+          "></button>
+          <input type="hidden" id="FileNote_id_suggested" name="FileNote_id">
+          <input type="hidden" id="NoteID_suggested" name="NoteID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Notes Modal for Most Viewed-->
+<div class="modal fade" id="notesModal_most_viewed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Thesis Notes</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form" id="NotesForm_most_viewed">
+          {{-- {{csrf_field()}} --}}
+          {{-- {{method_field('PATCH')}} --}}
+          <input type="hidden" name="_token" id="Notestoken_most_viewed" value="{{csrf_token()}}">
+          <div id="methodHandler_most_viewed"></div>
+          {{-- <input type="hidden" name="_method" id="method" value="PATCH"> --}}
+
+          <div class="form-group">
+            {{-- <label for="notes">Notes: </label> --}}
+            <textarea name="notes" rows="10" class="form-control" id="edit_notes_most_viewed"></textarea>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="notesButton_most_viewed" onclick="
+            var type = '';
+            if($(this).text() == 'Save'){
+              type = 'POST';
+            }else{
+              type = 'PATCH';
+            }
+            // alert($('#edit_notes').val());
+            $.ajax({
+              type: type,
+              url: $('#NotesForm_most_viewed').attr('action'),
+              data: {
+                // '_method': $('#method').val(),
+                '_token': $('#Notestoken_most_viewed').val(),
+                'id': $('#NoteID_most_viewed').val(),
+                'note': $('#edit_notes_most_viewed').val(),
+                'file_id': $('#FileNote_id_most_viewed').val()
+              },
+              success:function(data){
+                console.log(data);
+                $('button[data-file_id='+data.file_id+']').data('notes',data.note);
+                $('#notesModal_most_viewed').modal('hide');
+              },
+              error: function(xhr,textStatus,thrownError){
+                console.log(textStatus);
+                console.log(xhr.status);
+                console.log(thrownError);
+              }
+            });
+          "></button>
+          <input type="hidden" id="FileNote_id_most_viewed" name="FileNote_id">
+          <input type="hidden" id="NoteID_most_viewed" name="NoteID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -346,10 +462,20 @@
         <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-      <p class="suggested_qrcodeCanvas" style="text-align: center;"></p>
-        <h3><b>Abstract</b></h3>
+        <h4><b>Authors</b></h4>
         <p>
-          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="authors"></span>
+        </p>
+        <h4><b>Adviser</b></h4>
+        <p>
+          <span class="adviser"></span>
+        </p>
+        <h4><b>Tags</b></h4>
+        <p>
+          <span class="category"></span>
+        </p>
+        <h4><b>Abstract</b></h4>
+        <p>
           <span class="abstract"></span>  
         </p>
         <br>
@@ -373,11 +499,20 @@
         <h2 class="modal-title" id="myModalLabel"></h2>
       </div>
       <div class="modal-body">
-        <br>
-        <p class="most_viewed_qrcodeCanvas" style="text-align: center;"></p>
-        <h3>Abstract</h3>
+        <h4><b>Authors</b></h4>
         <p>
-          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="authors"></span>
+        </p>
+        <h4><b>Adviser</b></h4>
+        <p>
+          <span class="adviser"></span>
+        </p>
+        <h4><b>Tags</b></h4>
+        <p>
+          <span class="category"></span>
+        </p>
+        <h4><b>Abstract</b></h4>
+        <p>
           <span class="abstract"></span>  
         </p>
       </div>
@@ -396,4 +531,22 @@
     width: 1px;
   }
 </style>
+@endsection
+
+@section('script-section')
+  <script>
+    $(document).ready(function(){
+      $('#suggested_table').DataTable({
+        // responsive: true
+      });
+      $('#latest_table').DataTable({
+        responsive: true,
+        order: ['10','desc']
+      });
+      $('#most_viewed_table').DataTable({
+        responsive: true,
+        order: ['11','desc']
+      });
+    });
+  </script>
 @endsection
